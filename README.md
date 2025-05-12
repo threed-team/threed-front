@@ -5,7 +5,6 @@
 ---
 
 ## 📁 루트 디렉터리 구조
-
 ```
 THREED/
 ├── .next/ # Next.js에서 자동 생성되는 빌드 결과물
@@ -16,6 +15,9 @@ THREED/
 ├── next-env.d.ts # TypeScript용 Next.js 환경 타입 선언
 ├── eslint.config.mjs # 린트 설정
 ├── tsconfig.json # TypeScript 설정
+```
+
+
 
 ---
 
