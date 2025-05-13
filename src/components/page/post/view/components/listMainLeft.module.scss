@@ -1,0 +1,19 @@
+@import "@styles/common";
+
+
+.list_main_top{
+    @include flexCenter(center);
+        gap: 10px;
+        font-weight: 600;
+        font-size: 20px;
+        .image_wrapper{
+            width: 35px;
+            height: 35px;
+            span{
+                width: 100%;
+            }
+        }
+        span {
+            margin-top: 10px;
+        }
+}
