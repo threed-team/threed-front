@@ -15,6 +15,15 @@ THREED/
 ├── next-env.d.ts # TypeScript용 Next.js 환경 타입 선언
 ├── eslint.config.mjs # 린트 설정
 ├── tsconfig.json # TypeScript 설정
+
+page
+├──home
+├──├──components
+├──├──constants
+├──├──hooks
+├──├──home.component.tsx
+├──├──home.module.scss
+
 ```
 
 
@@ -104,6 +113,7 @@ npm install
 
 ## 🚀 개발 서버 실행
 npm run dev
+url : http://localhost:3000
 
 ## 🏗️ 프로젝트 빌드
 npm run build
