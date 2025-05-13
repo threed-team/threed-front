@@ -16,7 +16,7 @@ export default function HomeComponent() {
         <div className={styles.date_list}>
           <select name="date" id="date-select">
             <option value="week">일주일</option>
-            <option value="week">1개월월</option>
+            <option value="week">1개월</option>
           </select>
         </div>
       </div>

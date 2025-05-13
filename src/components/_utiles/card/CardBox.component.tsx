@@ -1,6 +1,7 @@
 'use client';
 
 import styles from './CardBox.module.scss';
+import Image from 'next/image';
 
 interface CardBoxProps {
   imageSrc: string;
@@ -25,7 +26,10 @@ export default function CardBox({
     <li>
       <a href="#" className={styles.card}>
         <div className={styles.card_box_top}>
-          <img src={imageSrc} alt="sample" />
+          <Image 
+            src={imageSrc} 
+            alt="sample"
+          />
           {isNew && (
             <p className={styles.card_box_label}>
               <span>NEW</span>

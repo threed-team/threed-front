@@ -31,12 +31,14 @@ const Pagination: React.FC<PaginationProps> = ({
 		<div className={`${styles.pagination_area} ${className}`}>
 			<ul>
 				<li
+					role='button'
 					onClick={() => onPageChange(1)}
 					aria-disabled={currentPage === 1}
 				>
 					<i className={styles.ico_double_prev}></i>
 				</li>
 				<li
+					role='button'
 					onClick={() => onPageChange(Math.max(1, currentPage - 1))}
 					aria-disabled={currentPage === 1}
 				>
@@ -54,12 +56,14 @@ const Pagination: React.FC<PaginationProps> = ({
 				))}
 
 				<li
+					role='button'
 					onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
 					aria-disabled={currentPage === totalPages}
 				>
 					<i className={styles.ico_next}></i>
 				</li>
 				<li
+					role='button'
 					onClick={() => onPageChange(totalPages)}
 					aria-disabled={currentPage === totalPages}
 				>
