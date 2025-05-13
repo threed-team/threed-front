@@ -1,16 +1,17 @@
-@import "@styles/common";
+@import '@styles/common';
 
-
-.inner{
+.inner {
     padding: 100px 0;
     width: 1200px;
     margin: 0 auto;
-    .main_h2{
+    .main_h2 {
         font-size: 40px;
         padding: 35px 0;
     }
-    .write_list{
-        display: flex;
-        justify-content: space-between;
+    .write_list {
+        @include flexCenter(space-between);
+    }
+    li:first-child {
+        width: 670px;
     }
 }
