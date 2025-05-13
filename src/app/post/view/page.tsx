@@ -1,5 +1,5 @@
-import HomeComponent from "@components/page/home/home.component";
+import ViewComponent from "@components/page/post/view/postView.component";
 
 export default function HomePage() {
-  return <HomeComponent /> ;
+  return <ViewComponent /> ;
 }
