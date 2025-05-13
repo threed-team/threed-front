@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       "@hooks": path.resolve(__dirname, "src/hooks"),
       "@styles": path.resolve(__dirname, "src/styles"),
       "@public": path.resolve(__dirname, "public"),
+      "@lib": path.resolve(__dirname, "src/lib"),
     };
     return config;
   },

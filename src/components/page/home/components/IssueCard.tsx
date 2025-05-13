@@ -7,7 +7,7 @@ export default function IssuCardComponent() {
   return (
     <ul className={`${styles.card_container} ${styles.issue_card_container}`}>
       <CardBox
-        imageSrc=""
+        imageSrc="/images/logo.png"
         isNew={true}
         title="Excited to share my latest tech project! #codinglife"
         languages={['JAVA', 'SCSS']}

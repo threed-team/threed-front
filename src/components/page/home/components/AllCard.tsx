@@ -13,7 +13,7 @@ export default function AllCardcomponent() {
         <div>
             <ul className={styles.all_card_container}>
                 <CardBox
-                    imageSrc=""
+                    imageSrc="/images/logo.png"
                     isNew={true}
                     title="Excited to share my latest tech project! #codinglife"
                     languages={['JAVA', 'SCSS']}

@@ -28,6 +28,7 @@ export default function CardBox({
         <div className={styles.card_box_top}>
           <Image 
             src={imageSrc} 
+            fill={true}
             alt="sample"
           />
           {isNew && (
