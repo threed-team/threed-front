@@ -1,5 +1,5 @@
-// import {useState} from "react";
+import {useState} from "react";
 
-// const [selectedSkill, setSelectedSkill] = useState<string[]>([]);
-// const [selectedField, setSelectedField] = useState<string[]>([]);
+const [selectedSkill, setSelectedSkill] = useState<string[]>([]);
+const [selectedField, setSelectedField] = useState<string[]>([]);
 
