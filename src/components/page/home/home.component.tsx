@@ -15,7 +15,7 @@ export default function HomeComponent() {
         <h2><span className={styles.ico_fire}></span>가장 많이 읽은 글</h2>
         <div className={styles.date_list}>
           <select name="date" id="date-select">
-            <option value="week">일주일</option>
+            <option value="week">일주일    </option>
           </select>
         </div>
       </div>
