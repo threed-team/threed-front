@@ -38,6 +38,9 @@
                     background: none;
                     @include column-flexbox($jc: space-between);
                     height: 52px;
+                    &:first-child {
+                        cursor: pointer;
+                    }
                     span {
                         width: 25px;
                         height: 25px;

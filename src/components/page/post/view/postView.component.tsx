@@ -7,8 +7,10 @@ export default function ViewComponent({
 }) {
     return (
         <main className={styles.inner}>
+            {/* 제목 공통 */}
             <h2 className={styles.main_h2}>{title}</h2>
             <ul className={styles.write_list}>
+                {/* 내용 본문 */}
                 <li>
                     <ListMainLeft
                         title={title}
@@ -18,6 +20,7 @@ export default function ViewComponent({
                         imageSrc="/images/logo.png"
                     />
                 </li>
+                {/* 수정 및 삭제 */}
                 <li>
                     <ListMainRight write="현대자동차" views={200} hearts={200} />
                 </li>
