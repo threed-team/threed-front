@@ -1,5 +1,6 @@
 import styles from './postView.module.scss';
 import ListMainLeft from './components/listMainLeft.component';
+import ListMainRight from './components/listMainRight.component';
 
 export default function ViewComponent({
     title = 'Excited to share my latest tech project! #codinglife',
@@ -21,7 +22,9 @@ export default function ViewComponent({
                         imageSrc={imageSrc}
                     />
                 </li>
-                <li></li>
+                <li>
+                    <ListMainRight />
+                </li>
             </ul>
         </main>
     );
