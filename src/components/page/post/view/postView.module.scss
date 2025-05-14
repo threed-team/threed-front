@@ -11,7 +11,14 @@
     .write_list {
         @include flexCenter(space-between);
     }
-    li:first-child {
-        width: 670px;
+    > ul > li {
+        &:first-child {
+            width: 670px;
+        }
+        &:last-child {
+            width: 450px;
+            padding-top: 30px;
+            margin-bottom: auto;
+        }
     }
 }
