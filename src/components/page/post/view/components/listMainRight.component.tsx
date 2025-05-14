@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import styles from './listMainRight.module.scss';
 
 interface ListRightProps {
@@ -7,6 +10,12 @@ interface ListRightProps {
 }
 
 export default function ListMainRight({ write, views, hearts }: ListRightProps) {
+    const [liked, setLiked] = useState(false);
+
+    const toggleLike = () => {
+        setLiked((prev) => !prev);
+    };
+
     return (
         <>
             <div className={styles.right_card_box}>
@@ -19,8 +28,10 @@ export default function ListMainRight({ write, views, hearts }: ListRightProps) 
                     </h3>
                     <div className={styles.card_list}>
                         <div className={styles.card_list_second}>
-                            <button>
-                                <span className={styles.heart_box}></span>
+                            <button onClick={toggleLike}>
+                                <span
+                                    className={`${styles.heart_box} ${liked ? styles.active : ''}`}
+                                ></span>
                                 <p>{hearts}</p>
                             </button>
                             <button>

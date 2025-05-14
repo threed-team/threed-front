@@ -33,6 +33,7 @@
                 gap: 26px;
                 height: 107px;
                 button {
+                    outline: none;
                     border: none;
                     background: none;
                     @include column-flexbox($jc: space-between);
@@ -44,6 +45,10 @@
                         &.heart_box {
                             background: url(/images/icon_heart_off.png) center center / cover
                                 no-repeat;
+                            &.active {
+                                background: url(/images/ico_heart.png) center center / cover
+                                    no-repeat;
+                            }
                         }
                         &.view_box {
                             background: url(/images/ico_eyes.png) center center / contain no-repeat;
