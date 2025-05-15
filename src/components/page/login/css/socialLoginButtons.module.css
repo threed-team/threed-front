@@ -1,0 +1,43 @@
+.social_buttons {
+  width: 100%;
+  max-width: 314px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  list-style: none;
+}
+.social_buttons li {
+  margin-bottom: 12px;
+}
+.social_buttons li .login_btn {
+  position: relative;
+  width: calc(100% - 32px);
+  height: 48px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+.social_buttons li .login_btn img {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.social_buttons li .login_btn.google_btn {
+  border: 1px solid #c3c3c3;
+  background: white;
+  color: #4D4D4D;
+}
+.social_buttons li .login_btn.kakao_btn {
+  background: #fee500;
+  color: #191919;
+}
+.social_buttons li .login_btn.github_btn {
+  background: black;
+  color: #FFFFFF;
+}/*# sourceMappingURL=socialLoginButtons.module.css.map */

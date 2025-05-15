@@ -1,0 +1,12 @@
+.footer {
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+.footer .footer_text {
+  color: #fff;
+  font: 400 15px/28px "Roboto", sans-serif;
+  text-align: center;
+}/*# sourceMappingURL=footer.module.css.map */

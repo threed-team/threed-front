@@ -1,8 +1,11 @@
-// 이 파일은 '/home' 경로의 페이지 컴포넌트를 렌더링합니다.
-// 실제 UI는 components/page/home 폴더에 있는 컴포넌트로 구성됩니다.
+import styles from './footer.module.scss'
 
-import HomeComponent from "@components/page/home/home.component";
-
-export default function HomePage() {
-  return <HomeComponent /> ;
+export default function footerPageComponent() {
+  return (
+    <footer className={styles.footer}>
+      <div className={styles.footer_container}>
+        <p className={styles.footer_text}>Copyright © 2025. Codenary All Rights Reserved.</p>
+      </div>
+    </footer>
+  )
 }
