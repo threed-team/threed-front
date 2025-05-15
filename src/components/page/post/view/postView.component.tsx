@@ -4,13 +4,14 @@ import styles from './postView.module.scss';
 import ListMainLeft from './components/listMainLeft.component';
 import ListMainRight from './components/listMainRight.component';
 import useView from './hooks/useView';
-// import { useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 export default function ViewComponent() {
-    // const params = useParams();
-    // const postId = Number(params?.id);
+    const params = useParams();
+    const postId = Number(params?.id);
 
-    const { post, loading, error } = useView(7); // 동적 ID 사용
+    const { post, loading, error } = useView(postId); // 동적 ID 사용
+    console.log(postId)
 
     if (loading) return <p>로딩 중...</p>;
     if (error) return <p>에러 발생!</p>;
@@ -37,7 +38,7 @@ export default function ViewComponent() {
                         write={post.company}
                         views={post.viewCount}
                         hearts={post.bookmarkCount}
-                        list="/company-posts"
+                        list=""
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
                         companyImage={post.companyImageUrl}
