@@ -13,7 +13,6 @@ export default function BookAndUserComponent({ type }: BookAndUserProps) {
   const { posts, icon, title } = usePageData(type);
 
   console.log(posts)
-  console.log(icon)
 
 
   return (
