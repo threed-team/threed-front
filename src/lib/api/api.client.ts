@@ -10,10 +10,7 @@ const axiosInstance = axios.create({
     },
 });
 
-export async function apiClient<T>(
-    endpoint: string,
-    options?: RequestOptions
-): Promise<T> {
+export async function apiClient<T>( endpoint: string, options?: RequestOptions ): Promise<T> {
     const response: AxiosResponse<T> = await axiosInstance(endpoint, options);
     return response.data;
 }

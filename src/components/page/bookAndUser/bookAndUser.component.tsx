@@ -13,13 +13,14 @@ export default function BookAndUserComponent({ type }: BookAndUserProps) {
   const { posts, icon, title } = usePageData(type);
 
   console.log(posts)
+  console.log(icon)
 
 
   return (
     <main className={styles.inner}>
       {/* start */}
       <div className={styles.main_header}>
-        <h2><span>{icon}</span>{title}</h2>
+        <h2><span className={styles[icon]}></span>{title}</h2>
       </div>
       <div>
         {Array.isArray(posts) && posts.length > 0 ? (
