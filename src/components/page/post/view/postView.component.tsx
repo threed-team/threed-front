@@ -4,11 +4,11 @@ import styles from './postView.module.scss';
 import ListMainLeft from './components/listMainLeft.component';
 import ListMainRight from './components/listMainRight.component';
 import useView from './hooks/useView';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 
 export default function ViewComponent() {
-    const params = useParams();
-    const postId = Number(params?.id); // /company-posts/3 => 3
+    // const params = useParams();
+    // const postId = Number(params?.id);
 
     const { post, loading, error } = useView(1); // 동적 ID 사용
 
@@ -31,7 +31,7 @@ export default function ViewComponent() {
                 </li>
                 <li>
                     <ListMainRight
-                        write="현대자동차"
+                        write={post.company}
                         views={post.viewCount}
                         hearts={post.bookmarkCount}
                         list="/company-posts"
