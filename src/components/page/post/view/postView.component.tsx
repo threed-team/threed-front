@@ -41,7 +41,7 @@ export default function ViewComponent() {
                         list=""
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
-                        companyImage={post.companyImageUrl}
+                        company={post.companyImageUrl}
                     />
                 </li>
             </ul>
