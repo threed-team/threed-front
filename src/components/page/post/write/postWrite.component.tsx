@@ -4,7 +4,7 @@ import styles from "./postWrite.module.scss";
 import dynamic from 'next/dynamic';
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), {
-    ssr: false,  // 서버 사이드 렌더링 끄기
+    ssr: false,  // 에러가 자꾸 나와서 서버 사이드 렌더링 끄기
 });
 
 export default function WriteComponent() {
