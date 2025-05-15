@@ -1,6 +1,7 @@
 @import "@styles/common";
 
-li {
+.card_box {
+    margin-bottom: 50px;
     .card {
         @include column-flexbox($jc: flex-start, $ai: center);
         box-sizing: border-box;

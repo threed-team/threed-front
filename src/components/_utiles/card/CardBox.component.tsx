@@ -2,6 +2,7 @@
 
 import styles from './CardBox.module.scss';
 import Image from 'next/image';
+import Link from "next/link";
 
 interface CardBoxProps {
   imageSrc: string;
@@ -23,11 +24,11 @@ export default function CardBox({
   date,
 }: CardBoxProps) {
   return (
-    <li>
-      <a href="#" className={styles.card}>
+    <li className={styles.card_box}>
+      <Link href={'#'} className={styles.card}>
         <div className={styles.card_box_top}>
-          <Image 
-            src={imageSrc} 
+          <Image
+            src={imageSrc}
             fill={true}
             alt="sample"
           />
@@ -63,7 +64,7 @@ export default function CardBox({
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </li>
   );
 }

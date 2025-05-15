@@ -7,9 +7,5 @@
 
     .card_list {
         @include flexbox($jc: space-between, $ai: center);
-
-        .card {
-            //@include CommonCard;
-        }
     }
 }

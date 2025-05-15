@@ -6,5 +6,5 @@
 import BookAndUserComponent from "@components/page/bookAndUser/bookAndUser.component";
 
 export default function BookMarkPage() {
-    return <BookAndUserComponent />;
+  return <BookAndUserComponent type="bookmark" />;
 }

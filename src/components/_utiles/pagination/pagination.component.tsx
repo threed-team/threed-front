@@ -1,17 +1,15 @@
 import styles from './pagination.module.scss';
 
 interface PaginationProps {
-	className?: string;
 	currentPage: number;
 	totalPages: number;
 	onPageChange: (page: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-	className = '',
 	currentPage,
 	totalPages,
-	onPageChange,
+	onPageChange
 }) => {
 	const getPageNumbers = () => {
 		const delta = 2;
@@ -28,7 +26,7 @@ const Pagination: React.FC<PaginationProps> = ({
 	const pageNumbers = getPageNumbers();
 
 	return (
-		<div className={`${styles.pagination_area} ${className}`}>
+		<div className={styles.pagination_area}>
 			<ul>
 				<li
 					role='button'

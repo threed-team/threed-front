@@ -13,7 +13,7 @@ export default function HomeComponent() {
       {/* title - 가장 많이 읽은 글 */}
       <div className={styles.main_header}> 
         <h2><span className={styles.ico_fire}></span>가장 많이 읽은 글</h2>
-        <div className={styles.date_list}>l
+        <div className={styles.date_list}>
           <select name="date" id="date-select">
             <option value="week">일주일</option>
             <option value="week">1개월</option>
