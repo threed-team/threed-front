@@ -29,7 +29,7 @@ export default function ListMainLeft({ text, date, title, link, imageSrc }: List
                     <Link href={link}>
                         <div className={styles.more_sum_main}>
                             <div className={styles.more_sum}>
-                                <Image src={imageSrc} fill={true} alt="sample" />
+                                <Image src={imageSrc} fill={true} alt="sample" unoptimized />
                             </div>
                             <div className={styles.more_right}>
                                 <div className={styles.more_title}>{title}</div>

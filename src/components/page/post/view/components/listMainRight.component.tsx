@@ -9,15 +9,23 @@ interface ListRightProps {
     write: string;
     views: number;
     hearts: number;
+    list: string;
+    before: string;
+    after: string;
 }
 
-export default function ListMainRight({ write, views, hearts }: ListRightProps) {
+export default function ListMainRight({ write, views, hearts, list, before, after }: ListRightProps) {
     const [liked, setLiked] = useState(false);
+    const [heartCount, setHeartCount] = useState(hearts); // 좋아요 수 상태 관리
 
     const toggleLike = () => {
-        setLiked((prev) => !prev);
+        if (!liked) {
+            setHeartCount((prev) => prev + 1); // 좋아요 증가
+        } else {
+            setHeartCount((prev) => prev - 1); // 좋아요 취소
+        }
+        setLiked((prev) => !prev); // 상태 토글
     };
-
     return (
         <>
             <div className={styles.right_card_box}>
@@ -34,7 +42,7 @@ export default function ListMainRight({ write, views, hearts }: ListRightProps) 
                                 <span
                                     className={`${styles.heart_box} ${liked ? styles.active : ''}`}
                                 ></span>
-                                <p>{hearts}</p>
+                                <p>{heartCount}</p>
                             </button>
                             <button>
                                 <span className={styles.view_box}></span>
@@ -43,13 +51,13 @@ export default function ListMainRight({ write, views, hearts }: ListRightProps) 
                         </div>
                         <ul className={styles.navi_list}>
                             <li>
-                                <Link href="#">목록</Link>
+                                <Link href={list}>목록</Link>
                             </li>
                             <li>
-                                <Link href="#">이전글</Link>
+                                <Link href={before}>이전글</Link>
                             </li>
                             <li>
-                                <Link href="#">다음글</Link>
+                                <Link href={after}>다음글</Link>
                             </li>
                         </ul>
                         <div className={styles.share_btn}>
@@ -59,7 +67,7 @@ export default function ListMainRight({ write, views, hearts }: ListRightProps) 
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
             <div className={styles.button_box}>
                 <button className={styles.edit_btn}>수정하기</button>
                 <button className={styles.delete_btn}>삭제하기</button>

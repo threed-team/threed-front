@@ -1,28 +1,43 @@
+'use client';
+
 import styles from './postView.module.scss';
 import ListMainLeft from './components/listMainLeft.component';
 import ListMainRight from './components/listMainRight.component';
+import useView from './hooks/useView';
+import { useParams } from 'next/navigation';
 
-export default function ViewComponent({
-    title = 'Excited to share my latest tech project! #codinglife',
-}) {
+export default function ViewComponent() {
+    const params = useParams();
+    const postId = Number(params?.id); // /company-posts/3 => 3
+
+    const { post, loading, error } = useView(1); // 동적 ID 사용
+
+    if (loading) return <p>로딩 중...</p>;
+    if (error) return <p>에러 발생!</p>;
+    if (!post) return <p>데이터가 없습니다.</p>;
+
     return (
         <main className={styles.inner}>
-            {/* 제목 공통 */}
-            <h2 className={styles.main_h2}>{title}</h2>
+            <h2 className={styles.main_h2}>{post.title}</h2>
             <ul className={styles.write_list}>
-                {/* 내용 본문 */}
                 <li>
                     <ListMainLeft
-                        title={title}
-                        text="명상의 힘은 마음을 가라앉히고 내면의 평화를 찾는 방법을 제공합니다. 정기적인 명상은 스트레스를 줄이고 집중력을 향상시키는 데 도움이 됩니다. 다양한 명상 기법 중에서도 호흡 명상과 마음 챙김 명상이 특히 효과적입니다. 또한, 명상은 자기 인식을 높이고 감정 조절 능력을 향상시켜 전반적인 정신 건강에 긍정적인 영향을 미칩니다. 일상 속에서 꾸준히 명상을 실천하면 심리적 안정과 행복을 증진할 수 있습니다.명상의 힘은 마음을 가라앉히고 내면의 평화를 찾는 방법을 제공합니다. 정기적인 명상은 스트레스를 줄이고 집중력을 향상시키는 데 도움이 됩니다. 다양한 명상 기법 중에서도 호흡 명상과 마음 챙김 명상이 특히 효과적입니다. 또한, 명상은 자기 인식을 높이고 감정 조절 능력을 향상시켜 전반적인 정신 건강에 긍정적인 영향을 미칩니다. 일상 속에서 꾸준히 명상을 실천하면 심리적 안정과 행복을 증진할 수 있습니다."
-                        date="2025년 04월 30일"
-                        link="#"
-                        imageSrc="/images/logo.png"
+                        title={post.title}
+                        text={post.content}
+                        date={new Date(post.createdAt).toLocaleDateString('ko-KR')}
+                        link={post.sourceUrl}
+                        imageSrc={post.thumbnailImageUrl}
                     />
                 </li>
-                {/* 수정 및 삭제 */}
                 <li>
-                    <ListMainRight write="현대자동차" views={200} hearts={200} />
+                    <ListMainRight
+                        write="현대자동차"
+                        views={post.viewCount}
+                        hearts={post.bookmarkCount}
+                        list="/company-posts"
+                        before={post.previousId ? `${post.previousId}` : "#"}
+                        after={post.nextId ? `${post.nextId}` : "#"}
+                    />
                 </li>
             </ul>
         </main>
