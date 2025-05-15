@@ -1,5 +1,5 @@
-import { api } from '@lib/api/api';
 import { useEffect, useState } from 'react';
+import { api } from '@lib/api/api';
 
 interface Post {
     userId: number,
