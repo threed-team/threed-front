@@ -1,0 +1,12 @@
+@import "@styles/common";
+
+.bookmark_card_container {
+    margin-bottom: 65px;
+    padding-bottom: 65px;
+    border-bottom: 1px solid #B3B3B3;
+
+    .card_list {
+        @include flexbox($jc: space-between, $ai: center);
+        flex-wrap: wrap;
+    }
+}

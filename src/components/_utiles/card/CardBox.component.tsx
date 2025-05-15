@@ -24,11 +24,11 @@ export default function CardBox({
   date,
 }: CardBoxProps) {
   return (
-    <li>
+    <li className={styles.card_box}>
       <Link href={'#'} className={styles.card}>
         <div className={styles.card_box_top}>
-          <Image 
-            src={imageSrc} 
+          <Image
+            src={imageSrc}
             fill={true}
             alt="sample"
           />
