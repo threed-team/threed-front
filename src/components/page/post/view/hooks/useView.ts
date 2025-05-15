@@ -7,6 +7,7 @@ interface CompanyPost {
     content: string;
     thumbnailImageUrl: string;
     company: string;
+    companyImageUrl: string;
     viewCount: number;
     createdAt: string;
     sourceUrl: string;

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import styles from './listMainRight.module.scss';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 interface ListRightProps {
@@ -12,9 +13,10 @@ interface ListRightProps {
     list: string;
     before: string;
     after: string;
+    companyImage: string;
 }
 
-export default function ListMainRight({ write, views, hearts, list, before, after }: ListRightProps) {
+export default function ListMainRight({ write, views, hearts, list, before, after, companyImage }: ListRightProps) {
     const [liked, setLiked] = useState(false);
     const [heartCount, setHeartCount] = useState(hearts); // 좋아요 수 상태 관리
 
@@ -32,7 +34,7 @@ export default function ListMainRight({ write, views, hearts, list, before, afte
                 <div className={styles.main_right_card}>
                     <h3>
                         <span className={styles.img_box}>
-                            <i className={styles.writer_img}></i>
+                            <Image src={companyImage} fill={true} alt="sample" unoptimized />
                         </span>
                         <span>{write}</span>
                     </h3>

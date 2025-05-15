@@ -10,7 +10,7 @@ export default function ViewComponent() {
     // const params = useParams();
     // const postId = Number(params?.id);
 
-    const { post, loading, error } = useView(1); // 동적 ID 사용
+    const { post, loading, error } = useView(7); // 동적 ID 사용
 
     if (loading) return <p>로딩 중...</p>;
     if (error) return <p>에러 발생!</p>;
@@ -18,8 +18,10 @@ export default function ViewComponent() {
 
     return (
         <main className={styles.inner}>
+            {/* 제목 공통 */}
             <h2 className={styles.main_h2}>{post.title}</h2>
             <ul className={styles.write_list}>
+                {/* 왼쪽 컴포넌트 */}
                 <li>
                     <ListMainLeft
                         title={post.title}
@@ -29,6 +31,7 @@ export default function ViewComponent() {
                         imageSrc={post.thumbnailImageUrl}
                     />
                 </li>
+                {/* 오른쪽 컴포넌트 */}
                 <li>
                     <ListMainRight
                         write={post.company}
@@ -37,6 +40,7 @@ export default function ViewComponent() {
                         list="/company-posts"
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
+                        companyImage={post.companyImageUrl}
                     />
                 </li>
             </ul>
