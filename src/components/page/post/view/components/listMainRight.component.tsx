@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import styles from './listMainRight.module.scss';
+import Link from 'next/link';
+
 
 interface ListRightProps {
     write: string;
@@ -41,13 +43,13 @@ export default function ListMainRight({ write, views, hearts }: ListRightProps) 
                         </div>
                         <ul className={styles.navi_list}>
                             <li>
-                                <a href="#">목록</a>
+                                <Link href="#">목록</Link>
                             </li>
                             <li>
-                                <a href="#">이전글</a>
+                                <Link href="#">이전글</Link>
                             </li>
                             <li>
-                                <a href="#">다음글</a>
+                                <Link href="#">다음글</Link>
                             </li>
                         </ul>
                         <div className={styles.share_btn}>

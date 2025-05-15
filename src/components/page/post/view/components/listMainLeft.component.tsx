@@ -1,5 +1,6 @@
 import styles from './listMainLeft.module.scss';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ListLeftProps {
     imageSrc: string;
@@ -25,7 +26,7 @@ export default function ListMainLeft({ text, date, title, link, imageSrc }: List
             <div className={styles.list_main_bottom}>
                 <h3>본문보기</h3>
                 <div className={styles.list_main_more}>
-                    <a href={link}>
+                    <Link href={link}>
                         <div className={styles.more_sum_main}>
                             <div className={styles.more_sum}>
                                 <Image src={imageSrc} fill={true} alt="sample" />
@@ -38,7 +39,7 @@ export default function ListMainLeft({ text, date, title, link, imageSrc }: List
                                 <div className={styles.more_bottom}>더보기 →</div>
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </>
