@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import styles from './listMainRight.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
+import useBookmark from '../hooks/useBook';
 
 interface ListRightProps {
     write: string;
@@ -13,17 +13,13 @@ interface ListRightProps {
     before: string;
     after: string;
     company: string;
+    postId: number;
+    isBookmarked: boolean;
 }
 
-export default function ListMainRight({ write, views, hearts, list, before, after, company }: ListRightProps) {
-    const [liked, setLiked] = useState(false);
-    const [heartCount, setHeartCount] = useState(hearts);
-
-    const toggleLike = () => {
-        setHeartCount((prev) => (liked ? prev - 1 : prev + 1));
-        setLiked((prev) => !prev);
-    };
-
+export default function ListMainRight({ write, views, hearts, list, before, after, company, postId, isBookmarked, }: ListRightProps) {
+    const { bookmarked, toggleBookmark } = useBookmark(postId, isBookmarked);
+    const heartCount = hearts + (bookmarked ? 1 : 0);
     const handleCopy = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         try {
@@ -34,7 +30,6 @@ export default function ListMainRight({ write, views, hearts, list, before, afte
             alert('복사에 실패했습니다.');
         }
     };
-
     return (
         <>
             <div className={styles.right_card_box}>
@@ -51,10 +46,8 @@ export default function ListMainRight({ write, views, hearts, list, before, afte
                     </h3>
                     <div className={styles.card_list}>
                         <div className={styles.card_list_second}>
-                            <button onClick={toggleLike}>
-                                <span
-                                    className={`${styles.heart_box} ${liked ? styles.active : ''}`}
-                                ></span>
+                            <button onClick={toggleBookmark}>
+                                <span className={`${styles.heart_box} ${bookmarked ? styles.active : ''}`}></span>
                                 <p>{heartCount}</p>
                             </button>
                             <button>

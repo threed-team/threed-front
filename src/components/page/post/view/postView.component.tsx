@@ -16,7 +16,7 @@ export default function ViewComponent() {
     if (loading) return <Loading />;
     if (error) return <p>에러 발생!</p>;
     if (!post) return <p>데이터가 없습니다.</p>;
-
+    console.log('초기 북마크 상태:', post.isBookmarked);
     return (
         <main className={styles.inner}>
             {/* 제목 공통 */}
@@ -42,6 +42,8 @@ export default function ViewComponent() {
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
                         company={post.company.logoImageUrl}
+                        postId={post.id}
+                        isBookmarked={post.isBookmarked}
                     />
                 </li>
             </ul>
