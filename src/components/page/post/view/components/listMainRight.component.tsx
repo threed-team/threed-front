@@ -4,6 +4,7 @@ import styles from './listMainRight.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import useBookmark from '../hooks/useBook';
+import { useState, useEffect, useRef } from 'react';
 
 interface ListRightProps {
     write: string;
@@ -17,9 +18,25 @@ interface ListRightProps {
     isBookmarked: boolean;
 }
 
-export default function ListMainRight({ write, views, hearts, list, before, after, company, postId, isBookmarked, }: ListRightProps) {
+export default function ListMainRight({ write, views, hearts, list, before, after, company, postId, isBookmarked }: ListRightProps) {
     const { bookmarked, toggleBookmark } = useBookmark(postId, isBookmarked);
-    const heartCount = hearts;
+
+    const [heartCount, setHeartCount] = useState(hearts);
+    const prevBookmarkedRef = useRef(isBookmarked); // 이전 상태 기억
+
+    useEffect(() => {
+        // bookmarked 상태가 바뀔 때 heartCount를 업데이트
+        if (bookmarked !== prevBookmarkedRef.current) {
+            setHeartCount((prev) => prev + (bookmarked ? 1 : -1));
+            prevBookmarkedRef.current = bookmarked;
+        }
+    }, [bookmarked]);
+
+    const handleBookmark = async () => {
+        await toggleBookmark(); // 서버 요청 처리
+        // 이후 상태 변경은 useEffect에서 처리
+    };
+
     const handleCopy = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         try {
@@ -30,6 +47,7 @@ export default function ListMainRight({ write, views, hearts, list, before, afte
             alert('복사에 실패했습니다.');
         }
     };
+
     return (
         <>
             <div className={styles.right_card_box}>
@@ -46,7 +64,7 @@ export default function ListMainRight({ write, views, hearts, list, before, afte
                     </h3>
                     <div className={styles.card_list}>
                         <div className={styles.card_list_second}>
-                            <button onClick={toggleBookmark}>
+                            <button onClick={handleBookmark}>
                                 <span className={`${styles.heart_box} ${bookmarked ? styles.active : ''}`}></span>
                                 <p>{heartCount}</p>
                             </button>

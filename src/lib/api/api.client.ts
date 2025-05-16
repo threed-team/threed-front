@@ -11,8 +11,9 @@ if (typeof window !== 'undefined') {
 const axiosInstance = axios.create({
     baseURL: `https://dev-api.threed.site`,
     headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-    }
+        "Content-Type": "application/json; charset=utf-8",
+    },
+    withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(

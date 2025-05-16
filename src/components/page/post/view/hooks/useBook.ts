@@ -14,7 +14,7 @@ export default function useBookmark(postId: number, initialState: boolean) {
 
         try {
             if (!bookmarked) {
-                await api.post('/api/v1/bookmarks/', { postId });
+                await api.post(`/api/v1/bookmarks/${postId}`);
             } else {
                 await api.delete(`/api/v1/bookmarks/${postId}`);
             }
