@@ -22,11 +22,12 @@ axiosInstance.interceptors.request.use(
     (config) => {
         const accessToken = getAccessToken();
 
-        console.log("accessToken:", accessToken);
 
         if (accessToken) {
-            config.headers["Authorization"] = `${accessToken}`;
+            config.headers["Authorization"] = `Bearer ${accessToken}`;
+
         }
+        console.log("config:", config);
         return config;
     },
     (error) => {
