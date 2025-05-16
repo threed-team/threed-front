@@ -16,7 +16,6 @@ interface CardBoxProps {
 }
 
 export default function CardBox({
-  url,
   imageSrc,
   isNew = false,
   title,
@@ -27,7 +26,7 @@ export default function CardBox({
 }: CardBoxProps) {
   return (
     <li className={styles.card_box}>
-      <Link href={url} className={styles.card}>
+      <Link href={"#"} className={styles.card}>
         <div className={styles.card_box_top}>
           <Image
             src={imageSrc}

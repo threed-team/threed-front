@@ -22,21 +22,24 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
                 let response: Post[];
 
                 if (type === 'bookmark') {
-                    response = await api.get<Post[]>('/todos'); // 북마크 전용 API
+                    response = await api.get<Post[]>('/api/v1/bookmarks'); // 북마크 전용 API
                     setTitle('MY 북마크');
                     setIcon('ico_heart');
                 } else {
-                    response = await api.get<Post[]>('/todos'); // 마이페이지 전용 API
+                    response = await api.get<Post[]>('/api/v1/members/posts'); // 마이페이지 전용 API
                     setTitle('MY PAGE');
                     setIcon('ico_mypage');
                 }
+                console.log('성공 입니다.')
 
                 setPosts(response);
             } catch (err) {
                 console.error(err);
                 setError(err);
+                console.log('error 입니다.')
             } finally {
                 setLoading(false);
+                console.log('finally 입니다.')
             }
         };
 

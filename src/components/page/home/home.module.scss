@@ -4,11 +4,11 @@
   min-width: 1200px;
   width: 1200px;
   margin: auto;
-  padding: 50px 0;
+  padding: 98px 0;
   
   .main_header {
     @include flexbox($jc: space-between, $ai: center);
-    padding-bottom: 42px;
+    padding: 42px 0;
 
     h2 {
       font-size: 24px;
@@ -35,11 +35,12 @@
     .date_list {
       select {
         min-width: 100px;
-        height: 30px;
+        height: 35px;
         border: 1px solid $color-gray;
         border-radius: 8px;
         color: $color-gray-dark;
         font-size: 16px;
+        padding: 0px 11px;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;

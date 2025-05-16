@@ -1,11 +1,12 @@
 .header {
+    position: fixed;
     background: #f3f1ff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     height: 98px;
     display: flex;
     align-items: center;
     width: 100%;
-    position: fixed;
+    z-index: 100;
 
     .header_container {
         display: flex;
@@ -20,13 +21,12 @@
 
             .logo {
                 img {
-                    width: 85px;
-                    height: 58px;
+                    width: 100px;
+                    height: auto;
                 }
             }
 
             .gnb {
-                width: 543px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
