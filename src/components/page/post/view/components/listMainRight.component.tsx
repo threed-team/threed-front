@@ -30,6 +30,7 @@ export default function ListMainRight({ write, views, hearts, list, before, afte
             await navigator.clipboard.writeText(window.location.href);
             alert('복사되었습니다!');
         } catch (err) {
+            console.error('복사 실패:', err);
             alert('복사에 실패했습니다.');
         }
     };
