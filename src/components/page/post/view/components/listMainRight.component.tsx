@@ -19,7 +19,7 @@ interface ListRightProps {
 
 export default function ListMainRight({ write, views, hearts, list, before, after, company, postId, isBookmarked, }: ListRightProps) {
     const { bookmarked, toggleBookmark } = useBookmark(postId, isBookmarked);
-    const heartCount = hearts + (bookmarked ? 1 : 0);
+    const heartCount = hearts;
     const handleCopy = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         try {

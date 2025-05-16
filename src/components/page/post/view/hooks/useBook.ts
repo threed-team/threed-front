@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import axios from 'axios';
+import { api } from '@lib/api/api';
 
 export default function useBookmark(postId: number, initialState: boolean) {
     const [bookmarked, setBookmarked] = useState<boolean>(initialState);
@@ -9,25 +9,14 @@ export default function useBookmark(postId: number, initialState: boolean) {
     const [error, setError] = useState<unknown>(null);
 
     const toggleBookmark = async () => {
-        const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzQ3MTExMDMwMDg0MDAwMDB9.nia_cJhFWfYgStl_X-3lkVoOWtfrXrM5B_aSy6E2lEw'; // JWT 토큰
-
-        if (!token) {
-            alert('로그인이 필요합니다.');
-            return;
-        }
-
         setLoading(true);
         setError(null);
 
         try {
             if (!bookmarked) {
-                await axios.post('https://dev-api.threed.site/api/v1/bookmarks/', { postId }, {
-                    headers: { 'Authorization': token }
-                });
+                await api.post('/api/v1/bookmarks/', { postId });
             } else {
-                await axios.delete(`https://dev-api.threed.site/api/v1/bookmarks/${postId}`, {
-                    headers: { 'Authorization': token }
-                });
+                await api.delete(`/api/v1/bookmarks/${postId}`);
             }
 
             setBookmarked(!bookmarked);

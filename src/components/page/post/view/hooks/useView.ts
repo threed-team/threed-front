@@ -1,5 +1,6 @@
+// hooks/useCompanyPost.ts
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { api } from '@lib/api/api';  // API 클라이언트 import
 
 interface Company {
     name: string;
@@ -11,7 +12,7 @@ interface CompanyPost {
     title: string;
     content: string;
     thumbnailImageUrl: string;
-    company: Company;  // 🔄 수정된 부분
+    company: Company;
     viewCount: number;
     createdAt: string;
     sourceUrl: string;
@@ -32,10 +33,8 @@ export default function useCompanyPost(postId: number) {
         const fetchPost = async () => {
             setLoading(true);
             try {
-                const response = await axios.get<CompanyPost>(
-                    `https://dev-api.threed.site/api/v1/company-posts/${postId}`
-                );
-                setPost(response.data);
+                const data = await api.get<CompanyPost>(`/api/v1/company-posts/${postId}`);
+                setPost(data);
             } catch (err) {
                 console.error(err);
                 setError(err);
