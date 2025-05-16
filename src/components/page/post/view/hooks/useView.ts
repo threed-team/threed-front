@@ -33,7 +33,7 @@ export default function useCompanyPost(postId: number) {
             setLoading(true);
             try {
                 const response = await axios.get<CompanyPost>(
-                    `http://192.168.0.32:8080/api/v1/company-posts/${postId}`
+                    `https://dev-api.threed.site/api/v1/company-posts/${postId}`
                 );
                 setPost(response.data);
             } catch (err) {
