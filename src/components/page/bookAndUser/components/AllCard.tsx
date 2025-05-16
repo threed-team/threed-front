@@ -28,6 +28,7 @@ export default function AllCardcomponent({ data, itemsPerPage = 20 }: PostListPr
                     currentItems.map((item) => (
                         <CardBox
                             key={item.id}
+                            url={'/'}
                             imageSrc="/images/logo.png"
                             isNew={true}
                             title={item.title}
