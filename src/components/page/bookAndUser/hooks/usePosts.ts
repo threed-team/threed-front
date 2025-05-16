@@ -2,10 +2,15 @@ import { useEffect, useState } from 'react';
 import { api } from '@lib/api/api';
 
 interface Post {
-    userId: number,
     id: number,
     title: string,
-    completed: boolean
+    thumbnailImageUrl: string
+    field: string,
+    viewCount: number,
+    company: string
+    member: string
+    skills: string
+    createdAt: string
 }
 
 export default function usePageData(type: 'bookmark' | 'mypage') {
@@ -22,7 +27,8 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
                 let response: Post[];
 
                 if (type === 'bookmark') {
-                    response = await api.get<Post[]>('/api/v1/bookmarks'); // 북마크 전용 API
+                    response = await api.get<Post[]>('/api/v1/bookmarks?page=1&size=10'); // 북마크 전용 API
+                    console.log(response)
                     setTitle('MY 북마크');
                     setIcon('ico_heart');
                 } else {

@@ -6,10 +6,9 @@ const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzQ3
 
 localStorage.setItem("access_token", token);
 
-const getAccessToken = () => {
-    return localStorage.getItem("access_token");
-
-}
+// const getAccessToken = () => {
+//     return localStorage.getItem("access_token");
+// }
 
 const axiosInstance = axios.create({
     baseURL: `https://dev-api.threed.site`,
@@ -20,8 +19,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const accessToken = getAccessToken();
-
+        //const accessToken = getAccessToken();
+        const accessToken = token;
 
         if (accessToken) {
             config.headers["Authorization"] = `Bearer ${accessToken}`;
