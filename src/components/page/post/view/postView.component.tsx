@@ -11,7 +11,6 @@ export default function ViewComponent() {
     const postId = Number(params?.id);
 
     const { post, loading, error } = useView(postId); // 동적 ID 사용
-    console.log(postId)
 
     if (loading) return <p>로딩 중...</p>;
     if (error) return <p>에러 발생!</p>;
@@ -35,13 +34,13 @@ export default function ViewComponent() {
                 {/* 오른쪽 컴포넌트 */}
                 <li>
                     <ListMainRight
-                        write={post.company}
+                        write={post.company.name}
                         views={post.viewCount}
                         hearts={post.bookmarkCount}
-                        list=""
+                        list="/"
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
-                        company={post.companyImageUrl}
+                        company={post.company.logoImageUrl}
                     />
                 </li>
             </ul>

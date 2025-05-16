@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+interface Company {
+    name: string;
+    logoImageUrl: string;
+}
+
 interface CompanyPost {
     id: number;
     title: string;
     content: string;
     thumbnailImageUrl: string;
-    company: string;
-    companyImageUrl: string;
+    company: Company;  // 🔄 수정된 부분
     viewCount: number;
     createdAt: string;
     sourceUrl: string;
