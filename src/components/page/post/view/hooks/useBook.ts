@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function useBookmark(postId: number, initialState: boolean) {
     const [bookmarked, setBookmarked] = useState<boolean>(initialState);
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<any>(null);
+    const [error, setError] = useState<unknown>(null);
 
     const toggleBookmark = async () => {
         const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzQ3MTExMDMwMDg0MDAwMDB9.nia_cJhFWfYgStl_X-3lkVoOWtfrXrM5B_aSy6E2lEw'; // JWT 토큰
