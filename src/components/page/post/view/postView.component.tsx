@@ -4,6 +4,7 @@ import styles from './postView.module.scss';
 import ListMainLeft from './components/listMainLeft.component';
 import ListMainRight from './components/listMainRight.component';
 import useView from './hooks/useView';
+import Loading from '@lib/loading/full.component';
 import { useParams } from 'next/navigation';
 
 export default function ViewComponent() {
@@ -12,7 +13,7 @@ export default function ViewComponent() {
 
     const { post, loading, error } = useView(postId); // 동적 ID 사용
 
-    if (loading) return <p>로딩 중...</p>;
+    if (loading) return <Loading />;
     if (error) return <p>에러 발생!</p>;
     if (!post) return <p>데이터가 없습니다.</p>;
 
