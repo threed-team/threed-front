@@ -16,7 +16,6 @@ export default function ViewComponent() {
     if (loading) return <Loading />;
     if (error) return <p>에러 발생!</p>;
     if (!post) return <p>데이터가 없습니다.</p>;
-    console.log('초기 북마크 상태:', post.isBookmarked);
     return (
         <main className={styles.inner}>
             {/* 제목 공통 */}
