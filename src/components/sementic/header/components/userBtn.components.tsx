@@ -5,7 +5,7 @@ import styles from "./userBtn.module.scss";
 export default function UserBtnComponent() {
   return (
     <div className={styles.nav_icons}>
-      <Link href="/write">
+      <Link href="/post/write/1">
         <div className={`${styles.icon} ${styles.write_icon}`}></div>
       </Link>
       <Link href="/login">
