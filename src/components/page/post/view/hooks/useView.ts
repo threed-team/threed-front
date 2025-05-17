@@ -1,4 +1,3 @@
-// hooks/useCompanyPost.ts
 import { useState, useEffect } from 'react';
 import { api } from '@lib/api/api';  // API 클라이언트 import
 

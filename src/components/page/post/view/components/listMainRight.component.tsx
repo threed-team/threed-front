@@ -3,8 +3,8 @@
 import styles from './listMainRight.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
-import useBookmark from '../hooks/useBook';
-import { useState, useEffect, useRef } from 'react';
+import useCopy from '../hooks/useCopy';
+import useHeart from '../hooks/useHeart';
 
 interface ListRightProps {
     write: string;
@@ -18,34 +18,19 @@ interface ListRightProps {
     isBookmarked: boolean;
 }
 
-export default function ListMainRight({ write, views, hearts, list, before, after, company, postId, isBookmarked }: ListRightProps) {
-    const { bookmarked, toggleBookmark } = useBookmark(postId, isBookmarked);
-
-    const [heartCount, setHeartCount] = useState(hearts);
-    const prevBookmarkedRef = useRef(isBookmarked); // 이전 상태 기억
-
-    useEffect(() => {
-        // bookmarked 상태가 바뀔 때 heartCount를 업데이트
-        if (bookmarked !== prevBookmarkedRef.current) {
-            setHeartCount((prev) => prev + (bookmarked ? 1 : -1));
-            prevBookmarkedRef.current = bookmarked;
-        }
-    }, [bookmarked]);
-
+export default function ListMainRight({ write, views, list, before, after, company, postId, isBookmarked, }: ListRightProps) {
+    // hook 상태 관리
+    const { bookmarked, toggleBookmark, heartCount } = useHeart(postId, isBookmarked);
+    // 클립보드 복사 훅
+    const copyToClipboard = useCopy();
+    // 북마크 클릭시 호출 함수
     const handleBookmark = async () => {
-        await toggleBookmark(); // 서버 요청 처리
-        // 이후 상태 변경은 useEffect에서 처리
+        await toggleBookmark();
     };
-
+    // 공유 버튼 클릭시 호출 함수
     const handleCopy = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        try {
-            await navigator.clipboard.writeText(window.location.href);
-            alert('복사되었습니다!');
-        } catch (err) {
-            console.error('복사 실패:', err);
-            alert('복사에 실패했습니다.');
-        }
+        copyToClipboard(window.location.href);
     };
 
     return (
