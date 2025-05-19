@@ -2,6 +2,9 @@
 
 import styles from "./postWrite.module.scss";
 import dynamic from 'next/dynamic';
+import HashtagInput from './components/hashTag.componant'
+import FieldSelector from './components/fileSelector.componant'
+
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), {
     ssr: false,  // 에러가 자꾸 나와서 서버 사이드 렌더링 끄기
@@ -23,28 +26,11 @@ export default function WriteComponent() {
                         <ul>
                             <li>
                                 <label>해시태그</label>
-                                <div className={styles.write_hashtag_box}>
-                                    <span className={styles.tag_item}>#JAVA</span>
-                                    <span className={styles.tag_item}>#REACT</span>
-                                    <input type="text" id="write-hashtag" placeholder="기술 최대 2개 태그" />
-                                </div>
+                                <HashtagInput />
                             </li>
                             <li>
                                 <label>분야</label>
-                                <div className={styles.write_hashtag_box}>
-                                    <span className={styles.tag_item}>#AI</span>
-                                    <div className={styles.select_box}>
-                                        <select id="write-field">
-                                            <option value="AI">AI</option>
-                                            <option value="Back">Back</option>
-                                            <option value="Front">Front</option>
-                                            <option value="Dev-Ops">Dev Ops</option>
-                                            <option value="DB">DB</option>
-                                            <option value="Mobile">Mobile</option>
-                                            <option value="Collab-Tool">Collab Tool</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <FieldSelector />
                             </li>
                         </ul>
                     </li>
