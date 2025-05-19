@@ -104,22 +104,25 @@ page
 ## 📦 필요한 도구
 
 - Node.js (권장: 18 이상)
-- npm
+- yarn 설치
+```javascript
+npm install -g yarn
+```
 
 ## 📥 패키지 설치
 
 
-npm install
+yarn install
 
 ## 🚀 개발 서버 실행
-npm run dev
+yarn dev
 url : http://localhost:3000
 
 ## 🏗️ 프로젝트 빌드
-npm run build
+yarn run build
 
 ## 🧪 빌드 후 실행
-npm run start
+yarn run start
 
 ## 🧹 코드 정리 및 검사
-npm run lint
+yarn run lint

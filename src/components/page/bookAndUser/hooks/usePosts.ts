@@ -27,7 +27,7 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
                 let response: Post[];
 
                 if (type === 'bookmark') {
-                    response = await api.get<Post[]>('/api/v1/bookmarks?page=1&size=10'); // 북마크 전용 API
+                    response = await api.get<Post[]>('/api/v1/bookmarks?page=1&size=20'); // 북마크 전용 API
                     console.log(response)
                     setTitle('MY 북마크');
                     setIcon('ico_heart');

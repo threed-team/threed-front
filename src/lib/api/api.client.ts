@@ -18,6 +18,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
+        // TODO 세션에서 ACCESS TOKEN 가져오기 로직
+        //const accessToken = getSession('access_token')
         let accessToken = token;
 
         if (typeof window !== 'undefined') {
@@ -31,6 +33,7 @@ axiosInstance.interceptors.request.use(
             config.headers["Authorization"] = `Bearer ${accessToken}`;
         }
 
+        //console.log('config', config)
         return config;
     },
     (error) => {
@@ -43,5 +46,6 @@ export async function apiClient<T>(endpoint: string, options?: RequestOptions): 
         url: endpoint,
         ...options,
     });
+    console.log('response', response)
     return response.data;
 }
