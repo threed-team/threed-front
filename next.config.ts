@@ -3,6 +3,20 @@ import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**"
+      },
+      {
+        protocol: "http",
+        hostname: "**"
+      },
+    ]
+  },
+
+
 
   webpack: (config) => {
     config.resolve.alias = {
@@ -12,10 +26,10 @@ const nextConfig: NextConfig = {
       "@hooks": path.resolve(__dirname, "src/hooks"),
       "@styles": path.resolve(__dirname, "src/styles"),
       "@public": path.resolve(__dirname, "public"),
-      "@lib": path.resolve(__dirname, "src/lib"),
+      "@session": path.resolve(__dirname, "src/session"),
     };
     return config;
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

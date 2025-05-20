@@ -18,7 +18,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        // TODO 세션에서 ACCESS TOKEN 가져오기 로직
+
         //const accessToken = getSession('access_token')
         let accessToken = token;
 
@@ -46,6 +46,6 @@ export async function apiClient<T>(endpoint: string, options?: RequestOptions): 
         url: endpoint,
         ...options,
     });
-    console.log('response', response)
+    // console.log('response', response)
     return response.data;
 }

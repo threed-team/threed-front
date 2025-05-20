@@ -6,7 +6,21 @@
     border-bottom: 1px solid #B3B3B3;
 
     .card_list {
-        @include flexbox($jc: space-between, $ai: center);
+        @include flexbox($jc: flex-start, $ai: center);
         flex-wrap: wrap;
+        gap: 12px;
+    }
+    .card_no_Data {
+        width: 300px;
+        margin: auto;
+        text-align: center;
+        padding: 100px 0;
+
+        .warning_text {
+            font-weight: 500;
+            font-size: 25px;
+            padding-top: 13px;
+            color: #6b6b6b;
+        }
     }
 }

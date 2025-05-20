@@ -7,7 +7,7 @@
   padding: 98px 0;
   
   .main_header {
-    padding: 42px 0;
+    padding: 80px 0 42px;
 
     h2 {
       @include flexbox($jc: flex-start, $ai: center);

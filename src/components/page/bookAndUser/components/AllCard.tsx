@@ -1,27 +1,48 @@
+// "use client";
+
+import Image from "next/image";
 import { useState } from "react";
-import styles from "./AllCard.module.scss"
 import CardBox from "@components/_utiles/card/CardBox.component";
 import Pagination from "@components/_utiles/pagination/pagination.component";
+import styles from "./AllCard.module.scss";
+
+interface Post {
+    id: number;
+    title: string;
+    thumbnailImageUrl: string;
+    field: string[];
+    viewCount: number;
+    author: {
+        name: string;
+        imageUrl: string;
+    };
+    skills: string[];
+    createdAt: string;
+}
 
 interface PostListProps {
-    data
+    data: Post[];
     itemsPerPage?: number;
 }
 
-export default function AllCardcomponent({ data, itemsPerPage = 20 }: PostListProps) {
-
-    //console.log(data)
-
+export default function AllCardcomponent({
+    data,
+    itemsPerPage = 20,
+}: PostListProps) {
     const [currentPage, setCurrentPage] = useState(1);
-    const indexOfLastItem = currentPage * itemsPerPage; // 20
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage; // 0
-    const currentItems = Array.isArray(data) ? data.slice(indexOfFirstItem, indexOfLastItem) : []; // (0, 20)
-    const items = Array.isArray(data) ? data.length : [];
-    //console.log(items) //200
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = Array.isArray(data)
+        ? data.slice(indexOfFirstItem, indexOfLastItem)
+        : [];
+    const items = Array.isArray(data) ? data.length : 0;
 
     const paginate = (pageNumber: number) => {
         setCurrentPage(pageNumber);
-    }
+    };
+
+    console.log(currentItems)
 
     return (
         <>
@@ -31,26 +52,38 @@ export default function AllCardcomponent({ data, itemsPerPage = 20 }: PostListPr
                         currentItems.map((item) => (
                             <CardBox
                                 key={item.id}
-                                url={'/'}
-                                imageSrc="/images/logo.png"
+                                url={`/post/view/${item.id}`}
+                                imageSrc={item.thumbnailImageUrl}
                                 isNew={true}
+                                isHot={true}
                                 title={item.title}
-                                languages={['JAVA', 'SCSS']}
-                                writer={`작성자: 홍길동`}
-                                views={100}
-                                date="2023.11.06"
+                                languages={item?.skills}
+                                writer={item.author?.name}
+                                writerImg={item.author?.imageUrl}
+                                views={item.viewCount}
+                                date={new Date(item.createdAt).toLocaleDateString("ko-KR")}
                             />
                         ))
                     ) : (
-                        <p>데이터가 없습니다.</p>
+                        <div className={styles.card_no_Data}>
+                            <Image
+                                src={'/images/ico_warning.png'}
+                                width={50}
+                                height={50}
+                                alt="warning"
+                            />
+                            <p className={styles.warning_text}>데이터가 없습니다</p>
+                        </div>
+
                     )}
                 </ul>
             </div>
+
             <Pagination
                 currentPage={currentPage}
-                totalPages={Math.ceil(Number(items) / itemsPerPage)}
+                totalPages={Math.ceil(items / itemsPerPage)}
                 onPageChange={paginate}
             />
         </>
     );
-};
+}

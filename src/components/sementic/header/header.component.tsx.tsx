@@ -10,7 +10,7 @@ export default function HeaderPageComponent() {
       <div className={styles.header_container}>
         <div className={`${styles.center_area} ${styles.inner}`}>
           <Link
-            href={'#'}
+            href={'/'}
             className={styles.logo}
           >
             <Image

@@ -1,7 +1,9 @@
 'use client';
 
-//import AllCardcomponent from './components/AllCard';
+import { useEffect } from 'react';
 import usePageData from './hooks/usePosts';
+import AllCardcomponent from './components/AllCard';
+import { useProd } from '@hooks/usePosts';
 import styles from './bookAndUser.module.scss';
 
 interface BookAndUserProps {
@@ -9,23 +11,32 @@ interface BookAndUserProps {
 }
 
 export default function BookAndUserComponent({ type }: BookAndUserProps) {
-
   const { posts, icon, title } = usePageData(type);
+  const { initAllProd, allProdList } = useProd();
 
-  console.log(posts)
-
+  useEffect(() => {
+    if (posts && posts.length > 0) {
+      const converted = {
+        elements: posts,
+        pageNumber: 1,
+        pageSize: posts.length,
+        totalCount: posts.length,
+        totalPage: 1,
+      };
+      initAllProd(converted);
+    }
+  }, [posts, initAllProd]);
 
   return (
     <main className={styles.inner}>
-      {/* start */}
       <div className={styles.main_header}>
-        <h2><span className={styles[icon]}></span>{title}</h2>
+        <h2>
+          <span className={styles[icon]}></span>
+          {title}
+        </h2>
       </div>
 
-      {/* <AllCardcomponent data={posts} /> */}
-      {/* 필터링 된 카드 모음 */}
-      {/* end */}
+      <AllCardcomponent data={allProdList.elements} />
     </main>
   );
-};
-
+}

@@ -8,49 +8,78 @@ interface CardBoxProps {
   url: string;
   imageSrc: string;
   isNew?: boolean;
+  isHot?: boolean;
   title: string;
-  languages: string[];
+  languages: string[] | string;
   writer: string;
+  writerImg: string;
   views: number;
   date: string;
 }
 
 export default function CardBox({
+  url,
   imageSrc,
   isNew = false,
+  isHot = false,
   title,
   languages,
   writer,
+  writerImg,
   views,
   date,
 }: CardBoxProps) {
   return (
     <li className={styles.card_box}>
-      <Link href={"#"} className={styles.card}>
+      <Link href={url} className={styles.card}>
         <div className={styles.card_box_top}>
           <Image
             src={imageSrc}
             fill={true}
             alt="sample"
           />
-          {isNew && (
-            <p className={styles.card_box_label}>
-              <span>NEW</span>
-            </p>
-          )}
+          <div className={styles.card_label}>
+            {isNew && (
+              <p className={styles.card_label_box}>
+                <span>NEW</span>
+              </p>
+            )}
+            {isHot && (
+              <p className={`${styles.card_label_box} ${styles.label_hot}`}>
+                <span>HOT</span>
+              </p>
+            )}
+          </div>
         </div>
         <div className={styles.card_box_bottom}>
           <h3 className={styles.card_box_title}>{title}</h3>
           <div className={styles.card_box_lang}>
-            {languages.map((lang, index) => (
-              <span key={index}>
-                <small>{lang}</small>
-              </span>
-            ))}
+            {Array.isArray(languages) ? (
+              languages.map((lang, index) => (
+                lang ? (
+                  <span key={index} > < small > {lang}</small> </ span >) : ''
+              ))
+            ) : (
+              languages ? (<span> < small > {languages}</small> </ span >) : ''
+            )
+            }
           </div>
           <div className={styles.box_bottom_fix}>
             <div className={styles.card_box_writer}>
-              <i className={styles.writer_img}></i>
+              <i className={styles.writer_img}>
+                {writerImg ?
+                  (<Image
+                    fill={true}
+                    src={writerImg}
+                    alt="로고"
+                  />)
+                  : (<Image
+                    fill={true}
+                    src="/images/ico_base_user.png"
+                    alt="로고"
+                  />
+                  )}
+              </i>
               <b>{writer}</b>
             </div>
             <div className={styles.card_box_info}>
@@ -64,8 +93,8 @@ export default function CardBox({
               </div>
             </div>
           </div>
-        </div>
-      </Link>
-    </li>
+        </div >
+      </Link >
+    </li >
   );
 }

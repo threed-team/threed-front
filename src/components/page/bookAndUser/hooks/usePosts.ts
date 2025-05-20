@@ -1,16 +1,31 @@
 import { useEffect, useState } from 'react';
+import { useProd } from '@hooks/usePosts';
 import { api } from '@lib/api/api';
 
 interface Post {
     id: number,
     title: string,
-    thumbnailImageUrl: string
+    thumbnailImageUrl: string,
     field: string,
     viewCount: number,
-    company: string
-    member: string
-    skills: string
+    company: {
+        name: string,
+        logoImageUrl: string
+    },
+    member: {
+        nickname: string,
+        profileImageUrl: string
+    },
+    skills: string[],
     createdAt: string
+}
+
+interface PostResponse {
+    elements: Post[],
+    pageNumber: number,
+    pageSize: number,
+    totalCount: number,
+    totalPage: number
 }
 
 export default function usePageData(type: 'bookmark' | 'mypage') {
@@ -19,33 +34,31 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
     const [posts, setPosts] = useState<Post[] | null>(null);
     const [error, setError] = useState<unknown>(null);
     const [loading, setLoading] = useState(false);
+    const { initAllProd } = useProd();
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                let response: Post[];
+                let response: PostResponse;
 
                 if (type === 'bookmark') {
-                    response = await api.get<Post[]>('/api/v1/bookmarks?page=1&size=20'); // 북마크 전용 API
-                    console.log(response)
+                    response = await api.get<PostResponse>('/api/v1/bookmarks?page=1&size=20');
                     setTitle('MY 북마크');
                     setIcon('ico_heart');
                 } else {
-                    response = await api.get<Post[]>('/api/v1/members/posts'); // 마이페이지 전용 API
+                    response = await api.get<PostResponse>('/api/v1/members/posts');
                     setTitle('MY PAGE');
                     setIcon('ico_mypage');
                 }
-                console.log('성공 입니다.')
 
-                setPosts(response);
+                setPosts(response.elements);
+                initAllProd(response);       
+
             } catch (err) {
-                console.error(err);
                 setError(err);
-                console.log('error 입니다.')
             } finally {
                 setLoading(false);
-                console.log('finally 입니다.')
             }
         };
 
