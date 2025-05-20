@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import useCopy from '../hooks/useCopy';
 import useHeart from '../hooks/useHeart';
+import { useRouter } from 'next/navigation';
 
 interface ListRightProps {
     write: string;
@@ -33,7 +34,11 @@ export default function ListMainRight({ write, views, list, before, after, compa
         e.preventDefault();
         copyToClipboard(window.location.href);
     };
+    const router = useRouter();
 
+    const handleEdit = () => {
+        router.push('/post/write/1');
+    };
     return (
         <>
             <div className={styles.right_card_box}>
@@ -44,7 +49,12 @@ export default function ListMainRight({ write, views, list, before, after, compa
                                 <div className={styles.more_sum}>
                                     <Image src={company} fill={true} alt="sample" unoptimized />
                                 </div>
-                            ) : null}
+                            ) : (<Image
+                                fill={true}
+                                src="/images/ico_base_user.png"
+                                alt="로고"
+                            />
+                            )}
                         </span>
                         <span>{write}</span>
                     </h3>
@@ -79,15 +89,15 @@ export default function ListMainRight({ write, views, list, before, after, compa
                             )}
                         </ul>
                         <div className={styles.share_btn}>
-                            <a href="#" onClick={handleCopy}>
+                            <Link href="#" onClick={handleCopy}>
                                 <span className={styles.share_img}></span>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
             <div className={styles.button_box}>
-                <button className={styles.edit_btn}>수정하기</button>
+                <button className={styles.edit_btn} onClick={handleEdit}>수정하기</button>
                 <button className={styles.delete_btn}>삭제하기</button>
             </div>
         </>

@@ -23,3 +23,18 @@
         }
     }
 }
+.card_no_Data {
+    width: 300px;
+    margin: auto;
+    text-align: center;
+    padding: 100px 0;
+    img {
+        margin-top: 100px;
+    }
+    .warning_text {
+        font-weight: 500;
+        font-size: 25px;
+        padding-top: 13px;
+        color: #6b6b6b;
+    }
+}

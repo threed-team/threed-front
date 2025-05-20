@@ -5,6 +5,7 @@ import ListMainLeft from './components/listMainLeft.component';
 import ListMainRight from './components/listMainRight.component';
 import useView from './hooks/useView';
 import Loading from '@lib/loading/full.component';
+import Image from 'next/image';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 
 export default function ViewComponent() {
@@ -12,20 +13,29 @@ export default function ViewComponent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const postId = Number(params?.id);
-
     const type = (searchParams?.get('type') as 'company' | 'member') ?? 'company';
 
     const { post, loading, error } = useView(postId, type);
 
-    // ✅ 에러 또는 데이터 없으면 / 로 라우팅
     if (!loading && error) {
         router.replace('/');
         return null;
     }
 
     if (loading) return <Loading />;
-    if (!post) return <p className={styles.warning_text}>데이터가 없습니다</p>;
-    return post ? (
+    if (!post) return (
+        <div className={styles.card_no_Data}>
+            <Image
+                src={'/images/ico_warning.png'}
+                width={50}
+                height={50}
+                alt="warning"
+            />
+            <p className={styles.warning_text}>데이터가 없습니다</p>
+        </div>
+    );
+
+    return (
         <main className={styles.inner}>
             <h2 className={styles.main_h2}>{post.title}</h2>
             <ul className={styles.write_list}>
@@ -54,5 +64,5 @@ export default function ViewComponent() {
                 </li>
             </ul>
         </main>
-    ) : null;
+    );
 }
