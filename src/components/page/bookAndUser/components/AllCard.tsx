@@ -18,6 +18,7 @@ interface Post {
     };
     skills: string[];
     createdAt: string;
+    isCompany: boolean;
 }
 
 interface PostListProps {
@@ -62,6 +63,7 @@ export default function AllCardcomponent({
                                 writerImg={item.author?.imageUrl}
                                 views={item.viewCount}
                                 date={new Date(item.createdAt).toLocaleDateString("ko-KR")}
+                                type={item.isCompany}
                             />
                         ))
                     ) : (
