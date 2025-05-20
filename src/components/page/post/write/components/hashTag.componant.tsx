@@ -11,16 +11,12 @@ export default function HashtagInput() {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && input.trim()) {
             e.preventDefault();
-
             const newTag = input.trim().toUpperCase();
-
             if (tags.includes(newTag)) return;
-
             if (tags.length >= 2) {
                 alert('최대 2개의 해시태그만 입력할 수 있습니다.');
                 return;
             }
-
             setTags([...tags, newTag]);
             setAnimatedTag(newTag);
             setInput('');
@@ -34,11 +30,9 @@ export default function HashtagInput() {
             return () => clearTimeout(timer);
         }
     }, [animatedTag]);
-
     const removeTag = (tagToRemove: string) => {
         setTags(tags.filter(tag => tag !== tagToRemove));
     };
-
     return (
         <div className={styles.write_hashtag_box}>
             {tags.map(tag => (

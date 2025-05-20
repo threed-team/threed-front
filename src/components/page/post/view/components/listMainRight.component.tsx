@@ -16,9 +16,10 @@ interface ListRightProps {
     company: string;
     postId: number;
     isBookmarked: boolean;
+    type: string;
 }
 
-export default function ListMainRight({ write, views, list, before, after, company, postId, isBookmarked, }: ListRightProps) {
+export default function ListMainRight({ write, views, list, before, after, company, postId, isBookmarked, type }: ListRightProps) {
     // hook 상태 관리
     const { bookmarked, toggleBookmark, heartCount } = useHeart(postId, isBookmarked);
     // 클립보드 복사 훅
@@ -64,12 +65,16 @@ export default function ListMainRight({ write, views, list, before, after, compa
                             </li>
                             {before && before !== '#' && (
                                 <li>
-                                    <Link href={before}>이전글</Link>
+                                    <Link href={{ pathname: `/posts/${before}`, query: { type } }}>
+                                        이전글
+                                    </Link>
                                 </li>
                             )}
                             {after && after !== '#' && (
                                 <li>
-                                    <Link href={after}>다음글</Link>
+                                    <Link href={{ pathname: `/posts/${after}`, query: { type } }}>
+                                        다음글
+                                    </Link>
                                 </li>
                             )}
                         </ul>

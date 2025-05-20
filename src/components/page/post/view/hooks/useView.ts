@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import { api } from '@lib/api/api';  // API 클라이언트 import
 
-interface Company {
+interface Author {
     name: string;
-    logoImageUrl: string;
+    imageUrl: string;
 }
 
-interface CompanyPost {
+interface Post {
     id: number;
     title: string;
     content: string;
     thumbnailImageUrl: string;
-    company: Company;
+    author: Author;
     viewCount: number;
     createdAt: string;
     sourceUrl: string;
@@ -21,18 +21,19 @@ interface CompanyPost {
     previousId: number | null;
 }
 
-export default function useCompanyPost(postId: number) {
-    const [post, setPost] = useState<CompanyPost | null>(null);
+export default function usePost(postId: number, type: 'company' | 'member') {
+    const [post, setPost] = useState<Post | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        if (!postId) return;
+        if (!postId || !type) return;
 
         const fetchPost = async () => {
             setLoading(true);
             try {
-                const data = await api.get<CompanyPost>(`/api/v1/company-posts/${postId}`);
+                const url = `/api/v1/${type}-posts/${postId}`;
+                const data = await api.get<Post>(url);
                 setPost(data);
             } catch (err) {
                 console.error(err);
@@ -43,7 +44,7 @@ export default function useCompanyPost(postId: number) {
         };
 
         fetchPost();
-    }, [postId]);
+    }, [postId, type]);
 
     return { post, loading, error };
 }

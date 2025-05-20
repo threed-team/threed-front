@@ -5,23 +5,30 @@ import ListMainLeft from './components/listMainLeft.component';
 import ListMainRight from './components/listMainRight.component';
 import useView from './hooks/useView';
 import Loading from '@lib/loading/full.component';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams, useRouter } from 'next/navigation';
 
 export default function ViewComponent() {
     const params = useParams();
+    const searchParams = useSearchParams();
+    const router = useRouter();
     const postId = Number(params?.id);
 
-    const { post, loading, error } = useView(postId); // 동적 ID 사용
+    const type = (searchParams?.get('type') as 'company' | 'member') ?? 'company';
+
+    const { post, loading, error } = useView(postId, type);
+
+    // ✅ 에러 또는 데이터 없으면 / 로 라우팅
+    if (!loading && error) {
+        router.replace('/');
+        return null;
+    }
 
     if (loading) return <Loading />;
-    if (error) return <p>에러 발생!</p>;
-    if (!post) return <p>데이터가 없습니다.</p>;
-    return (
+    if (!post) return <p className={styles.warning_text}>데이터가 없습니다</p>;
+    return post ? (
         <main className={styles.inner}>
-            {/* 제목 공통 */}
             <h2 className={styles.main_h2}>{post.title}</h2>
             <ul className={styles.write_list}>
-                {/* 왼쪽 컴포넌트 */}
                 <li>
                     <ListMainLeft
                         title={post.title}
@@ -31,21 +38,21 @@ export default function ViewComponent() {
                         imageSrc={post.thumbnailImageUrl}
                     />
                 </li>
-                {/* 오른쪽 컴포넌트 */}
                 <li>
                     <ListMainRight
-                        write={post.company.name}
+                        write={post.author.name}
                         views={post.viewCount}
                         hearts={post.bookmarkCount}
                         list="/"
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
-                        company={post.company.logoImageUrl}
+                        company={post.author.imageUrl}
                         postId={post.id}
                         isBookmarked={post.isBookmarked}
+                        type={type}
                     />
                 </li>
             </ul>
         </main>
-    );
+    ) : null;
 }
