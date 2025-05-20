@@ -28,7 +28,7 @@ interface PostResponse {
     totalPage: number
 }
 
-export default function usePageData(type: 'company' | 'member') {
+export default function usePageData(type: 'company' | 'member', condition: 'WEEK' | 'MONTH') {
     const [posts, setPosts] = useState<Post[] | null>(null);
     const [error, setError] = useState<unknown>(null);
     const [loading, setLoading] = useState(false);
@@ -37,13 +37,14 @@ export default function usePageData(type: 'company' | 'member') {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
+
             try {
                 let response: PostResponse;
-
+                // 인기 글 리스트 API
                 if (type === 'company') {
-                    response = await api.get<PostResponse>('/api/v1/bookmarks');
+                    response = await api.get<PostResponse>(`/api/v1/company-posts/popular?condition=${condition}`);
                 } else {
-                    response = await api.get<PostResponse>('/api/v1/members');
+                    response = await api.get<PostResponse>(`/api/v1/member-posts/popular?condition=${condition}`);
                 }
 
                 setPosts(response.elements);
@@ -57,7 +58,7 @@ export default function usePageData(type: 'company' | 'member') {
         };
 
         fetchData();
-    }, [type]);
+    }, [type, condition, initAllProd]);
 
     return { posts, error, loading };
 }

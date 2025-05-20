@@ -1,4 +1,4 @@
-@import "@styles/common";
+@use "@styles/common" as *;
 
 .card_box {
     margin-bottom: 50px;
@@ -28,6 +28,7 @@
             overflow: hidden;
 
             img {
+                position: absolute;
                 object-fit: cover;
             }
 

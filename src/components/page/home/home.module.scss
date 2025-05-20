@@ -1,4 +1,4 @@
-@import "@styles/common";
+@use "@styles/common" as *;
 
 .inner {
   min-width: 1200px;
@@ -8,7 +8,7 @@
   
   .main_header {
     @include flexbox($jc: space-between, $ai: center);
-    padding: 42px 0;
+    padding: 90px 0 42px 0;
 
     h2 {
       font-size: 24px;
@@ -47,6 +47,8 @@
         background: url('/images/ico_arrow_down.png') no-repeat center/contain;
         background-size: 11px;
         background-position: 75px;
+        cursor: pointer;
+        outline: none;
       }
     }
   }

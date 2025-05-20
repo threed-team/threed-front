@@ -15,7 +15,6 @@ interface CardBoxProps {
   writerImg: string;
   views: number;
   date: string;
-  type: boolean;
 }
 
 export default function CardBox({
@@ -29,23 +28,19 @@ export default function CardBox({
   writerImg,
   views,
   date,
-  type,
 }: CardBoxProps) {
   return (
     <li className={styles.card_box}>
       <Link
-        href={{
-          pathname: url,
-          query: {
-            type: type === true ? 'company' : 'member',
-          },
-        }}
+        href={url}
         className={styles.card}>
         <div className={styles.card_box_top}>
           <Image
             src={imageSrc}
-            fill={true}
+            width={230}
+            height={106}
             alt="sample"
+            priority
           />
           <div className={styles.card_label}>
             {isNew && (
@@ -78,14 +73,18 @@ export default function CardBox({
               <i className={styles.writer_img}>
                 {writerImg ?
                   (<Image
-                    fill={true}
+                    width={33}
+                    height={33}
                     src={writerImg}
                     alt="로고"
+                    priority
                   />)
                   : (<Image
-                    fill={true}
+                    width={33}
+                    height={33}
                     src="/images/ico_base_user.png"
                     alt="로고"
+                    priority
                   />
                   )}
               </i>

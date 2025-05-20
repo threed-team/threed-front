@@ -16,8 +16,9 @@ export default function HeaderPageComponent() {
             <Image
               src="/images/main_logo.png"
               width={100}
-              height={100}
+              height={65}
               alt="메인 로고"
+              priority
             />
           </Link>
           <nav className={styles.gnb}>
