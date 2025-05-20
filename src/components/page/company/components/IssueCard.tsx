@@ -23,8 +23,7 @@ interface PostListProps {
 
 export default function IssuCardComponent(data: PostListProps) {
 
-  const currentItems = Array.isArray(data)
-
+  const currentItems = Array.isArray(data);
 
   return (
     <ul className={`${styles.card_container} ${styles.issue_card_container}`}>
