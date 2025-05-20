@@ -65,14 +65,14 @@ export default function ListMainRight({ write, views, list, before, after, compa
                             </li>
                             {before && before !== '#' && (
                                 <li>
-                                    <Link href={{ pathname: `/posts/${before}`, query: { type } }}>
+                                    <Link href={{ pathname: `${before}`, query: { type } }}>
                                         이전글
                                     </Link>
                                 </li>
                             )}
                             {after && after !== '#' && (
                                 <li>
-                                    <Link href={{ pathname: `/posts/${after}`, query: { type } }}>
+                                    <Link href={{ pathname: `${after}`, query: { type } }}>
                                         다음글
                                     </Link>
                                 </li>
