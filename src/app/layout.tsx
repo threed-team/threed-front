@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from 'react';
-import Loading from './loading'
+import Loading from './loading';
+import UserStateomponent from '@components/page/user/UserState';
+
 import "./globals.scss";
 
 export const metadata: Metadata = {
@@ -8,12 +10,13 @@ export const metadata: Metadata = {
   description: "기업/기술 블로그",
 };
 
-export default function RootLayout({ children}: Readonly<{children: React.ReactNode;}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="ko">
       <body>
         <Suspense fallback={<Loading />}>
           {children}
+          <UserStateomponent />
         </Suspense>
       </body>
     </html>

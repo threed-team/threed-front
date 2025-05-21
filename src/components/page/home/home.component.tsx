@@ -9,7 +9,6 @@ import { useState } from 'react';
 import IssuCardComponent from './components/IssueCard';
 // import AllCardcomponent from './components/AllCard';
 import Filteromponent from './components/Filter';
-import UserStateomponent from './components/UserState';
 import styles from './home.module.scss';
 
 interface HomeProps {
@@ -47,7 +46,6 @@ export default function HomeComponent({ type }: HomeProps) {
             <Filteromponent />
             <IssuCardComponent type={type} condition={period} />
             {/* <AllCardcomponent data={} /> */}
-            <UserStateomponent />
             {/* end */}
         </main>
     );
