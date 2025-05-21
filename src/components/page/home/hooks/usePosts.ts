@@ -1,55 +1,47 @@
+// hooks/usePopularPosts.ts
 import { useEffect, useState } from 'react';
-import { useProd } from '@hooks/useCardPosts';
 import { api } from '@lib/api/api';
 
 interface Post {
-    id: number,
-    title: string,
-    thumbnailImageUrl: string,
-    field: string,
-    viewCount: number,
-    company: {
-        name: string,
-        logoImageUrl: string
-    },
-    member: {
-        nickname: string,
-        profileImageUrl: string
-    },
-    skills: string[],
-    createdAt: string
+    id: number;
+    title: string;
+    thumbnailImageUrl: string;
+    field: string[];
+    viewCount: number;
+    author: {
+        name: string;
+        imageUrl: string;
+    };
+    skills: string[];
+    createdAt: string;
+    isNew: boolean;
+    isHot: boolean;
+    isCompany?: boolean;
 }
 
 interface PostResponse {
-    elements: Post[],
-    pageNumber: number,
-    pageSize: number,
-    totalCount: number,
-    totalPage: number
+    elements: Post[];
+    pageNumber: number;
+    pageSize: number;
+    totalCount: number;
+    totalPage: number;
 }
 
-export default function usePageData(type: 'company' | 'member', condition: 'WEEK' | 'MONTH') {
-    const [posts, setPosts] = useState<Post[] | null>(null);
+export default function usePageData(
+    type: 'company' | 'member',
+    condition?: 'WEEK' | 'MONTH'
+) {
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
-    const [loading, setLoading] = useState(false);
-    const { initAllProd } = useProd();
 
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-
+        const fetchPopular = async () => {
             try {
-                let response: PostResponse;
-                // 인기 글 리스트 API
-                if (type === 'company') {
-                    response = await api.get<PostResponse>(`/api/v1/company-posts/popular?condition=${condition}`);
-                } else {
-                    response = await api.get<PostResponse>(`/api/v1/member-posts/popular?condition=${condition}`);
-                }
-
+                const response = await api.get<PostResponse>(
+                    `/api/v1/${type}-posts/popular?condition=${condition}`
+                );
                 setPosts(response.elements);
-                initAllProd(response);
-
             } catch (err) {
                 setError(err);
             } finally {
@@ -57,8 +49,8 @@ export default function usePageData(type: 'company' | 'member', condition: 'WEEK
             }
         };
 
-        fetchData();
-    }, [type, condition, initAllProd]);
+        fetchPopular();
+    }, [type, condition]);
 
-    return { posts, error, loading };
+    return { posts, loading, error };
 }

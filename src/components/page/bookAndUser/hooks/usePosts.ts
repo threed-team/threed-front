@@ -1,23 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useProd } from '@hooks/useCardPosts';
 import { api } from '@lib/api/api';
 
 interface Post {
-    id: number,
-    title: string,
-    thumbnailImageUrl: string,
-    field: string,
-    viewCount: number,
-    company: {
-        name: string,
-        logoImageUrl: string
-    },
-    member: {
-        nickname: string,
-        profileImageUrl: string
-    },
-    skills: string[],
-    createdAt: string
+    id: number;
+    title: string;
+    thumbnailImageUrl: string;
+    field: string[];
+    viewCount: number;
+    author: {
+        name: string;
+        imageUrl: string;
+    };
+    skills: string[];
+    createdAt: string;
+    isNew: boolean;
+    isHot: boolean;
+    isCompany?: boolean;
 }
 
 interface PostResponse {
@@ -34,7 +32,6 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
     const [posts, setPosts] = useState<Post[] | null>(null);
     const [error, setError] = useState<unknown>(null);
     const [loading, setLoading] = useState(false);
-    const { initAllProd } = useProd();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,7 +50,6 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
                 }
 
                 setPosts(response.elements);
-                initAllProd(response);
 
             } catch (err) {
                 setError(err);

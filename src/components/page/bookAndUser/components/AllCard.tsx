@@ -2,44 +2,28 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import usePageData from '../hooks/usePosts';
 import CardBox from "@components/_utiles/card/CardBox.component";
 import Pagination from "@components/_utiles/pagination/pagination.component";
 import styles from "./AllCard.module.scss";
-
-interface Post {
-    id: number;
-    title: string;
-    thumbnailImageUrl: string;
-    field: string[];
-    viewCount: number;
-    author: {
-        name: string;
-        imageUrl: string;
-    };
-    skills: string[];
-    createdAt: string;
-    isNew: boolean;
-    isHot: boolean;
-    isCompany: boolean;
-}
-
 interface PostListProps {
-    data: Post[];
+    type: 'bookmark' | 'mypage';
     itemsPerPage?: number;
 }
 
-export default function AllCardcomponent({
-    data,
-    itemsPerPage = 20,
+export default function AllCardcomponent({ type, itemsPerPage = 20,
 }: PostListProps) {
+    const { posts } = usePageData(type);
     const [currentPage, setCurrentPage] = useState(1);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = Array.isArray(data)
-        ? data.slice(indexOfFirstItem, indexOfLastItem)
+
+    const currentItems = Array.isArray(posts)
+        ? posts.slice(indexOfFirstItem, indexOfLastItem)
         : [];
-    const items = Array.isArray(data) ? data.length : 0;
+
+    const totalItems = Array.isArray(posts) ? posts.length : 0;
 
     const paginate = (pageNumber: number) => {
         setCurrentPage(pageNumber);
@@ -64,7 +48,7 @@ export default function AllCardcomponent({
                                 isNew={item.isNew}
                                 isHot={item.isHot}
                                 title={item.title}
-                                languages={item?.skills}
+                                languages={item?.skills?.length ? item.skills : item.field}
                                 writer={item.author?.name}
                                 writerImg={item.author?.imageUrl}
                                 views={item.viewCount}
@@ -86,12 +70,14 @@ export default function AllCardcomponent({
                     )}
                 </ul>
             </div>
+            {totalItems > itemsPerPage && (
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(totalItems / itemsPerPage)}
+                    onPageChange={paginate}
+                />
+            )}
 
-            <Pagination
-                currentPage={currentPage}
-                totalPages={Math.ceil(items / itemsPerPage)}
-                onPageChange={paginate}
-            />
         </>
     );
 }
