@@ -45,6 +45,8 @@ export default function HomeComponent({ type }: HomeProps) {
                 <h2><span className={styles.ico_face}></span>새로운 기술을 확인해보세요.</h2>
             </div>
             <Filteromponent />
+            <IssuCardComponent type={type} condition={period} />
+            {/* <AllCardcomponent data={} /> */}
             <UserStateomponent />
             {/* end */}
         </main>
