@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect } from 'react';
-import { useProd } from '@hooks/usePosts';
+import { useProd } from '@hooks/useCardPosts';
 import usePageData from '@components/page/home/hooks/usePosts';
 import CardBox from "@components/_utiles/card/CardBox.component";
 import styles from "./IssueCard.module.scss";

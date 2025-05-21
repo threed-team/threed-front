@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useProd } from '@hooks/usePosts';
+import { useProd } from '@hooks/useCardPosts';
 import { api } from '@lib/api/api';
 
 interface Post {

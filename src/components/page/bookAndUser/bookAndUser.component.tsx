@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import usePageData from './hooks/usePosts';
 import AllCardcomponent from './components/AllCard';
-import { useProd } from '@hooks/usePosts';
+import { useProd } from '@hooks/useCardPosts';
 import styles from './bookAndUser.module.scss';
 
 interface BookAndUserProps {

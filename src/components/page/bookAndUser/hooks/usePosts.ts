@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useProd } from '@hooks/usePosts';
+import { useProd } from '@hooks/useCardPosts';
 import { api } from '@lib/api/api';
 
 interface Post {
@@ -53,7 +53,7 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
                 }
 
                 setPosts(response.elements);
-                initAllProd(response);       
+                initAllProd(response);
 
             } catch (err) {
                 setError(err);
