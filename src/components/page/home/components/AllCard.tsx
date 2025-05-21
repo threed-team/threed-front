@@ -1,4 +1,4 @@
-// "use client";
+'use client';
 
 import Image from "next/image";
 import { useState } from "react";
@@ -20,26 +20,27 @@ interface Post {
     createdAt: string;
     isNew: boolean;
     isHot: boolean;
-    isCompany: boolean;
+    isCompany?: boolean;
 }
 
 interface PostListProps {
-    data: Post[];
+    type: 'company' | 'member';
+    posts: Post[];
+    isLoading: boolean;
     itemsPerPage?: number;
 }
 
-export default function AllCardcomponent({
-    data,
-    itemsPerPage = 20,
-}: PostListProps) {
+export default function AllCardComponent({ type, posts, itemsPerPage = 20 }: PostListProps) {
     const [currentPage, setCurrentPage] = useState(1);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = Array.isArray(data)
-        ? data.slice(indexOfFirstItem, indexOfLastItem)
+
+    const currentItems = Array.isArray(posts)
+        ? posts.slice(indexOfFirstItem, indexOfLastItem)
         : [];
-    const items = Array.isArray(data) ? data.length : 0;
+
+    const totalItems = Array.isArray(posts) ? posts.length : 0;
 
     const paginate = (pageNumber: number) => {
         setCurrentPage(pageNumber);
@@ -47,51 +48,44 @@ export default function AllCardcomponent({
 
     return (
         <>
-            <div className={styles.bookmark_card_container}>
+            <div className={styles.home_card_container}>
                 <ul className={styles.card_list}>
                     {currentItems && currentItems.length > 0 ? (
                         currentItems.map((item) => (
                             <CardBox
                                 key={item.id}
                                 url={
-                                    item.isCompany === true
+                                    type === 'company'
                                         ? `/post/view/${item.id}?type=company`
-                                        : item.isCompany === false
-                                            ? `/post/view/${item.id}?type=member`
-                                            : `/post/view/${item.id}`
+                                        : `/post/view/${item.id}?type=member`
                                 }
                                 imageSrc={item.thumbnailImageUrl}
                                 isNew={item.isNew}
                                 isHot={item.isHot}
                                 title={item.title}
-                                languages={item?.skills}
+                                languages={item?.skills?.length ? item.skills : item.field}
                                 writer={item.author?.name}
                                 writerImg={item.author?.imageUrl}
                                 views={item.viewCount}
                                 date={new Date(item.createdAt).toLocaleDateString("ko-KR")}
-
                             />
                         ))
                     ) : (
                         <div className={styles.card_no_Data}>
-                            <Image
-                                src={'/images/ico_warning.png'}
-                                width={50}
-                                height={50}
-                                alt="warning"
-                            />
+                            <Image src={'/images/ico_warning.png'} width={50} height={50} alt="warning" />
                             <p className={styles.warning_text}>데이터가 없습니다</p>
                         </div>
-
                     )}
                 </ul>
             </div>
 
-            <Pagination
-                currentPage={currentPage}
-                totalPages={Math.ceil(items / itemsPerPage)}
-                onPageChange={paginate}
-            />
+            {totalItems > itemsPerPage && (
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(totalItems / itemsPerPage)}
+                    onPageChange={paginate}
+                />
+            )}
         </>
     );
 }
