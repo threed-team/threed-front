@@ -11,8 +11,8 @@ interface HomeProps {
   type: 'company' | 'member';
   condition?: 'WEEK' | 'MONTH';
 }
-export default function IssuCardComponent({ type, condition }: HomeProps) {
 
+export default function IssuCardComponent({ type, condition }: HomeProps) {
   const { posts } = usePageData(type, condition ?? "WEEK");
   const { initAllProd, allProdList } = useProd();
 
@@ -25,22 +25,16 @@ export default function IssuCardComponent({ type, condition }: HomeProps) {
     }
   }, [posts, initAllProd]);
 
-  const issuData = allProdList.elements
+  const issuData = allProdList.elements;
 
   return (
     <ul className={`${styles.card_container} ${styles.issue_card_container}`}>
       {issuData && issuData.length > 0 ? (
         <div className={styles.card_list}>
-          {issuData.slice(0, 5).map((item) => (
-            < CardBox
+          {issuData.slice(0, 5).map(item => (
+            <CardBox
               key={item.id}
-              url={
-                item.isCompany === true
-                  ? `/post/view/${item.id}?type=company`
-                  : item.isCompany === false
-                    ? `/post/view/${item.id}?type=member`
-                    : `/post/view/${item.id}`
-              }
+              url={`/post/view/${item.id}?type=${type}`}
               imageSrc={item.thumbnailImageUrl ?? '/images/logo.png'}
               isNew={true}
               isHot={true}
@@ -65,5 +59,5 @@ export default function IssuCardComponent({ type, condition }: HomeProps) {
         </div>
       )}
     </ul>
-  )
+  );
 }
