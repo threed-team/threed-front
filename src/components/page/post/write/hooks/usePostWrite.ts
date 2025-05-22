@@ -8,15 +8,9 @@ import { useParams } from 'next/navigation';
 export function usePostWrite() {
     const { id } = useParams();
     const postId = id ? Number(id) : undefined;
-    const isNewWriteMode = postId === 1;
 
     const { submit } = useWrite(postId);
-
-    // 🔧 조건적으로 usePost 호출
-    const postQuery = !isNewWriteMode && postId ? usePost(postId, 'member') : null;
-    const post = postQuery?.post || null;
-    const loading = postQuery?.loading || false;
-    const error = postQuery?.error || null;
+    const { post, loading, error } = usePost(postId, 'member');
 
     const titleRef = useRef<HTMLInputElement>(null);
     const editorRef = useRef<any>(null);
@@ -51,3 +45,4 @@ export function usePostWrite() {
         handleSubmit,
     };
 }
+

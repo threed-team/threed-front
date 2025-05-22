@@ -4,7 +4,7 @@ import styles from "./postWrite.module.scss";
 import dynamic from 'next/dynamic';
 import HashtagInput from './components/hashTag.componant';
 import FieldSelector from './components/fileSelector.componant';
-import { usePostWrite } from './hooks/usPostWrite';
+import { usePostWrite } from './hooks/usePostWrite';
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), { ssr: false });
 

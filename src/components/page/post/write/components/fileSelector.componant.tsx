@@ -19,7 +19,7 @@ export default function FieldSelector({ onChange, initial }: FieldSelectorProps)
         const value = getInitialValue(initial);
         setSelected(value);
         onChange(value);
-    }, []);
+    }, [initial, onChange]);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;

@@ -8,13 +8,13 @@ interface Post {
     content: string;
 }
 
-export function usePost(postId: number, type: 'company' | 'member') {
+export function usePost(postId: number | undefined, type: 'company' | 'member') {
     const [post, setPost] = useState<Post | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        if (!postId || !type) return;
+        if (!postId || !type || postId === 1) return; // ✅ 조건 처리
 
         const fetchPost = async () => {
             setLoading(true);
