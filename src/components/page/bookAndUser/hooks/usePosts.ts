@@ -30,7 +30,6 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
     const [title, setTitle] = useState('');
     const [icon, setIcon] = useState('');
     const [posts, setPosts] = useState<Post[] | null>(null);
-    const [error, setError] = useState<unknown>(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -40,26 +39,26 @@ export default function usePageData(type: 'bookmark' | 'mypage') {
                 let response: PostResponse;
 
                 if (type === 'bookmark') {
-                    response = await api.get<PostResponse>('/api/v1/bookmarks?page=1&size=20');
+                    response = await api.get<PostResponse>('/api/v1/bookmarks?page=1&size=999999');
                     setTitle('MY 북마크');
                     setIcon('ico_heart');
                 } else {
-                    response = await api.get<PostResponse>('/api/v1/members/posts');
+                    response = await api.get<PostResponse>('/api/v1/members/posts?page=1&size=999999');
                     setTitle('MY PAGE');
                     setIcon('ico_mypage');
                 }
 
                 setPosts(response.elements);
-
-            } catch (err) {
-                setError(err);
+            } catch (error) {
+                console.error('데이터 로드 중 오류 발생:', error);
             } finally {
                 setLoading(false);
+
             }
         };
 
         fetchData();
     }, [type]);
 
-    return { posts, icon, title, error, loading };
+    return { posts, icon, title, loading };
 }

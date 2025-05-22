@@ -25,27 +25,24 @@ export default function HomeComponent({ type }: HomeProps) {
     const fieldFilterOptions = type === 'company' ? companyOptions : techStackOptions;
 
     // 필터링된 데이터 가져옴
-    const loadFilteredPosts = async () => {
-        setIsLoading(true);
-        try {
-            const data = await fetchPosts(type, {
-                skills: selectedSkills,
-                companies: selectedCompany,
-                fields: selectedFields,
-                keyword: keyword
-            });
-            setPosts(data);
-            console.log('data :', data)
-        } catch (error) {
-            console.error('데이터 로드 중 오류 발생:', error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    // 필터 변경 시 데이터 로드
     useEffect(() => {
-        loadFilteredPosts();
+        const loadFilteredPosts = async () => {
+            setIsLoading(true);
+            try {
+                const data = await fetchPosts(type, {
+                    skills: selectedSkills,
+                    companies: selectedCompany,
+                    fields: selectedFields,
+                    keyword: keyword
+                });
+                setPosts(data);
+            } catch (error) {
+                console.error('데이터 로드 중 오류 발생:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        loadFilteredPosts()
     }, [selectedSkills, selectedCompany, selectedFields, keyword, type]);
 
     const handleSkillClick = (skill: string) => {
@@ -86,10 +83,13 @@ export default function HomeComponent({ type }: HomeProps) {
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         const formData = new FormData(e.currentTarget);
         const searchValue = formData.get('search') as string;
+        if (!searchValue) {
+            alert("검색어를 입력해주세요.")
+        }
         setKeyword(searchValue);
-        console.log('searchValue', searchValue)
     };
 
 
