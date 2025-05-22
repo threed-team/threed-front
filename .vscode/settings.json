@@ -15,7 +15,7 @@
     "prettier.useTabs": false,
     // ⚙ SCSS, CSS, Less 파일도 Prettier로 정렬
     "[scss]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.css-language-features"
     },
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"

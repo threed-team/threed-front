@@ -5,29 +5,29 @@
   width: 1200px;
   margin: auto;
   padding: 98px 0;
-  
+
   .main_header {
     @include flexbox($jc: space-between, $ai: center);
     padding: 90px 0 42px 0;
 
     h2 {
-      font-size: 24px;
+      font-size: 25px;
       font-weight: bold;
       color: #000;
 
-      .ico_fire {
+      span {
         display: inline-block;
-        width: 24px;
-        height: 24px;
-        padding-left: 13px;
+        width: 27px;
+        height: 27px;
+        padding-left: 12px;
+        transform: translateY(3px);
+      }
+
+      .ico_fire {
         background: url('/images/ico_fire.png') no-repeat center/contain;
       }
 
       .ico_face {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        padding-left: 13px;
         background: url('/images/ico_face.png') no-repeat center/contain;
       }
     }

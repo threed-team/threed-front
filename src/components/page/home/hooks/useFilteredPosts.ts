@@ -1,21 +1,19 @@
 // api/posts.ts
-import { api } from '@lib/api/api'; // 실제 API 클라이언트 구현에 맞게 수정해야 함
+import { api } from '@lib/api/api';
 
 interface Post {
     id: number;
     title: string;
     thumbnailImageUrl: string;
-    field: string[];
+    field: string;
     viewCount: number;
     author: {
         name: string;
         imageUrl: string;
     };
-    skills: string[];
     createdAt: string;
     isNew: boolean;
     isHot: boolean;
-    isCompany?: boolean;
 }
 
 interface PostResponse {
@@ -29,6 +27,7 @@ interface PostResponse {
 interface FilterOptions {
     skills?: string[];
     fields?: string[];
+    companies?: string[];
     keyword?: string;
 }
 
@@ -37,30 +36,40 @@ export async function fetchPosts(
     type: 'company' | 'member',
     filters: FilterOptions = {}
 ): Promise<Post[]> {
-    const params = new URLSearchParams();
-
-    // 필터 옵션을 쿼리 파라미터로 변환
-    if (filters.skills?.length) {
-        filters.skills.forEach(skill => params.append('skills', skill));
-    }
-
-    if (filters.fields?.length) {
-        filters.fields.forEach(field => params.append('fields', field));
-    }
-
-    if (filters.keyword && filters.keyword.trim() !== '') {
-        params.append('keyword', filters.keyword);
-    }
-
     try {
+
+        const queryString = new URLSearchParams();
+        const params: Record<string, string> = {};
+
+        if (filters.fields?.length) {
+            filters.fields.forEach(field => queryString.append("fields", field));
+        }
+
+        if (filters.skills?.length) {
+            filters.skills.forEach(skill => queryString.append("skills", skill));
+        }
+
+        if (filters.companies?.length && type === 'company') {
+            filters.companies.forEach(company => queryString.append("companies", company));
+        }
+
+        if (filters.keyword?.length) {
+            queryString.append("keyword", filters.keyword);
+        }
+
+        // URL 파라미터 생성
+        Object.entries(params).forEach(([key, value]) => {
+            queryString.append(key, value);
+        });
+
         // API 요청 수행
         const response = await api.get<PostResponse>(
-            `/api/v1/${type}-posts/search?${params.toString()}`
+            `/api/v1/${type}-posts/search?${queryString.toString()}`
         );
+        return response.elements || [];
 
-        return response.elements;
     } catch (error) {
         console.error('API 요청 중 오류 발생:', error);
-        throw error;
+        return [];
     }
 }

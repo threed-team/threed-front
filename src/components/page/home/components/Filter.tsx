@@ -28,14 +28,16 @@ export default function FilterComponent({
         <div className={styles.filter_area}>
             <div className={styles.filter_area_top}>
                 <form role="search" onSubmit={onSearch}>
-                    <input
-                        type="search"
-                        name="search"
-                        placeholder="원하는 키워드를 검색해주세요."
-                    />
-                    <button type="submit"><i className={styles.ico_search}></i></button>
+                    <div>
+                        <input
+                            type="search"
+                            name="search"
+                            placeholder="원하는 키워드를 검색해주세요."
+                        />
+                        <button type="submit"><i className={styles.ico_search}></i></button>
+                    </div>
+                    <button type="reset" className={styles.reset_btn} onClick={onReset}>초기화</button>
                 </form>
-                <button type="button" className={styles.reset_btn} onClick={onReset}>초기화</button>
             </div>
 
             <div className={styles.filter_area_bottom}>
