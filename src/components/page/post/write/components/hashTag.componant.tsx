@@ -9,7 +9,7 @@ export default function HashtagInput({ onChange }: { onChange: (tags: string[]) 
 
     useEffect(() => {
         onChange(tags);
-    }, [tags]);
+    }, [tags, onChange]);
 
     return (
         <div className={styles.write_hashtag_box}>

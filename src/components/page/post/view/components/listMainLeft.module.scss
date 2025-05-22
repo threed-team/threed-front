@@ -1,4 +1,4 @@
-@import '@styles/common';
+@use '@styles/common' as *;
 
 .list_main_top {
     @include flexCenter(space-between);
