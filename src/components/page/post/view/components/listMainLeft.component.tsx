@@ -1,6 +1,14 @@
+'use client';
+
 import styles from './listMainLeft.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import dynamic from 'next/dynamic';
+
+const Viewer = dynamic(() => import('@toast-ui/react-editor').then(mod => mod.Viewer), {
+    ssr: false,
+});
 
 interface ListLeftProps {
     imageSrc: string;
@@ -8,9 +16,10 @@ interface ListLeftProps {
     date: string;
     title: string;
     link: string;
+    type: string;
 }
 
-export default function ListMainLeft({ text, date, title, link, imageSrc }: ListLeftProps) {
+export default function ListMainLeft({ text, date, title, link, imageSrc, type }: ListLeftProps) {
     return (
         <>
             <div className={styles.list_main_top}>
@@ -21,7 +30,11 @@ export default function ListMainLeft({ text, date, title, link, imageSrc }: List
                 <p className={styles.list_days}>{date}</p>
             </div>
             <div className={styles.list_main_middle}>
-                <p>{text}</p>
+                {type === 'member' ? (
+                    <Viewer initialValue={text} />
+                ) : (
+                    <p>{text}</p>
+                )}
             </div>
             {link?.trim() ? (
                 <div className={styles.list_main_bottom}>
@@ -44,7 +57,6 @@ export default function ListMainLeft({ text, date, title, link, imageSrc }: List
                     </div>
                 </div>
             ) : null}
-
         </>
     );
 }

@@ -46,6 +46,7 @@ export default function ViewComponent() {
                         date={new Date(post.createdAt).toLocaleDateString('ko-KR')}
                         link={post.sourceUrl}
                         imageSrc={post.thumbnailImageUrl}
+                        type={type}
                     />
                 </li>
                 <li>
