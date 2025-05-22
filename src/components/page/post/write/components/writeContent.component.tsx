@@ -2,11 +2,9 @@
 import style from './writeContent.module.scss';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
-import React, { useRef } from 'react';
+import React from 'react';
 
-export default function ToastEditor() {
-    const editorRef = useRef(null);
-
+export default function ToastEditor({ editorRef }: { editorRef: React.RefObject<any> }) {
     return (
         <div className={style.content}>
             <Editor
@@ -18,5 +16,5 @@ export default function ToastEditor() {
                 useCommandShortcut={true}
             />
         </div>
-    )
+    );
 }

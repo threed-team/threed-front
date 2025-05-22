@@ -2,15 +2,31 @@
 
 import styles from "./postWrite.module.scss";
 import dynamic from 'next/dynamic';
-import HashtagInput from './components/hashTag.componant'
-import FieldSelector from './components/fileSelector.componant'
+import HashtagInput from './components/hashTag.componant';
+import FieldSelector from './components/fileSelector.componant';
+import { useWrite } from './hooks/useWrite';
+import { useRef, useState } from 'react';
 
-
-const WriteContent = dynamic(() => import('./components/writeContent.component'), {
-    ssr: false,  // 에러가 자꾸 나와서 서버 사이드 렌더링 끄기
-});
+const WriteContent = dynamic(() => import('./components/writeContent.component'), { ssr: false });
 
 export default function WriteComponent() {
+    const { submit } = useWrite();
+
+    const titleRef = useRef<HTMLInputElement>(null);
+    const editorRef = useRef<any>(null);
+
+    const [field, setField] = useState('');
+    const [skills, setHashtags] = useState<string[]>([]);
+
+    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        const title = titleRef.current?.value || '';
+        const content = editorRef.current?.getInstance().getMarkdown() || '';
+
+        submit({ title, content, field, skills });
+    };
+
     return (
         <div className={styles.write_main}>
             <h2>
@@ -20,28 +36,28 @@ export default function WriteComponent() {
                 <ul className={styles.write_list}>
                     <li>
                         <label>제목</label>
-                        <input type="text" id="write-title" placeholder="제목을 입력해주세요" />
+                        <input type="text" id="write-title" ref={titleRef} placeholder="제목을 입력해주세요" />
                     </li>
                     <li>
                         <ul>
                             <li>
                                 <label>해시태그</label>
-                                <HashtagInput />
+                                <HashtagInput onChange={setHashtags} />
                             </li>
                             <li>
                                 <label>분야</label>
-                                <FieldSelector />
+                                <FieldSelector onChange={setField} />
                             </li>
                         </ul>
                     </li>
                     <li>
                         <div className={styles.write_txt}>내용</div>
-                        <WriteContent />
+                        <WriteContent editorRef={editorRef} />
                     </li>
                     <li>
                         <div className={styles.btn_box}>
                             <button className={styles.return}>목록</button>
-                            <button className={styles.submit}>등록</button>
+                            <button className={styles.submit} onClick={handleSubmit}>등록</button>
                         </div>
                     </li>
                 </ul>
