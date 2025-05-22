@@ -6,6 +6,7 @@ import Image from 'next/image';
 import useCopy from '../hooks/useCopy';
 import useHeart from '../hooks/useHeart';
 import { useRouter } from 'next/navigation';
+import useDeletePost from '../hooks/useDeletePost';
 
 interface ListRightProps {
     write: string;
@@ -39,6 +40,8 @@ export default function ListMainRight({ write, views, list, before, after, compa
     const handleEdit = () => {
         router.push(`/post/write/${postId}`);
     };
+    const { deletePost } = useDeletePost(postId);
+
     return (
         <>
             <div className={styles.right_card_box}>
@@ -98,7 +101,7 @@ export default function ListMainRight({ write, views, list, before, after, compa
             </div>
             <div className={styles.button_box}>
                 <button className={styles.edit_btn} onClick={handleEdit}>수정하기</button>
-                <button className={styles.delete_btn}>삭제하기</button>
+                <button className={styles.delete_btn} onClick={deletePost}>삭제하기</button>
             </div>
         </>
     );
