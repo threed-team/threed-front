@@ -3,9 +3,20 @@
 import styles from '../postWrite.module.scss';
 import { useHashtags } from '../hooks/useHashtag';
 import { useEffect } from 'react';
+interface HashtagInputProps {
+    onChange: (tags: string[]) => void;
+    initial?: string[];
+}
 
-export default function HashtagInput({ onChange }: { onChange: (tags: string[]) => void }) {
-    const { tags, input, animatedTag, setInput, addTag, removeTag } = useHashtags();
+export default function HashtagInput({ onChange, initial = [] }: HashtagInputProps) {
+    const { tags, input, animatedTag, setInput, addTag, removeTag, setTags } = useHashtags();
+
+    // 최초 마운트 시 initial 값을 tags에 세팅
+    useEffect(() => {
+        if (initial.length > 0) {
+            setTags(initial);
+        }
+    }, [initial, setTags]);
 
     useEffect(() => {
         onChange(tags);

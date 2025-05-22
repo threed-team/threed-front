@@ -37,7 +37,7 @@ export default function ListMainRight({ write, views, list, before, after, compa
     const router = useRouter();
 
     const handleEdit = () => {
-        router.push('/post/write/1');
+        router.push(`/post/write/${postId}`);
     };
     return (
         <>

@@ -33,6 +33,7 @@ export function useHashtags(maxCount = 2) {
         input,
         animatedTag,
         setInput,
+        setTags,
         addTag,
         removeTag,
     };

@@ -4,33 +4,31 @@ import styles from "./postWrite.module.scss";
 import dynamic from 'next/dynamic';
 import HashtagInput from './components/hashTag.componant';
 import FieldSelector from './components/fileSelector.componant';
-import { useWrite } from './hooks/useWrite';
-import { useRef, useState } from 'react';
+import { usePostWrite } from './hooks/usPostWrite';
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), { ssr: false });
 
 export default function WriteComponent() {
-    const { submit } = useWrite();
+    const {
+        postId,
+        post,
+        loading,
+        error,
+        titleRef,
+        editorRef,
+        setField,
+        setSkills,
+        handleSubmit
+    } = usePostWrite();
 
-    const titleRef = useRef<HTMLInputElement>(null);
-    const editorRef = useRef<any>(null);
-
-    const [field, setField] = useState('');
-    const [skills, setHashtags] = useState<string[]>([]);
-
-    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-
-        const title = titleRef.current?.value || '';
-        const content = editorRef.current?.getInstance().getMarkdown() || '';
-
-        submit({ title, content, field, skills });
-    };
+    if (loading) return <p>불러오는 중입니다...</p>;
+    if (error) return <p>오류 발생: {String(error)}</p>;
 
     return (
         <div className={styles.write_main}>
             <h2>
-                <span className={styles.img_box}></span><span>새 글 작성</span>
+                <span className={styles.img_box}></span>
+                <span>{postId ? '글 수정' : '새 글 작성'}</span>
             </h2>
             <form>
                 <ul className={styles.write_list}>
@@ -42,7 +40,7 @@ export default function WriteComponent() {
                         <ul>
                             <li>
                                 <label>해시태그</label>
-                                <HashtagInput onChange={setHashtags} />
+                                <HashtagInput onChange={setSkills} />
                             </li>
                             <li>
                                 <label>분야</label>
@@ -52,12 +50,14 @@ export default function WriteComponent() {
                     </li>
                     <li>
                         <div className={styles.write_txt}>내용</div>
-                        <WriteContent editorRef={editorRef} />
+                        <WriteContent editorRef={editorRef} initialContent={post?.content || "내용을 입력해주세요."} />
                     </li>
                     <li>
                         <div className={styles.btn_box}>
                             <button className={styles.return}>목록</button>
-                            <button className={styles.submit} onClick={handleSubmit}>등록</button>
+                            <button className={styles.submit} onClick={handleSubmit}>
+                                {postId === 1 ? '등록' : '수정'}
+                            </button>
                         </div>
                     </li>
                 </ul>
