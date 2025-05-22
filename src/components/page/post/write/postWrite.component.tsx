@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import HashtagInput from './components/hashTag.componant';
 import FieldSelector from './components/fileSelector.componant';
 import { usePostWrite } from './hooks/usePostWrite';
-import Loading from '@lib/loading/full.component'; // ✅ 로딩 컴포넌트 import
+import Loading from '@lib/loading/full.component';
 import { useRouter } from 'next/navigation';
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), { ssr: false });

@@ -16,12 +16,18 @@ export function useWrite(postId?: number) {
 
     const submit = useCallback(async (data: WriteFormData) => {
         try {
+            const isEmpty = (text: string) => !text || text.trim() === '';
+            // 제목 유효성 검사
+            if (isEmpty(data.title)) {
+                alert('제목을 입력해주세요.');
+            } else if (isEmpty(data.content)) {
+                alert('제목을 입력해주세요.');
+                return;
+            }
             let id = postId;
 
-            // ✅ postId가 1이면 강제로 새 글 작성 모드
             const isForcedNewPost = postId === 1;
 
-            // ✅ 기존 글 존재 여부 확인 (단, postId가 1이 아닐 때만)
             if (postId && !isForcedNewPost) {
                 try {
                     const check = await api.get(`/api/v1/member-posts/${postId}`);
@@ -33,7 +39,6 @@ export function useWrite(postId?: number) {
                 }
             }
 
-            // 🆕 새 글 작성 흐름 (id가 없거나 강제 새 글)
             if (!id || isForcedNewPost) {
                 const response = await api.post<{ postId: number }>('/api/v1/member-posts');
                 id = response.postId;
@@ -49,7 +54,6 @@ export function useWrite(postId?: number) {
                 skills: data.skills,
             };
 
-            // ✅ method도 수정: 강제 새 글이면 patch (본문 저장)
             const method = isForcedNewPost || !postId ? 'post' : 'patch';
             const detailResponse = await api[method](`/api/v1/member-posts/${id}`, payload);
 

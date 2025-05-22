@@ -14,7 +14,7 @@ export function usePost(postId: number | undefined, type: 'company' | 'member') 
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        if (!postId || !type || postId === 1) return; // ✅ 조건 처리
+        if (!postId || !type || postId === 1) return;
 
         const fetchPost = async () => {
             setLoading(true);
