@@ -99,10 +99,12 @@ export default function ListMainRight({ write, views, list, before, after, compa
                     </div>
                 </div>
             </div>
-            <div className={styles.button_box}>
-                <button className={styles.edit_btn} onClick={handleEdit}>수정하기</button>
-                <button className={styles.delete_btn} onClick={deletePost}>삭제하기</button>
-            </div>
+            {type !== 'company' && (
+                <div className={styles.button_box}>
+                    <button className={styles.edit_btn} onClick={handleEdit}>수정하기</button>
+                    <button className={styles.delete_btn} onClick={deletePost}>삭제하기</button>
+                </div>
+            )}
         </>
     );
 }
