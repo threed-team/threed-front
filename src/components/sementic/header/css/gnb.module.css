@@ -1,0 +1,17 @@
+.nav_menu {
+  display: flex;
+  gap: 15px;
+}
+.nav_menu a {
+  display: inline-block;
+  padding: 14px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  color: #392c90;
+  transition: 0.2s;
+}
+.nav_menu a:hover, .nav_menu a:focus, .nav_menu a:active {
+  background-color: #fff;
+}/*# sourceMappingURL=gnb.module.css.map */
