@@ -10,20 +10,16 @@ export default function LoginRedirectPage() {
 
     useEffect(() => {
         if (code) {
-            console.log('가고있니?')
 
 
             getToken(code).then(({ token, user }) => {
-                console.log(user);
-                console.log('user 정보:', user);
+
                 // GET요청으로 받아온 토큰값을 브라우저 쿠키에 저장
                 // Path =/를 설정해서 사이트 전체에서 이 쿠키를 사용
                 document.cookie = `accessToken=${token}; Path=/`;
                 if (user.id) {
-                    console.log('성공했나요?')
                     window.location.href = "/";
                 } else {
-                    console.error("123123123");
                     // 하드웨어 정보가 없는 상태 → /serial 페이지로 이동해서 추가 정보 등록 유도
                     //  window.location.replace("/login");
                 }
