@@ -3,12 +3,11 @@
 import styles from './listMainLeft.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import dynamic from 'next/dynamic';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
-import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
-import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { useEffect, useState } from 'react';
 
 const Viewer = dynamic(() => import('@toast-ui/react-editor').then(mod => mod.Viewer), {
     ssr: false,
@@ -24,6 +23,14 @@ interface ListLeftProps {
 }
 
 export default function ListMainLeft({ text, date, title, link, imageSrc, type }: ListLeftProps) {
+    const [plugin, setPlugin] = useState<any>(null);
+
+    useEffect(() => {
+        import('@toast-ui/editor-plugin-code-syntax-highlight').then((mod) => {
+            setPlugin(() => [[mod.default, { highlighter: Prism }]]);
+        });
+    }, []);
+
     return (
         <>
             <div className={styles.list_main_top}>
@@ -34,11 +41,8 @@ export default function ListMainLeft({ text, date, title, link, imageSrc, type }
                 <p className={styles.list_days}>{date}</p>
             </div>
             <div className={styles.list_main_middle}>
-                {type === 'member' ? (
-                    <Viewer
-                        initialValue={text}
-                        plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
-                    />
+                {type === 'member' && plugin ? (
+                    <Viewer initialValue={text} plugins={plugin} />
                 ) : (
                     <p>{text}</p>
                 )}

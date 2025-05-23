@@ -20,12 +20,24 @@ export function useWrite(postId?: number) {
             // 제목 유효성 검사
             if (isEmpty(data.title)) {
                 alert('제목을 입력해주세요.');
-            } else if (isEmpty(data.content)) {
-                alert('제목을 입력해주세요.');
                 return;
             }
-            let id = postId;
+            if (data.title.length > 100) {
+                alert('제목의 텍스트가 너무 많습니다. (최대 100자)');
+                return;
+            }
 
+            // 본문 유효성 검사
+            if (isEmpty(data.content)) {
+                alert('본문을 입력해주세요.');
+                return;
+            }
+            if (data.content.length > 10000) {
+                alert('본문의 텍스트가 너무 많습니다. (최대 10,000자)');
+                return;
+            }
+
+            let id = postId;
             const isForcedNewPost = postId === 1;
 
             if (postId && !isForcedNewPost) {
@@ -68,4 +80,3 @@ export function useWrite(postId?: number) {
 
     return { submit };
 }
-
