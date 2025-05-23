@@ -4,10 +4,7 @@ export interface User {
     email: string;
     name: string;
     profileImageUrl: string;
-    // hardware_no?: string;
-    // [key: string]: any;
 
-   
 }
 
 export interface TokenResponse {
