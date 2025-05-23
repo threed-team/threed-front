@@ -5,6 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import dynamic from 'next/dynamic';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 const Viewer = dynamic(() => import('@toast-ui/react-editor').then(mod => mod.Viewer), {
     ssr: false,
@@ -31,7 +35,10 @@ export default function ListMainLeft({ text, date, title, link, imageSrc, type }
             </div>
             <div className={styles.list_main_middle}>
                 {type === 'member' ? (
-                    <Viewer initialValue={text} />
+                    <Viewer
+                        initialValue={text}
+                        plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+                    />
                 ) : (
                     <p>{text}</p>
                 )}
