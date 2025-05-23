@@ -2,14 +2,14 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export type RequestOptions = AxiosRequestConfig;
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzQ3MTExMDMwMDg0MDAwMDB9.nia_cJhFWfYgStl_X-3lkVoOWtfrXrM5B_aSy6E2lEw";
+const token = process.env.NEXT_PUBLIC_TOKEN;
 
-if (typeof window !== 'undefined') {
-    localStorage.setItem("access_token", token);
-}
+// if (typeof window !== 'undefined') {
+//     localStorage.setItem("access_token", token);
+// }
 
 const axiosInstance = axios.create({
-    baseURL: `https://dev-api.threed.site`,
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     headers: {
         "Content-Type": "application/json;charset=utf-8",
     },
@@ -19,7 +19,6 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (config) => {
 
-        //const accessToken = getSession('access_token')
         let accessToken = token;
 
         if (typeof window !== 'undefined') {
@@ -33,7 +32,6 @@ axiosInstance.interceptors.request.use(
             config.headers["Authorization"] = `Bearer ${accessToken}`;
         }
 
-        //console.log('config', config)
         return config;
     },
     (error) => {

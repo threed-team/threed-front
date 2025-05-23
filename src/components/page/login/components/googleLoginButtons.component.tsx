@@ -1,16 +1,12 @@
-import React from "react";
 import styles from "./googleLoginButtons.module.scss";
 import Image from "next/image";
 
 export default function GoogleLoginButtons() {
-
-  // const link = `${process.env.NEXT_PUBLIC_Google_API}`;
-  const link = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_Google_API}&redirect_uri=${process.env.NEXT_PUBLIC_Google_REDURECT_URL}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&prompt=consent`;
-  // &scope=email profile
+  const link = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_API}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGL_REDURECT_URL}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&prompt=consent`;
 
   const loginHandler = () => {
     window.location.href = link;
-  }
+  };
 
   return (
     <button
@@ -25,6 +21,5 @@ export default function GoogleLoginButtons() {
       />
       <span className={styles.login_text}>Google로 로그인</span>
     </button>
-
-  )
+  );
 }
