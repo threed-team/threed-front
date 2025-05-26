@@ -3,9 +3,9 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import GoogleLoginButtons from "@components/page/login/components/googleLoginButtons.component";
-import KakaoLoginButtons from "@components/page/login/components/kakaoLoginButtons";
-import GithubLoginButtons from "@components/page/login/components/githubLoginButtons";
+import GoogleLoginButtons from "@components/page/m/login/components/googleLoginButtons.component";
+import KakaoLoginButtons from "@components/page/m/login/components/kakaoLoginButtons";
+import GithubLoginButtons from "@components/page/m/login/components/githubLoginButtons";
 import { isSession } from "@lib/session/useAuthCheck";
 import Header from "@components/sementic/header/header.component.tsx"
 import Footer from "@components/sementic/footer/footer.component"

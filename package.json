@@ -20,6 +20,7 @@
     "react-dom": "^19.0.0",
     "sass": "^1.88.0",
     "scss": "^0.2.4",
+    "swiper": "^11.2.8",
     "zustand": "^5.0.4"
   },
   "devDependencies": {

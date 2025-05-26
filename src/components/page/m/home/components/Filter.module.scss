@@ -16,7 +16,7 @@
                 height: 10vw;
                 overflow: hidden;
                 border-radius: 1.6vw;
-                filter: drop-shadow(0vw 0vw 1.333vw rgba(0, 0, 0, 0.2));
+                filter: drop-shadow(0vw 0vw 1.333vw rgba(0, 0, 0, 0.15));
 
                 input[type="search"] {
                     border: none;
@@ -55,11 +55,13 @@
                 font-size: 3vw;
                 color: #666666;
                 font-weight: 500;
-                border: 0.133vw solid rgba(0, 0, 0, 0.3);
+                border: 0.133vw solid rgba(0, 0, 0, 0.1);
                 background: #fff url('/images/ico_del.png') no-repeat right;
-                background-size: 1.333vw;
-                background-position: 8vw 1.6vw;
+                filter: drop-shadow(0vw 0vw 1.333vw rgba(0, 0, 0, 0.1));
+                background-size: 2vw;
+                background-position: 50vw 3.5vw;
                 padding-right: 2.667vw;
+                margin-top: 3vw;
                 text-align: center;
                 cursor: pointer;
 
@@ -68,15 +70,18 @@
                     border: 0.133vw solid $color-main;
                     color: $color-main;
                     background: #fff url('/images/ico_del_on.png') no-repeat right;
-                    background-size: 1.333vw;
-                    background-position: 8vw 1.6vw;
+                    background-size: 2vw;
+                    background-position: 50vw 3.5vw;
                 }
             }
         }
     }
 
     .filter_area_bottom {
-        margin-bottom: 13.333vw;
+        width: 95vw;
+        margin: 7vw 0 9vw;
+        overflow: scroll;
+        scroll-behavior: smooth;
 
         ul {
             list-style: none;
@@ -86,14 +91,15 @@
 
         li {
             @include flexbox($jc: space-between, $ai: center);
+            width: max-content;
             gap: 1.333vw;
             margin-bottom: 2vw;
+            padding-right: 4vw;
 
             >* {
-                width: 100%;
                 border-radius: 1.067vw;
-                padding: 1.467vw 2.133vw;
-                font-size: 2vw;
+                padding: 2vw 3vw;
+                font-size: 2.7vw;
                 font-weight: 500;
                 text-align: center;
                 box-shadow: 0 0 0 0.133vw #ddd;
@@ -107,7 +113,7 @@
             }
 
             button {
-                height: 5.067vw;
+                height: 7.1vw;
                 color: $color-gray-dark;
                 border: 0.133vw solid rgb(226 226 226);
                 background: $color-white;

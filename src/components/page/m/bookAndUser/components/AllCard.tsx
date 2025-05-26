@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import usePageData from '../hooks/usePosts';
-import CardBox from "@components/_utiles/m/card/CardBox.component";
+import CardBox from "@components/_utiles/m/list/ListBox.component";
 import Pagination from "@components/_utiles/m/pagination/pagination.component";
 import styles from "./AllCard.module.scss";
 interface PostListProps {

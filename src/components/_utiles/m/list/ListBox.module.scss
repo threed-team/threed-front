@@ -1,17 +1,16 @@
 @use "@styles/common" as *;
 
 .card_box {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
     .card {
-        @include column-flexbox($jc: flex-start, $ai: center);
+        @include flexbox($jc: flex-start, $ai: flex-start);
+        width: 100%;
+        height: 29.6vw;
         box-sizing: border-box;
-        width: 39vw;
-        height: 50vw;
         background-color: #fff;
-        border: 0.133vw solid rgba(0, 0, 0, 0.1);
-        border-radius: 2.667vw;
-        filter: drop-shadow(0vw 0vw 0.933vw rgba(0, 0, 0, 0.1));
         overflow: hidden;
-        transition: .2s;
+        padding: 3vw 0;
 
         &:hover,
         &:active,
@@ -21,28 +20,29 @@
 
         .card_box_top {
             position: relative;
-            width: 100%;
-            height: 17vw;
-            background: aliceblue;
+            width: 27%;
+            height: 23.5vw;
+            border-radius: 10px;
+            background: #f0f8ff;
             overflow: hidden;
+            margin-right: 5%;
 
             img {
                 position: absolute;
-                object-fit: cover;
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
             }
 
             .card_label {
                 @include flexbox($jc: flex-start, $ai: center);
                 position: absolute;
-                left: 3.067vw;
+                left: 2vw;
                 top: 2vw;
                 gap: 0.933vw;
 
                 .card_label_box {
-                    padding: 0.4vw .8vw 1.3vw;
-                    line-height: 2px;
+                    padding: .1vw .8vw .4vw;
                     background: rgb(255 255 255 / 75%);
                     ;
                     box-shadow: 0vw 0vw 1.333vw 0.267vw rgba(0, 0, 0, 0.25);
@@ -66,20 +66,19 @@
         }
 
         .card_box_bottom {
+            width: 65%;
+            height: 100%;
             position: relative;
-            width: 85%;
-            height: 50%;
-            padding: 3.3vw 0;
 
             .card_box_title {
                 @include ellipsis;
-                width: 100%;
-                margin-bottom: 2vw;
-                font-size: 2.7vw;
-                font-weight: 500;
-                line-height: 3.733vw;
-                white-space: normal;
                 display: -webkit-box;
+                width: 100%;
+                font-size: 3.233vw;
+                font-weight: 500;
+                line-height: 4.3vw;
+                white-space: normal;
+                margin-bottom: 2vw;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
             }
@@ -91,33 +90,34 @@
 
                 span {
                     display: block;
-                    padding: .8vw 1vw 1.4vw;
+                    padding: .3vw 1.3vw .7vw;
                     border-radius: 0.667vw;
                     background: #F1EFFE;
-                    line-height: 1px;
 
                     small {
                         color: $color-main;
-                        font-size: 2.2vw;
+                        font-size: 2.03vw;
                         font-weight: 500;
                     }
                 }
             }
 
             .box_bottom_fix {
+                @include flexbox($jc: space-between, $ai: center);
                 position: absolute;
                 width: 100%;
-                bottom: 2.3vw;
+                bottom: 0;
 
                 .card_box_writer {
                     @include flexbox($jc: flex-start, $ai: center);
-                    margin-bottom: 2vw;
+                    margin-bottom: 1.333vw;
+                    gap: 1vw;
 
                     .writer_img {
                         position: relative;
                         display: block;
-                        width: 4.4vw;
-                        height: 4.4vw;
+                        width: 6vw;
+                        height: 6vw;
                         margin-right: 1.067vw;
                         border-radius: 50%;
                         background-color: #fff;
@@ -131,7 +131,7 @@
                     }
 
                     b {
-                        font-size: 2.6vw;
+                        font-size: 2.7vw;
                         font-weight: 500;
                         color: $color-black;
                     }
@@ -145,19 +145,19 @@
                         @include flexbox($jc: flex-start, $ai: center);
 
                         i {
-                            margin-right: 1.6vw;
+                            margin-right: 1.667vw;
                         }
 
                         span {
-                            font-size: 2.2vw;
+                            font-size: 2.6vw;
                             color: $color-black;
                             font-weight: 500;
                         }
 
                         .ico_eyes {
                             display: inline-block;
-                            width: 3vw;
-                            height: 3vw;
+                            width: 3.15vw;
+                            height: 3.15vw;
                             background: url("/images/ico_eyes.png") no-repeat center/contain;
                         }
 

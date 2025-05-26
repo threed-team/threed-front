@@ -1,6 +1,4 @@
-// components/Filter.tsx
 import styles from "./Filter.module.scss";
-
 interface FilterProps {
     label: string;
     skills: string[];

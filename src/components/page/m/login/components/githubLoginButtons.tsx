@@ -13,12 +13,14 @@ export default function GithubLoginButtons() {
       className={`${styles.login_btn} ${styles.github_btn}`}
       onClick={loginHandler}
     >
-      <Image
-        width={30}
-        height={30}
-        src="/images/ico_github.png"
-        alt="Google 로그인"
-      />
+      <i>
+        <Image
+          fill={true}
+          src="/images/ico_github.png"
+          alt="Google 로그인"
+        />
+      </i>
+
       <span className={styles.login_text}>Github로 로그인</span>
     </button>
   );
