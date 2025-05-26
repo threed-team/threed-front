@@ -10,10 +10,10 @@ export function usePostWrite() {
     const initialPostId = id ? Number(id) : 1;
 
     const [postId, setPostId] = useState<number>(initialPostId);
-    const [isPostReady, setIsPostReady] = useState<boolean>(postId !== 1); // ✅ 조건부로 true
+    const [isPostReady, setIsPostReady] = useState<boolean>(postId !== 1);
 
     const { submit } = useWrite();
-    const { post, loading, error } = usePost(postId, 'member', isPostReady); // ✅ enabled 추가
+    const { post, loading, error } = usePost(postId, 'member', isPostReady);
 
     const titleRef = useRef<HTMLInputElement>(null);
     const editorRef = useRef<any>(null);
@@ -22,12 +22,19 @@ export function usePostWrite() {
     const [skills, setSkills] = useState<string[]>([]);
     const [image, setImage] = useState<File | undefined>();
 
+    // ✅ 썸네일 URL을 위한 상태 (미리보기용)
+    const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+
+    // 🔄 post 데이터가 있을 경우 초기값 반영
     useEffect(() => {
         if (post) {
             if (titleRef.current) titleRef.current.value = post.title;
             if (editorRef.current) {
                 editorRef.current.getInstance().setMarkdown(post.content);
             }
+
+            setField(post.field);            // ✅ 분야
+            setSkills(post.skills);          // ✅ 기술 스택
         }
     }, [post]);
 
@@ -37,7 +44,7 @@ export function usePostWrite() {
         const content = editorRef.current?.getInstance().getMarkdown() || '';
 
         submit(postId, { title, content, field, skills, image });
-        setIsPostReady(true); // ✅ 저장 후 GET 가능하게 전환
+        setIsPostReady(true);
     };
 
     return {
@@ -52,5 +59,9 @@ export function usePostWrite() {
         setSkills,
         handleSubmit,
         setImage,
+        field,
+        skills,
+        image,
+        thumbnailUrl, // ✅ 외부에서 img 보여줄 때 사용 가능
     };
 }

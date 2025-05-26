@@ -14,12 +14,14 @@ export default function WriteComponent() {
     const router = useRouter();
     const {
         postId,
-        setPostId, // ✅ 추가!
+        setPostId,
         post,
         loading,
         error,
         titleRef,
         editorRef,
+        field,
+        skills,
         setField,
         setSkills,
         handleSubmit,
@@ -50,11 +52,17 @@ export default function WriteComponent() {
                         <ul>
                             <li>
                                 <label>해시태그</label>
-                                <HashtagInput onChange={setSkills} />
+                                <HashtagInput
+                                    onChange={setSkills}
+                                    initialTags={skills} // ✅ 초기 해시태그
+                                />
                             </li>
                             <li>
                                 <label>분야</label>
-                                <FieldSelector onChange={setField} />
+                                <FieldSelector
+                                    onChange={setField}
+                                    initialValue={field} // ✅ 초기 분야
+                                />
                             </li>
                         </ul>
                     </li>
@@ -64,7 +72,7 @@ export default function WriteComponent() {
                             editorRef={editorRef}
                             initialContent={post?.content || "내용을 입력해주세요."}
                             postId={postId}
-                            setPostId={setPostId} // ✅ 전달!
+                            setPostId={setPostId}
                         />
                     </li>
                     <li>

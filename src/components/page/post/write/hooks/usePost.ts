@@ -6,6 +6,8 @@ interface Post {
     id: number;
     title: string;
     content: string;
+    field: string;
+    skills: string[];
 }
 
 export function usePost(

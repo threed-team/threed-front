@@ -5,21 +5,20 @@ import styles from '../postWrite.module.scss';
 
 interface FieldSelectorProps {
     onChange: (value: string) => void;
-    initial?: string;
+    initialValue?: string;
 }
 
-export default function FieldSelector({ onChange, initial }: FieldSelectorProps) {
+export default function FieldSelector({ onChange, initialValue }: FieldSelectorProps) {
     const getInitialValue = (value?: string) =>
         value && value.trim() !== '' ? value : '기타';
 
-    const [selected, setSelected] = useState(getInitialValue(initial));
+    const [selected, setSelected] = useState(getInitialValue(initialValue));
 
-    // ✅ 최초 마운트 시 상위에 값 전달 (기본: 기타)
     useEffect(() => {
-        const value = getInitialValue(initial);
+        const value = getInitialValue(initialValue);
         setSelected(value);
         onChange(value);
-    }, [initial, onChange]);
+    }, [initialValue, onChange]);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
