@@ -12,8 +12,9 @@ const WriteContent = dynamic(() => import('./components/writeContent.component')
 
 export default function WriteComponent() {
     const router = useRouter();
-    const { id } = useParams(); // 파라미터로 등록/수정 판단
-    const isEditMode = !!id;
+    const { id } = useParams();
+
+    const isEditMode = id !== undefined && id !== "1"; //  "1"은 등록모드로 처리
 
     const {
         postId,
@@ -41,7 +42,7 @@ export default function WriteComponent() {
         <div className={styles.write_main}>
             <h2>
                 <span className={styles.img_box}></span>
-                <span>{isEditMode ? '새 글 작성' : '글 수정'}</span>
+                <span>{isEditMode ? '글 수정' : '새 글 작성'}</span>
             </h2>
             <form>
                 <ul className={styles.write_list}>
@@ -80,7 +81,7 @@ export default function WriteComponent() {
                                 목록
                             </button>
                             <button className={styles.submit} onClick={handleSubmit}>
-                                {isEditMode ? '등록' : '수정'}
+                                {isEditMode ? '수정' : '등록'}
                             </button>
                         </div>
                     </li>
