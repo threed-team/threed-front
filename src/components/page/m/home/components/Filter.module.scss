@@ -1,31 +1,29 @@
 @use "@styles/common" as *;
 
 .filter_area {
-    width: 100%;
-    max-width: 1200px;
+    width: 90vw;
     margin: 0 auto;
 
     .filter_area_top {
         form {
-            @include flexbox($jc: center, $ai: center);
-            width: 636px;
-            gap: 20px;
-            margin-bottom: 30px;
+            width: 100%;
+            gap: 2.667vw;
+            margin-bottom: 4vw;
 
             >div {
-                @include flexbox($jc: center, $ai: center);
+                @include flexbox($jc: flex-start, $ai: center);
                 width: auto;
-                height: 49px;
+                height: 10vw;
                 overflow: hidden;
-                border-radius: 12px;
-                filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2));
+                border-radius: 1.6vw;
+                filter: drop-shadow(0vw 0vw 1.333vw rgba(0, 0, 0, 0.2));
 
                 input[type="search"] {
-                    width: 530px;
-                    height: 100%;
-                    padding: 12px 16px;
                     border: none;
-                    font-size: 16px;
+                    width: 86vw;
+                    height: 100%;
+                    padding: 1.9vw 3.133vw;
+                    font-size: 2.8vw;
 
                     &:active,
                     &:hover,
@@ -35,15 +33,15 @@
                 }
 
                 button[type="submit"] {
-                    width: 66px;
-                    height: 49px;
+                    width: 14vw;
+                    height: 100%;
                     background: $color-main;
                     border: none;
 
                     .ico_search {
                         display: inline-block;
-                        width: 25.15px;
-                        height: 21px;
+                        width: 4.5vw;
+                        height: 4vw;
                         background: url('/images/ico_serach.png') no-repeat center/contain;
                     }
                 }
@@ -51,33 +49,34 @@
 
             button[type="reset"] {
                 box-sizing: border-box;
-                width: 87px;
-                height: 38px;
-                border-radius: 8px;
-                font-size: 16px;
+                width: 100%;
+                height: 9vw;
+                border-radius: 1.067vw;
+                font-size: 3vw;
                 color: #666666;
                 font-weight: 500;
-                border: 1px solid rgba(0, 0, 0, 0.3);
+                border: 0.133vw solid rgba(0, 0, 0, 0.3);
                 background: #fff url('/images/ico_del.png') no-repeat right;
-                background-size: 10px;
-                background-position: 60px 12px;
-                padding-right: 20px;
+                background-size: 1.333vw;
+                background-position: 8vw 1.6vw;
+                padding-right: 2.667vw;
+                text-align: center;
                 cursor: pointer;
 
                 &:hover,
                 &:focus {
-                    border: 1px solid $color-main;
+                    border: 0.133vw solid $color-main;
                     color: $color-main;
                     background: #fff url('/images/ico_del_on.png') no-repeat right;
-                    background-size: 10px;
-                    background-position: 60px 12px;
+                    background-size: 1.333vw;
+                    background-position: 8vw 1.6vw;
                 }
             }
         }
     }
 
     .filter_area_bottom {
-        margin-bottom: 100px;
+        margin-bottom: 13.333vw;
 
         ul {
             list-style: none;
@@ -87,44 +86,44 @@
 
         li {
             @include flexbox($jc: space-between, $ai: center);
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 1.333vw;
+            margin-bottom: 2vw;
 
             >* {
                 width: 100%;
-                border-radius: 8px;
-                padding: 11px 16px;
-                font-size: 15px;
+                border-radius: 1.067vw;
+                padding: 1.467vw 2.133vw;
+                font-size: 2vw;
                 font-weight: 500;
                 text-align: center;
-                box-shadow: 0 0 0 1px #ddd;
+                box-shadow: 0 0 0 0.133vw #ddd;
             }
 
             .subject_txt {
-                min-width: 60px;
-                width: 60px;
+                min-width: 8vw;
+                width: 8vw;
                 background-color: $color-main;
                 color: white;
             }
 
             button {
-                height: 38px;
+                height: 5.067vw;
                 color: $color-gray-dark;
-                border: 1px solid rgb(226 226 226);
+                border: 0.133vw solid rgb(226 226 226);
                 background: $color-white;
                 line-height: inherit;
-                padding: 7.5px 20px;
+                padding: 1vw 2.667vw;
                 cursor: pointer;
                 transition: all 0.2s;
 
                 &:hover {
                     color: $color-main;
-                    border: 1px solid $color-main;
+                    border: 0.133vw solid $color-main;
                 }
 
                 &.active {
                     background-color: #5E3DFF;
-                    border: 1px solid #5E3DFF;
+                    border: 0.133vw solid #5E3DFF;
                     color: $color-white;
                 }
             }
