@@ -8,13 +8,17 @@ interface Post {
     content: string;
 }
 
-export function usePost(postId: number | undefined, type: 'company' | 'member') {
+export function usePost(
+    postId: number | undefined,
+    type: 'company' | 'member',
+    enabled: boolean = true // ✅ 요청 실행 여부 제어
+) {
     const [post, setPost] = useState<Post | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        if (!postId || !type || postId === 1) return;
+        if (!enabled || !postId || postId === 1 || !type) return; // ✅ enabled로 차단
 
         const fetchPost = async () => {
             setLoading(true);
@@ -31,7 +35,7 @@ export function usePost(postId: number | undefined, type: 'company' | 'member') 
         };
 
         fetchPost();
-    }, [postId, type]);
+    }, [postId, type, enabled]);
 
     return { post, loading, error };
 }

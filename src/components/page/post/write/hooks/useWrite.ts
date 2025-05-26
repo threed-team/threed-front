@@ -8,18 +8,18 @@ interface WriteFormData {
     content: string;
     field: string;
     skills: string[];
-    image?: File; // 이미지 파일 추가
+    image?: File;
 }
 
-export function useWrite(postId?: number) {
+export function useWrite() {
     const router = useRouter();
 
     const submit = useCallback(
-        async (data: WriteFormData) => {
+        async (postId: number, data: WriteFormData) => {
             try {
                 const isEmpty = (text: string) => !text || text.trim() === "";
 
-                // 유효성 검사
+                // ✅ 유효성 검사
                 if (isEmpty(data.title)) {
                     alert("제목을 입력해주세요.");
                     return;
@@ -40,9 +40,10 @@ export function useWrite(postId?: number) {
                 let id = postId;
                 const isForcedNewPost = postId === 1;
 
-                if (postId && !isForcedNewPost) {
+                // ✅ 존재 확인
+                if (id && !isForcedNewPost) {
                     try {
-                        const check = await api.get(`/api/v1/member-posts/${postId}`);
+                        const check = await api.get(`/api/v1/member-posts/${id}`);
                         console.log("✅ 게시물 존재 확인:", check);
                     } catch {
                         alert("❌ 게시물이 존재하지 않습니다.");
@@ -50,18 +51,16 @@ export function useWrite(postId?: number) {
                     }
                 }
 
-                // 새 글 생성
+                // ✅ 새 글 생성
                 if (!id || isForcedNewPost) {
-                    const response = await api.post<{ postId: number }>(
-                        "/api/v1/member-posts"
-                    );
+                    const response = await api.post<{ postId: number }>("/api/v1/member-posts");
                     id = response.postId;
                     console.log("✅ 새 글 postId:", id);
                 }
 
                 let imageUrl = "";
 
-                // ✅ 이미지 presignedUrl 요청 및 업로드
+                // ✅ 이미지 업로드
                 if (data.image) {
                     const uploadInfo = await api.post<{
                         presignedUrl: string;
@@ -76,13 +75,13 @@ export function useWrite(postId?: number) {
                     console.log("✅ 이미지 업로드 완료:", imageUrl);
                 }
 
-                // 본문 저장
+                // ✅ 본문 저장
                 const payload = {
                     title: data.title,
                     content: data.content,
                     field: data.field,
                     skills: data.skills,
-                    thumbnailImageUrl: imageUrl, // 썸네일로 활용
+                    thumbnailImageUrl: imageUrl,
                 };
 
                 const method = isForcedNewPost || !postId ? "post" : "patch";
@@ -94,12 +93,12 @@ export function useWrite(postId?: number) {
                 console.log("✅ 게시글 저장 완료:", detailResponse);
                 alert("✅ 게시물이 저장되었습니다.");
                 router.push(`/post/view/${id}?type=member`);
-            } catch {
-                alert("❌ 게시물이 존재하지 않습니다.");
-                return;
+            } catch (err) {
+                console.error("❌ 게시물 저장 중 에러:", err);
+                alert("❌ 게시물을 저장하는 중 오류가 발생했습니다.");
             }
         },
-        [postId, router]
+        [router] // ✅ postId 제거
     );
 
     return { submit };

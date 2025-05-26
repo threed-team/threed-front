@@ -7,24 +7,27 @@ import { useParams } from 'next/navigation';
 
 export function usePostWrite() {
     const { id } = useParams();
-    const postId = id ? Number(id) : undefined;
+    const initialPostId = id ? Number(id) : 1;
 
-    const { submit } = useWrite(postId);
-    const { post, loading, error } = usePost(postId, 'member');
+    const [postId, setPostId] = useState<number>(initialPostId);
+    const [isPostReady, setIsPostReady] = useState<boolean>(postId !== 1); // ✅ 조건부로 true
+
+    const { submit } = useWrite();
+    const { post, loading, error } = usePost(postId, 'member', isPostReady); // ✅ enabled 추가
 
     const titleRef = useRef<HTMLInputElement>(null);
     const editorRef = useRef<any>(null);
 
     const [field, setField] = useState('');
     const [skills, setSkills] = useState<string[]>([]);
-    const [image, setImage] = useState<File | undefined>(); // ✅ 이미지 파일 상태 추가
+    const [image, setImage] = useState<File | undefined>();
 
-    // 🔄 post 데이터가 있을 경우 초기값 주입
     useEffect(() => {
         if (post) {
             if (titleRef.current) titleRef.current.value = post.title;
-            if (editorRef.current)
+            if (editorRef.current) {
                 editorRef.current.getInstance().setMarkdown(post.content);
+            }
         }
     }, [post]);
 
@@ -32,11 +35,14 @@ export function usePostWrite() {
         e.preventDefault();
         const title = titleRef.current?.value || '';
         const content = editorRef.current?.getInstance().getMarkdown() || '';
-        submit({ title, content, field, skills, image }); // ✅ 이미지 포함하여 전달
+
+        submit(postId, { title, content, field, skills, image });
+        setIsPostReady(true); // ✅ 저장 후 GET 가능하게 전환
     };
 
     return {
         postId,
+        setPostId,
         post,
         loading,
         error,
@@ -45,6 +51,6 @@ export function usePostWrite() {
         setField,
         setSkills,
         handleSubmit,
-        setImage, // ✅ 외부에서 setImage 사용 가능하게
+        setImage,
     };
 }
