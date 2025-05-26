@@ -26,7 +26,7 @@ export function middleware(request: NextRequest) {
 
     // 모바일 디바이스인 경우 /m 경로로 리다이렉트
     if (isMobile && !url.pathname.startsWith('/m')) {
-        url.pathname = `/m${url.pathname}`;
+        url.pathname = `/m/${url.pathname}`;
         return NextResponse.redirect(url);
     }
 
