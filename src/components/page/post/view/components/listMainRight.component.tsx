@@ -42,14 +42,11 @@ export default function ListMainRight({ write, views, list, before, after, compa
         router.push(`/post/write/${postId}`);
     };
     const { deletePost } = useDeletePost(postId);
-    const currentUserId =
-        typeof window !== 'undefined' ? Number(localStorage.getItem('userId')) : null;
+    // const currentUserId =
+    //     typeof window !== 'undefined' ? Number(localStorage.getItem('userId')) : null;
 
-    const isOwner = currentUserId === writerId;
-    console.log('👉 writerId:', writerId);
-    console.log('👉 localStorage.getItem("userId"):', localStorage.getItem("userId"));
-    console.log('👉 currentUserId:', currentUserId);
-    console.log('👉 isOwner:', isOwner);
+    // const isOwner = currentUserId === writerId;
+
     return (
         <>
             <div className={styles.right_card_box}>
@@ -107,7 +104,7 @@ export default function ListMainRight({ write, views, list, before, after, compa
                     </div>
                 </div>
             </div>
-            {type !== 'company' && isOwner && (
+            {type !== 'company' && (
                 <div className={styles.button_box}>
                     <button className={styles.edit_btn} onClick={handleEdit}>수정하기</button>
                     <button className={styles.delete_btn} onClick={deletePost}>삭제하기</button>
