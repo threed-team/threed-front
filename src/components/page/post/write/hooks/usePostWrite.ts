@@ -17,12 +17,14 @@ export function usePostWrite() {
 
     const [field, setField] = useState('');
     const [skills, setSkills] = useState<string[]>([]);
+    const [image, setImage] = useState<File | undefined>(); // ✅ 이미지 파일 상태 추가
 
     // 🔄 post 데이터가 있을 경우 초기값 주입
     useEffect(() => {
         if (post) {
             if (titleRef.current) titleRef.current.value = post.title;
-            if (editorRef.current) editorRef.current.getInstance().setMarkdown(post.content);
+            if (editorRef.current)
+                editorRef.current.getInstance().setMarkdown(post.content);
         }
     }, [post]);
 
@@ -30,7 +32,7 @@ export function usePostWrite() {
         e.preventDefault();
         const title = titleRef.current?.value || '';
         const content = editorRef.current?.getInstance().getMarkdown() || '';
-        submit({ title, content, field, skills });
+        submit({ title, content, field, skills, image }); // ✅ 이미지 포함하여 전달
     };
 
     return {
@@ -43,6 +45,6 @@ export function usePostWrite() {
         setField,
         setSkills,
         handleSubmit,
+        setImage, // ✅ 외부에서 setImage 사용 가능하게
     };
 }
-

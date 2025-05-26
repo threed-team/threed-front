@@ -1,4 +1,5 @@
 'use client';
+
 import style from './writeContent.module.scss';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
@@ -8,18 +9,24 @@ import 'prismjs/themes/prism.css';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
+import { useImageUpload } from '../hooks/useImageUpload';
+
 export default function ToastEditor({
     editorRef,
-    initialContent = "",
+    initialContent = '',
+    postId,
 }: {
     editorRef: React.RefObject<any>;
     initialContent?: string;
+    postId: number;
 }) {
+    useImageUpload(editorRef, postId);
+
     return (
         <div className={style.content}>
             <Editor
                 ref={editorRef}
-                initialValue={initialContent}  // ✅ 초기 마크다운 텍스트 전달
+                initialValue={initialContent}
                 previewStyle="vertical"
                 height="500px"
                 initialEditType="markdown"

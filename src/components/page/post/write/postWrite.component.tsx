@@ -21,7 +21,7 @@ export default function WriteComponent() {
         editorRef,
         setField,
         setSkills,
-        handleSubmit
+        handleSubmit,
     } = usePostWrite();
 
     if (!loading && error) {
@@ -60,6 +60,7 @@ export default function WriteComponent() {
                         <WriteContent
                             editorRef={editorRef}
                             initialContent={post?.content || "내용을 입력해주세요."}
+                            postId={postId}
                         />
                     </li>
                     <li>

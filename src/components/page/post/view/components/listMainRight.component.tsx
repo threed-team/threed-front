@@ -46,7 +46,10 @@ export default function ListMainRight({ write, views, list, before, after, compa
         typeof window !== 'undefined' ? Number(localStorage.getItem('userId')) : null;
 
     const isOwner = currentUserId === writerId;
-
+    console.log('👉 writerId:', writerId);
+    console.log('👉 localStorage.getItem("userId"):', localStorage.getItem("userId"));
+    console.log('👉 currentUserId:', currentUserId);
+    console.log('👉 isOwner:', isOwner);
     return (
         <>
             <div className={styles.right_card_box}>
