@@ -44,6 +44,5 @@ export async function apiClient<T>(endpoint: string, options?: RequestOptions): 
         url: endpoint,
         ...options,
     });
-    // console.log('response', response)
     return response.data;
 }

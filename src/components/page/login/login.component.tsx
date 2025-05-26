@@ -1,13 +1,26 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import GoogleLoginButtons from "@components/page/login/components/googleLoginButtons.component";
+import KakaoLoginButtons from "@components/page/login/components/kakaoLoginButtons";
+import GithubLoginButtons from "@components/page/login/components/githubLoginButtons";
+import { isSession } from "@lib/session/useAuthCheck";
 import Header from "@components/sementic/header/header.component.tsx"
 import Footer from "@components/sementic/footer/footer.component"
 import styles from "./login.module.scss";
 
 export default function LoginComponent() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isSession()) {
+      alert("이미 로그인되어있습니다.");
+      router.replace("/");
+    }
+  }, [router]);
+
   return (
     <>
       <Header />
@@ -26,6 +39,12 @@ export default function LoginComponent() {
           <ul className={styles.social_buttons}>
             <li>
               <GoogleLoginButtons />
+            </li>
+            <li>
+              <KakaoLoginButtons />
+            </li>
+            <li>
+              <GithubLoginButtons />
             </li>
           </ul>
         </section>

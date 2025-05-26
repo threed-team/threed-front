@@ -11,7 +11,6 @@ export default function LoginRedirectPage() {
 
     useEffect(() => {
         if (code) {
-            console.log('code :', code)
             getToken(code).then(({ token, user }) => {
                 document.cookie = `accessToken=${token}; Path=/`;
                 if (user.id) {

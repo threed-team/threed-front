@@ -8,8 +8,6 @@ import styles from "./userBtn.module.scss";
 export default function UserBtnComponent() {
   const [session, setSession] = useState(false);
 
-  console.log('session:', session)
-
   useEffect(() => {
     setSession(isSession());
   }, []);
