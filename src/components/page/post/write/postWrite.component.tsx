@@ -14,6 +14,7 @@ export default function WriteComponent() {
     const router = useRouter();
     const {
         postId,
+        setPostId, // ✅ 추가!
         post,
         loading,
         error,
@@ -31,11 +32,13 @@ export default function WriteComponent() {
 
     if (loading) return <Loading />;
 
+    const isNewPost = postId === 1;
+
     return (
         <div className={styles.write_main}>
             <h2>
                 <span className={styles.img_box}></span>
-                <span>{postId === 1 ? '새 글 작성' : '글 수정'}</span>
+                <span>{isNewPost ? '새 글 작성' : '글 수정'}</span>
             </h2>
             <form>
                 <ul className={styles.write_list}>
@@ -61,13 +64,14 @@ export default function WriteComponent() {
                             editorRef={editorRef}
                             initialContent={post?.content || "내용을 입력해주세요."}
                             postId={postId}
+                            setPostId={setPostId} // ✅ 전달!
                         />
                     </li>
                     <li>
                         <div className={styles.btn_box}>
-                            <button className={styles.return}>목록</button>
+                            <button type="button" className={styles.return}>목록</button>
                             <button className={styles.submit} onClick={handleSubmit}>
-                                {postId === 1 ? '등록' : '수정'}
+                                {isNewPost ? '등록' : '수정'}
                             </button>
                         </div>
                     </li>

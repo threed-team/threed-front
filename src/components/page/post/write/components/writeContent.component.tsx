@@ -15,12 +15,14 @@ export default function ToastEditor({
     editorRef,
     initialContent = '',
     postId,
+    setPostId, // ✅ 추가
 }: {
     editorRef: React.RefObject<any>;
     initialContent?: string;
     postId: number;
+    setPostId: (id: number) => void; // ✅ 타입 명시
 }) {
-    useImageUpload(editorRef, postId);
+    useImageUpload(editorRef, postId, setPostId); // ✅ setPostId도 전달
 
     return (
         <div className={style.content}>
