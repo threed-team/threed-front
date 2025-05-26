@@ -83,3 +83,26 @@
 //     const data = await response.json();
 //     return data;
 // }
+
+"use client"
+
+import { useRouter } from "next/navigation";
+import { reissueToken } from "@lib/session/useAuth"; // 리프레시로 액세스 토큰 받는 함수
+
+export default async function useAuthRefresh() {
+    const router = useRouter();
+
+    try {
+        const { token, user } = await reissueToken(); // 새로운 토큰 요청
+        if (!token) {
+            router.replace("/login"); // 토큰 없으면 로그인 페이지로 보내
+            return;
+        }
+
+        document.cookie = `accessToken=${token}; Path=/`; // 새 토큰을 쿠키에 저장
+        return user; // 필요한 경우 사용자 정보 리턴
+    } catch (error) {
+        console.error("리프레시 토큰 요청 실패", error);
+        router.replace("/login"); // 요청 실패하면 로그인 페이지로 이동
+    }
+}
