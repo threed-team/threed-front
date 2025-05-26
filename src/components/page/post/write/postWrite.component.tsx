@@ -6,12 +6,15 @@ import HashtagInput from './components/hashTag.componant';
 import FieldSelector from './components/fileSelector.componant';
 import { usePostWrite } from './hooks/usePostWrite';
 import Loading from '@lib/loading/full.component';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), { ssr: false });
 
 export default function WriteComponent() {
     const router = useRouter();
+    const { id } = useParams(); // 파라미터로 등록/수정 판단
+    const isEditMode = !!id;
+
     const {
         postId,
         setPostId,
@@ -34,13 +37,11 @@ export default function WriteComponent() {
 
     if (loading) return <Loading />;
 
-    const isNewPost = postId === 1;
-
     return (
         <div className={styles.write_main}>
             <h2>
                 <span className={styles.img_box}></span>
-                <span>{isNewPost ? '새 글 작성' : '글 수정'}</span>
+                <span>{isEditMode ? '새 글 작성' : '글 수정'}</span>
             </h2>
             <form>
                 <ul className={styles.write_list}>
@@ -52,17 +53,11 @@ export default function WriteComponent() {
                         <ul>
                             <li>
                                 <label>해시태그</label>
-                                <HashtagInput
-                                    onChange={setSkills}
-                                    initialTags={skills} // ✅ 초기 해시태그
-                                />
+                                <HashtagInput onChange={setSkills} initialTags={skills} />
                             </li>
                             <li>
                                 <label>분야</label>
-                                <FieldSelector
-                                    onChange={setField}
-                                    initialValue={field} // ✅ 초기 분야
-                                />
+                                <FieldSelector onChange={setField} initialValue={field} />
                             </li>
                         </ul>
                     </li>
@@ -77,9 +72,15 @@ export default function WriteComponent() {
                     </li>
                     <li>
                         <div className={styles.btn_box}>
-                            <button type="button" className={styles.return}>목록</button>
+                            <button
+                                type="button"
+                                className={styles.return}
+                                onClick={() => router.push('/post/list')}
+                            >
+                                목록
+                            </button>
                             <button className={styles.submit} onClick={handleSubmit}>
-                                {isNewPost ? '등록' : '수정'}
+                                {isEditMode ? '등록' : '수정'}
                             </button>
                         </div>
                     </li>
