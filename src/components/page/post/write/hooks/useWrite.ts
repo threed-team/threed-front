@@ -44,7 +44,7 @@ export function useWrite(postId?: number) {
                     try {
                         const check = await api.get(`/api/v1/member-posts/${postId}`);
                         console.log("✅ 게시물 존재 확인:", check);
-                    } catch (error) {
+                    } catch {
                         alert("❌ 게시물이 존재하지 않습니다.");
                         return;
                     }
@@ -94,9 +94,9 @@ export function useWrite(postId?: number) {
                 console.log("✅ 게시글 저장 완료:", detailResponse);
                 alert("✅ 게시물이 저장되었습니다.");
                 router.push(`/post/view/${id}?type=member`);
-            } catch (err) {
-                console.error("❌ 저장 실패:", err);
-                alert("❌ 게시물 저장 중 오류가 발생했습니다.");
+            } catch {
+                alert("❌ 게시물이 존재하지 않습니다.");
+                return;
             }
         },
         [postId, router]

@@ -19,10 +19,10 @@ interface ListRightProps {
     postId: number;
     isBookmarked: boolean;
     type: string;
-    writerId: number;
+    // writerId: number;
 }
 
-export default function ListMainRight({ write, views, list, before, after, company, postId, isBookmarked, type, writerId }: ListRightProps) {
+export default function ListMainRight({ write, views, list, before, after, company, postId, isBookmarked, type }: ListRightProps) {
     // hook 상태 관리
     const { bookmarked, toggleBookmark, heartCount } = useHeart(postId, isBookmarked);
     // 클립보드 복사 훅

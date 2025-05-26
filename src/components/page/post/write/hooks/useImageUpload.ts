@@ -10,7 +10,7 @@ export function useImageUpload(editorRef: React.RefObject<any>, postId: number) 
 
         editorInstance.addHook(
             'addImageBlobHook',
-            async (blob: Blob, callback: (url: string, altText: string) => void) => {
+            async (blob: Blob) => {
                 try {
                     const blobUrl = URL.createObjectURL(blob);
                     const ext = blob.type.split('/')[1] || 'png';
