@@ -5,6 +5,7 @@ import UserBtnComponent from "@components/sementic/header/components/userBtn.com
 import styles from "./header.module.scss";
 
 export default function HeaderPageComponent() {
+
   return (
     <header className={styles.header}>
       <div className={styles.header_container}>

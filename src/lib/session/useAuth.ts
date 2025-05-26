@@ -6,7 +6,6 @@ export interface User {
     profileImageUrl: string;
 
 }
-
 export interface TokenResponse {
     token: string;
     user: User;
@@ -19,18 +18,10 @@ export async function getToken(code: string): Promise<TokenResponse> {
             "Content-Type": "application/json",
         },
         credentials: "include"
-        // body: JSON.stringify({ code }),
     });
 
-    console.log(response)
-    // if (!response.ok) {
-    //     throw new Error("Failed to exchange Google OAuth code for token");
-    // }
-
-    console.log('22222')
     const data = await response.json();
 
-    console.log('data :', data)
     return {
         token: data.token,
         user: data.user,

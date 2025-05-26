@@ -20,8 +20,18 @@
             background-position-x: 11px;
         }
 
-        &:hover, &:focus, &:active {
-           background-color: #4233aa;
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: #4233aa;
         }
+    }
+
+    .on {
+        display: block;
+    }
+
+    .off {
+        display: none;
     }
 }

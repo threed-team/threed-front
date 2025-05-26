@@ -4,7 +4,9 @@
     position: fixed;
     bottom: 200px;
     right: 100px;
-    a {
+
+    a,
+    button {
         @include flexCenter(center);
         gap: 11px;
         box-sizing: content-box;
@@ -18,11 +20,13 @@
         position: absolute;
         transition: 0.3s;
         white-space: nowrap;
+
         i {
             display: inline-block;
             width: 20px;
             height: 20px;
         }
+
         span {
             display: none;
             font-size: 14px;
@@ -34,7 +38,8 @@
         &:focus,
         &:active {
             padding: 2px 15px;
-            > span {
+
+            >span {
                 display: block;
             }
         }
@@ -42,23 +47,37 @@
 
     .state_logout {
         position: relative;
-        a {
+
+        button {
             top: 0;
             right: 0;
+            border: none;
+
             .ico_logout {
                 background: url('/images/ico_logout.png') no-repeat left/contain;
                 background-position: 0 1px;
             }
         }
     }
+
     .state_mypage {
         position: relative;
+
         a {
             top: 50px;
             right: 0;
+
             .ico_mypage {
                 background: url('/images/ico_mypage.png') no-repeat left / contain;
             }
         }
+    }
+
+    &.on {
+        display: block;
+    }
+
+    &.off {
+        display: none;
     }
 }
