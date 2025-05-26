@@ -4,6 +4,7 @@ import { api } from '@lib/api/api';  // API 클라이언트 import
 interface Author {
     name: string;
     imageUrl: string;
+    id: number;
 }
 
 interface Post {

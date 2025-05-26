@@ -19,9 +19,10 @@ interface ListRightProps {
     postId: number;
     isBookmarked: boolean;
     type: string;
+    writerId: number;
 }
 
-export default function ListMainRight({ write, views, list, before, after, company, postId, isBookmarked, type }: ListRightProps) {
+export default function ListMainRight({ write, views, list, before, after, company, postId, isBookmarked, type, writerId }: ListRightProps) {
     // hook 상태 관리
     const { bookmarked, toggleBookmark, heartCount } = useHeart(postId, isBookmarked);
     // 클립보드 복사 훅
@@ -41,6 +42,10 @@ export default function ListMainRight({ write, views, list, before, after, compa
         router.push(`/post/write/${postId}`);
     };
     const { deletePost } = useDeletePost(postId);
+    const currentUserId =
+        typeof window !== 'undefined' ? Number(localStorage.getItem('userId')) : null;
+
+    const isOwner = currentUserId === writerId;
 
     return (
         <>
@@ -99,7 +104,7 @@ export default function ListMainRight({ write, views, list, before, after, compa
                     </div>
                 </div>
             </div>
-            {type !== 'company' && (
+            {type !== 'company' && isOwner && (
                 <div className={styles.button_box}>
                     <button className={styles.edit_btn} onClick={handleEdit}>수정하기</button>
                     <button className={styles.delete_btn} onClick={deletePost}>삭제하기</button>
