@@ -29,9 +29,10 @@ export default function ToastEditor({
             <Editor
                 ref={editorRef}
                 initialValue={initialContent}
-                previewStyle="vertical"
+                previewStyle="tab"
                 height="500px"
                 initialEditType="markdown"
+                hideModeSwitch="readOnly"
                 useCommandShortcut={true}
                 plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
             />
