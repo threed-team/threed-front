@@ -29,7 +29,7 @@ export default function UserBtnComponent() {
       <button type="button" onClick={logout} className={session ? styles.on : styles.off}>
         <div className={`${styles.icon} ${styles.ico_logout}`}></div>
       </button>
-      <Link href={'/mypage'} className={session ? styles.on : styles.off}>
+      <Link href={'/userpage'} className={session ? styles.on : styles.off}>
         <div className={`${styles.icon} ${styles.ico_mypage}`}></div>
       </Link>
     </div>
