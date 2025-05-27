@@ -84,25 +84,32 @@
 //     return data;
 // }
 
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
-import { reissueToken } from "@lib/session/useAuth"; // 리프레시로 액세스 토큰 받는 함수
+import { reissueToken } from "@lib/session/useAuth";
+import type { User } from "@lib/types";
 
-export default async function useAuthRefresh() {
+export default async function useAuthRefresh(): Promise<User | void> {
     const router = useRouter();
+    const isProduction = process.env.NODE_ENV === "production";
 
     try {
-        const { token, user } = await reissueToken(); // 새로운 토큰 요청
+        const { token, user } = await reissueToken(); // 내부에서 credentials: 'include' 포함해야 함
+
         if (!token) {
-            router.replace("/login"); // 토큰 없으면 로그인 페이지로 보내
+            router.replace("/login");
             return;
         }
 
-        document.cookie = `accessToken=${token}; Path=/`; // 새 토큰을 쿠키에 저장
-        return user; // 필요한 경우 사용자 정보 리턴
+        // 쿠키 수동 설정
+        document.cookie = `accessToken=${token}; Path=/; ${isProduction ? "Secure; SameSite=None" : "SameSite=Lax"
+            }`;
+
+        return user;
     } catch (error) {
-        console.error("리프레시 토큰 요청 실패", error);
-        router.replace("/login"); // 요청 실패하면 로그인 페이지로 이동
+        console.error("리프레시 토큰 요청 실패:", error);
+        router.replace("/login");
     }
 }
+

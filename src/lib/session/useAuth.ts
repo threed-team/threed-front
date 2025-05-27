@@ -14,7 +14,6 @@ export interface TokenResponse {
 
 export async function getToken(provider: string, code: string): Promise<TokenResponse> {
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/${provider}/callback?code=${code}`;
-    console.log("getToken url:", url); // 디버깅용
     const response = await fetch(url, {
         method: "GET",
         headers: {

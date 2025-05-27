@@ -1,3 +1,4 @@
+// app/login/[provider]/redirect/page.tsx
 'use client'
 
 import { useEffect } from "react";
@@ -7,25 +8,17 @@ import { getToken } from '@lib/session/useAuth';
 export default function LoginRedirectPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const pathname = usePathname(); 
+    const pathname = usePathname();
     const code = searchParams.get("code");
 
-    let provider: string | undefined = undefined;
-    if (pathname) {
-        const arr = pathname.split("/");
-        
-        if (arr.length >= 4) {
-            provider = arr[2];
-        }
-    }
+    const provider = pathname?.split("/")[2]; // ex: ['','login','kakao','redirect'] → 'kakao'
 
     useEffect(() => {
         if (code && provider) {
-            console.log("provider:", provider, "code:", code);
             getToken(provider, code)
                 .then(({ token, user }) => {
                     document.cookie = `accessToken=${token}; Path=/`;
-                    if (user && user.id) {
+                    if (user?.id) {
                         router.push("/");
                     } else {
                         router.replace("/login");
