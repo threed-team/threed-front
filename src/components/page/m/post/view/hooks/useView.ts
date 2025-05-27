@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { api } from '@lib/api/api';  // API 클라이언트 import
+import { useState, useEffect, useRef } from 'react';
+import { api } from '@lib/api/api';
 
 interface Author {
     name: string;
@@ -27,8 +27,13 @@ export default function usePost(postId: number, type: 'company' | 'member') {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<unknown>(null);
 
+    const hasFetched = useRef(false); // ✅ 중복 호출 방지용 플래그
+
     useEffect(() => {
         if (!postId || !type) return;
+
+        if (hasFetched.current) return; // ✅ 이미 호출했다면 무시
+        hasFetched.current = true;
 
         const fetchPost = async () => {
             setLoading(true);

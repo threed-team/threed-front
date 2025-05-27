@@ -30,6 +30,36 @@
             margin-bottom: auto;
         }
     }
+
+    .main_header {
+        @include flexbox($jc: space-between, $ai: center);
+        width: 100%;
+        padding: 10vw 0 7vw;
+
+        h2 {
+            @include flexbox($jc: flex-start, $ai: center);
+            font-size: 4.2vw;
+            font-weight: bold;
+            color: #000;
+            gap: 2vw;
+
+            .ico_fire {
+                background: url('/images/ico_fire.png') no-repeat center/contain;
+                display: inline-block;
+                width: 6vw;
+                height: 6vw;
+                transform: translateY(-.8vw);
+            }
+        }
+    }
+
+    .issueCardOverride {
+        :global(.IssueCard-module-scss-module__pt0ffG__card_container) {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+    }
 }
 
 .card_no_Data {
