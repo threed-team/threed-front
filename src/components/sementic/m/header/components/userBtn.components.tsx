@@ -12,6 +12,12 @@ export default function UserBtnComponent() {
     setSession(isSession());
   }, []);
 
+  const logout = () => {
+    document.cookie = "accessToken=; Path=/; Max-Age=0";
+    setSession(false);
+    window.location.reload();
+  };
+
   return (
     <div className={styles.nav_icons}>
       <Link href="/post/write/1" className={session ? styles.on : styles.off}>
@@ -19,6 +25,12 @@ export default function UserBtnComponent() {
       </Link>
       <Link href="/login" className={session ? styles.off : styles.on}>
         <div className={`${styles.icon} ${styles.login_icon}`}></div>
+      </Link>
+      <button type="button" onClick={logout} className={session ? styles.on : styles.off}>
+        <div className={`${styles.icon} ${styles.ico_logout}`}></div>
+      </button>
+      <Link href={'/mypage'} className={session ? styles.on : styles.off}>
+        <div className={`${styles.icon} ${styles.ico_mypage}`}></div>
       </Link>
     </div>
   );
