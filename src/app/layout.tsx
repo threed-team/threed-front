@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from 'react';
 import Loading from './loading';
-import UserStateomponent from '@components/page/user/UserState';
 
 import "./globals.scss";
 
@@ -16,7 +15,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <Suspense fallback={<Loading />}>
           {children}
-          <UserStateomponent />
         </Suspense>
       </body>
     </html>

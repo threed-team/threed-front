@@ -35,7 +35,7 @@ export default function AllCardcomponent({ type, itemsPerPage = 20,
                 <ul className={styles.card_list}>
                     {currentItems && currentItems.length > 0 ? (
                         currentItems.map((item) => (
-                            <CardBox
+                            < CardBox
                                 key={item.id}
                                 url={
                                     item.isCompany === true

@@ -1,0 +1,51 @@
+@use "@styles/common" as *;
+
+.inner {
+    padding: 73px 0;
+    width: 90vw;
+    margin: 0 auto;
+
+    .main_h2 {
+        font-size: 40px;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        padding-bottom: 40px;
+        margin-top: 98px
+    }
+
+    .write_list {
+        @include column-flexbox();
+        gap: 60px;
+    }
+
+    >ul>li {
+        &:first-child {
+            width: 100%;
+            margin-bottom: auto;
+        }
+
+        &:last-child {
+            width: 100%;
+            padding-top: 30px;
+            margin-bottom: auto;
+        }
+    }
+}
+
+.card_no_Data {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    padding: 100px 0;
+
+    img {
+        margin-top: 100px;
+    }
+
+    .warning_text {
+        font-weight: 500;
+        font-size: 1.5rem;
+        padding-top: 13px;
+        color: #6b6b6b;
+    }
+}
