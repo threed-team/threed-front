@@ -12,9 +12,18 @@
         color: #392c90;
         transition: .2s;
 
-        &:hover, &:focus, &:active {
+        &:hover,
+        &:focus,
+        &:active {
             background-color: #fff;
         }
     }
 
+    .on {
+        display: block;
+    }
+
+    .off {
+        display: none;
+    }
 }

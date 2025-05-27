@@ -1,11 +1,9 @@
-.footer {
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
+@use '@styles/common' as *;
 
-    .footer_container {}
+.footer {
+    @include flexbox($jc: center, $ai: center);
+    height: 100px;
+    background: #000;
 
     .footer_text {
         color: #fff;

@@ -1,0 +1,100 @@
+@use '@styles/common' as *;
+
+.list_main_top {
+    @include flexCenter(space-between);
+    font-weight: 600;
+    padding: 10px 0;
+    border-bottom: 1.5px solid $color-black;
+
+    h3 {
+        @include flexCenter(center);
+        gap: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+
+        span:last-child {
+            font-weight: 600;
+        }
+    }
+
+    .image_wrapper {
+        width: 1.75rem;
+        height: 1.75rem;
+        display: inline-block;
+        background: url('/images/view-robot.png') center center/contain no-repeat;
+    }
+
+    .list_days {
+        color: #8d8d8d;
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
+
+.list_main_middle {
+    padding: 10px 0 50px;
+
+    p {
+        font-size: 0.9rem;
+        line-height: 2rem;
+        font-weight: 200;
+    }
+}
+
+.list_main_bottom {
+    h3 {
+        font-size: 16px;
+        padding-bottom: 20px;
+        line-height: 20px;
+    }
+
+    .list_main_more {
+        border-radius: 5px;
+        overflow: hidden;
+
+        a {
+            padding: 20px;
+            display: block;
+        }
+
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+    }
+
+    .more_sum_main {
+        border-radius: 5px;
+
+        .more_sum {
+            max-width: 400px;
+            height: 48vw;
+            max-height: 200px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .more_right {
+            width: 100%;
+
+            .more_title {
+                font-size: 1.125rem;
+                padding: 10px 0;
+                font-weight: 500;
+            }
+
+            .more_text {
+                font-size: 12px;
+                font-weight: 200;
+                color: #333;
+                line-height: 20px;
+            }
+
+            .more_bottom {
+                text-align: right;
+                font-size: 13px;
+                color: #8d8d8d;
+                padding-top: 10px;
+            }
+        }
+    }
+}

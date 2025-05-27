@@ -13,12 +13,6 @@
         overflow: hidden;
         transition: .2s;
 
-        &:hover,
-        &:active,
-        &:focus {
-            transform: scale(1.05) translateY(-1.333vw);
-        }
-
         .card_box_top {
             position: relative;
             width: 100%;
