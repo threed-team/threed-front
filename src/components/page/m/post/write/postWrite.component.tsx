@@ -51,16 +51,12 @@ export default function WriteComponent() {
                         <input type="text" id="write-title" ref={titleRef} placeholder="제목을 입력해주세요" />
                     </li>
                     <li>
-                        <ul>
-                            <li>
-                                <label>해시태그</label>
-                                <HashtagInput onChange={setSkills} initialTags={skills} />
-                            </li>
-                            <li>
-                                <label>분야</label>
-                                <FieldSelector onChange={setField} initialValue={field} />
-                            </li>
-                        </ul>
+                        <label>해시태그</label>
+                        <HashtagInput onChange={setSkills} initialTags={skills} />
+                    </li>
+                    <li>
+                        <label>분야</label>
+                        <FieldSelector onChange={setField} initialValue={field} />
                     </li>
                     <li>
                         <div className={styles.write_txt}>내용</div>
