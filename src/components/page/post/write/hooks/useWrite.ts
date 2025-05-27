@@ -38,13 +38,6 @@ export function useWrite() {
                 if (isNewPost) {
                     const response = await api.post<{ postId: number }>("/api/v1/member-posts");
                     id = response.postId;
-                } else {
-                    try {
-                        await api.get(`/api/v1/member-posts/${id}`);
-                    } catch {
-                        alert("❌ 게시물이 존재하지 않습니다.");
-                        return null;
-                    }
                 }
 
                 let imageUrl = "";
@@ -67,6 +60,7 @@ export function useWrite() {
                 };
 
                 const method = isNewPost ? "post" : "patch";
+
                 await api[method](`/api/v1/member-posts/${id}`, payload);
 
                 alert("✅ 게시물이 저장되었습니다.");
