@@ -3,17 +3,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { useWrite } from './useWrite';
 import { usePost } from './usePost';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 export function usePostWrite() {
     const { id } = useParams();
-    const router = useRouter();
-
-    const initialPostId = id ? Number(id) : 1;
+    // "1"은 새 글 작성일 때 사용하는 고정값
+    const isEditMode = id !== '1';
+    const initialPostId = isEditMode ? Number(id) : 0;
 
     const [postId, setPostId] = useState<number>(initialPostId);
-    const [isPostReady, setIsPostReady] = useState<boolean>(initialPostId !== 1);
-    const [isNewPost, setIsNewPost] = useState<boolean>(initialPostId === 1);
+    const [isPostReady] = useState<boolean>(isEditMode);
+    const [isNewPost, setIsNewPost] = useState<boolean>(!isEditMode);
 
     const { submit } = useWrite();
     const { post, loading, error } = usePost(postId, 'member', isPostReady);
@@ -26,10 +26,14 @@ export function usePostWrite() {
     const [image, setImage] = useState<File | undefined>();
     const [thumbnailUrl] = useState<string | null>(null);
 
+    const didInit = useRef(false);
     useEffect(() => {
-        if (post) {
+        if (!didInit.current && post) {
+            didInit.current = true;
             setIsNewPost(false);
-            if (titleRef.current) titleRef.current.value = post.title;
+            if (titleRef.current) {
+                titleRef.current.value = post.title;
+            }
             if (editorRef.current) {
                 editorRef.current.getInstance().setMarkdown(post.content);
             }
@@ -46,11 +50,11 @@ export function usePostWrite() {
         const newPostId = await submit(postId, { title, content, field, skills, image }, isNewPost);
 
         if (newPostId) {
-            setPostId(newPostId);
-            setIsNewPost(false);
-            setIsPostReady(true);
-
-            router.push(`/post/view/${newPostId}?type=member`);
+            const redirectUrl = `/post/view/${newPostId}?type=member`;
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 10);
+            return;
         }
     };
 

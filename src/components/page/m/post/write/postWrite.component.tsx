@@ -76,7 +76,7 @@ export default function WriteComponent() {
                             >
                                 목록
                             </button>
-                            <button className={styles.submit} onClick={handleSubmit}>
+                            <button className={styles.submit} onClick={handleSubmit} type="button">
                                 {isEditMode ? '수정' : '등록'}
                             </button>
                         </div>
