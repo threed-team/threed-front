@@ -7,8 +7,6 @@ import GoogleLoginButtons from "@components/page/login/components/googleLoginBut
 import KakaoLoginButtons from "@components/page/login/components/kakaoLoginButtons";
 import GithubLoginButtons from "@components/page/login/components/githubLoginButtons";
 import { isSession } from "@lib/session/useAuthCheck";
-import Header from "@components/sementic/header/header.component.tsx"
-import Footer from "@components/sementic/footer/footer.component"
 import styles from "./login.module.scss";
 
 export default function LoginComponent() {
@@ -23,7 +21,6 @@ export default function LoginComponent() {
 
   return (
     <>
-      <Header />
       <main className={styles.main}>
         <section className={styles.login_card}>
           <div className={styles.login_header}>
@@ -49,7 +46,6 @@ export default function LoginComponent() {
           </ul>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

@@ -1,0 +1,39 @@
+@use '@styles/common' as *;
+
+.nav_icons {
+    display: flex;
+    gap: 2.133vw;
+    padding-left: 5.333vw;
+
+    .icon {
+        width: 6.7vw;
+        height: 6.7vw;
+        border-radius: 50%;
+        transition: .2s;
+
+        &.write_icon {
+            background: #614cf6 url(/images/ico_write.png) no-repeat center/contain;
+            background-size: 3.1vw;
+        }
+
+        &.login_icon {
+            background: #614cf6 url(/images/ico_login.png) no-repeat center/contain;
+            background-size: 3.1vw;
+            background-position-x: 1.467vw;
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: #4233aa;
+        }
+    }
+
+    .on {
+        display: block;
+    }
+
+    .off {
+        display: none;
+    }
+}

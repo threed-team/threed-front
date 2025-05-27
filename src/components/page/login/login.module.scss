@@ -1,9 +1,9 @@
+@use '@styles/common' as *;
+
 .main {
     height: calc(700px + 98px);
     padding-top: 98px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flexbox($jc: center, $ai: center);
 
     .login_card {
         background: white;
@@ -15,11 +15,9 @@
         overflow: hidden;
 
         .login_header {
+            @include flexbox($jc: center, $ai: center);
             background: linear-gradient(to left, #392c90, #614cf6);
             height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
             .login_img {
                 position: relative;
@@ -33,9 +31,7 @@
         }
 
         .login_title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flexbox($jc: center, $ai: center);
             gap: 16px;
             font-size: 14px;
             font-weight: normal;
@@ -52,13 +48,14 @@
                 background: #c3c3c3;
             }
         }
+
         .social_buttons {
             width: 100%;
             max-width: 314px;
             margin: 0 auto;
             padding-bottom: 2rem;
             list-style: none;
-        
+
             li {
                 margin-bottom: 12px;
             }

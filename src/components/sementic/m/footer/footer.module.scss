@@ -2,12 +2,12 @@
 
 .footer {
     @include flexbox($jc: center, $ai: center);
-    height: 100px;
     background: #000;
+    height: 16.333vw;
 
     .footer_text {
         color: #fff;
-        font: 400 15px/28px 'Roboto', sans-serif;
+        font: 400 2.6vw/3.733vw sans-serif;
         text-align: center;
     }
 }

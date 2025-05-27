@@ -1,7 +1,7 @@
+@use '@styles/common' as *;
+
 .main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flexbox($jc: center, $ai: center);
     height: auto;
     padding: 46vw 0 22vw;
 
@@ -15,11 +15,9 @@
         overflow: hidden;
 
         .login_header {
+            @include flexbox($jc: center, $ai: center);
             background: linear-gradient(to left, #392c90, #614cf6);
             height: 25vw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
             .login_img {
                 position: relative;
@@ -33,9 +31,7 @@
         }
 
         .login_title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flexbox($jc: center, $ai: center);
             gap: 2.133vw;
             margin: 8vw auto;
             font-size: 2.8vw;
