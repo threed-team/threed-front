@@ -34,7 +34,7 @@ yarn-error.log*
 .env*
 
 #moblie
-**/middleware/
+/src/middleware/
 # vercel
 .vercel
 
