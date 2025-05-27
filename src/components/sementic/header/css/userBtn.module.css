@@ -1,0 +1,23 @@
+.nav_icons {
+  display: flex;
+  gap: 16px;
+  padding-left: 40px;
+}
+.nav_icons .icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+.nav_icons .icon.write_icon {
+  background: #614cf6 url(/images/ico_write.png) no-repeat center/contain;
+  background-size: 18.75px;
+}
+.nav_icons .icon.login_icon {
+  background: #614cf6 url(/images/ico_login.png) no-repeat center/contain;
+  background-size: 18.75px;
+  background-position-x: 11px;
+}
+.nav_icons .icon:hover, .nav_icons .icon:focus, .nav_icons .icon:active {
+  background-color: #4233aa;
+}/*# sourceMappingURL=userBtn.module.css.map */
