@@ -55,7 +55,6 @@ export default function ViewComponent() {
                         write={post.author.name}
                         views={post.viewCount}
                         hearts={post.bookmarkCount}
-                        list="/"
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
                         company={post.author.imageUrl}

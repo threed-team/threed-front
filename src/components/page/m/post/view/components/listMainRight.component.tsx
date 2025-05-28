@@ -12,7 +12,6 @@ interface ListRightProps {
     write: string;
     views: number;
     hearts: number;
-    list: string;
     before: string;
     after: string;
     company: string;
@@ -22,7 +21,7 @@ interface ListRightProps {
     // writerId: number;
 }
 
-export default function ListMainRight({ write, views, list, before, after, company, postId, isBookmarked, type }: ListRightProps) {
+export default function ListMainRight({ write, views, before, after, company, postId, isBookmarked, type }: ListRightProps) {
     // hook 상태 관리
     const { bookmarked, toggleBookmark, heartCount } = useHeart(postId, isBookmarked);
     // 클립보드 복사 훅
@@ -42,6 +41,7 @@ export default function ListMainRight({ write, views, list, before, after, compa
         router.push(`/post/write/${postId}`);
     };
     const { deletePost } = useDeletePost(postId);
+    const listLink = type === 'company' ? '/company' : '/blog';
     // const currentUserId =
     //     typeof window !== 'undefined' ? Number(localStorage.getItem('userId')) : null;
 
@@ -79,7 +79,7 @@ export default function ListMainRight({ write, views, list, before, after, compa
                         </div>
                         <ul className={styles.navi_list}>
                             <li>
-                                <Link href={list}>목록</Link>
+                                <Link href={listLink}>목록</Link>
                             </li>
                             {before && before !== '#' && (
                                 <li>

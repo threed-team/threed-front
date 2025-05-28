@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useWrite } from './useWrite';
 import { usePost } from './usePost';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 export function usePostWrite() {
     const { id } = useParams();
-    // "1"은 새 글 작성일 때 사용하는 고정값
+    const router = useRouter();
     const isEditMode = id !== '1';
     const initialPostId = isEditMode ? Number(id) : 0;
 
@@ -50,11 +50,7 @@ export function usePostWrite() {
         const newPostId = await submit(postId, { title, content, field, skills, image }, isNewPost);
 
         if (newPostId) {
-            const redirectUrl = `/post/view/${newPostId}?type=member`;
-            setTimeout(() => {
-                window.location.href = redirectUrl;
-            }, 10);
-            return;
+            router.push(`/post/view/${newPostId}?type=member`);
         }
     };
 

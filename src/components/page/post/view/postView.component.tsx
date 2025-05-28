@@ -6,7 +6,7 @@ import ListMainRight from './components/listMainRight.component';
 import useView from './hooks/useView';
 import Loading from '@lib/loading/full.component';
 import Image from 'next/image';
-import IssuCardComponent from '@components/page/home/components/IssueCard';
+import IssuCardComponent from '@components/page/m/home/components/IssueCard';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 
 export default function ViewComponent() {
@@ -55,7 +55,6 @@ export default function ViewComponent() {
                         write={post.author.name}
                         views={post.viewCount}
                         hearts={post.bookmarkCount}
-                        list="/"
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
                         company={post.author.imageUrl}
