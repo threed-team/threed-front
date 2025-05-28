@@ -20,9 +20,11 @@ interface ListLeftProps {
     title: string;
     link: string;
     type: string;
+    skills: string[];
+    field: string;
 }
 
-export default function ListMainLeft({ text, date, title, link, imageSrc, type }: ListLeftProps) {
+export default function ListMainLeft({ text, date, title, link, imageSrc, type, skills, field }: ListLeftProps) {
     const [plugin, setPlugin] = useState<any>(null);
 
     useEffect(() => {
@@ -68,6 +70,18 @@ export default function ListMainLeft({ text, date, title, link, imageSrc, type }
                     </div>
                 </div>
             ) : null}
+            <div className={styles.hashtag}>
+                {skills && skills.length > 0 && skills.map((skill, index) => (
+                    <span key={index} className={styles.hashtag_skills}>
+                        #{skill}
+                    </span>
+                ))}
+                {field && (
+                    <span className={styles.hashtag_field}>
+                        #{field}
+                    </span>
+                )}
+            </div>
         </>
     );
 }

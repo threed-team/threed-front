@@ -41,6 +41,30 @@
     }
 }
 
+.hashtag {
+    @include flexCenter(start);
+    gap: 1.4vw;
+
+    span {
+        padding: 1.4vw 2.3vw;
+        border-radius: 4.7vw;
+        font-size: 2.8vw;
+        font-weight: 600;
+    }
+
+    .hashtag_skills {
+        color: $color-gray-dark;
+        border: 0.3vw solid #e2e2e2;
+    }
+
+    .hashtag_field {
+        color: $color-gray-dark;
+        background: #f1effe;
+        color: $color-main;
+        border: 0.3vw solid #f1effe;
+    }
+}
+
 .list_main_bottom {
     h3 {
         font-size: 3.8vw;

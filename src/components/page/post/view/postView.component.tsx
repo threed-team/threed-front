@@ -48,6 +48,8 @@ export default function ViewComponent() {
                         link={post.sourceUrl}
                         imageSrc={post.thumbnailImageUrl}
                         type={type}
+                        skills={post.skills}
+                        field={post.field}
                     />
                 </li>
                 <li>
