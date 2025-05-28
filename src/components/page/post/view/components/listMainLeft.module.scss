@@ -33,7 +33,7 @@
 }
 
 .list_main_middle {
-    padding: 20px 0;
+    padding: 20px 0 0;
 
     p {
         font-size: 20px;
@@ -55,14 +55,14 @@
 
     .hashtag_skills {
         color: $color-gray-dark;
-        border: 1.5px solid #e2e2e2;
+        border: 1px solid #e2e2e2;
     }
 
     .hashtag_field {
         color: $color-gray-dark;
         background: #f1effe;
         color: $color-main;
-        border: 1.5px solid #f1effe;
+        border: 1px solid #f1effe;
     }
 }
 
