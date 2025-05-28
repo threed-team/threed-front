@@ -16,7 +16,7 @@ export function usePostWrite() {
     const [isNewPost, setIsNewPost] = useState<boolean>(!isEditMode);
 
     const { submit } = useWrite();
-    const { post, loading, error } = usePost(postId, 'member', isPostReady);
+    const { post, loading, error } = usePost(postId, 'member', isPostReady, isEditMode);
 
     const titleRef = useRef<HTMLInputElement>(null);
     const editorRef = useRef<any>(null);
