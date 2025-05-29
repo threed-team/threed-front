@@ -83,3 +83,33 @@
 //     const data = await response.json();
 //     return data;
 // }
+
+"use client";
+
+import { useRouter } from "next/navigation";
+import { reissueToken } from "@lib/session/useAuth";
+import type { User } from "@lib/types";
+
+export default async function useAuthRefresh(): Promise<User | void> {
+    const router = useRouter();
+    const isProduction = process.env.NODE_ENV === "production";
+
+    try {
+        const { token, user } = await reissueToken(); // 내부에서 credentials: 'include' 포함해야 함
+
+        if (!token) {
+            router.replace("/login");
+            return;
+        }
+
+        // 쿠키 수동 설정
+        document.cookie = `accessToken=${token}; Path=/; ${isProduction ? "Secure; SameSite=None" : "SameSite=Lax"
+            }`;
+
+        return user;
+    } catch (error) {
+        console.error("리프레시 토큰 요청 실패:", error);
+        router.replace("/login");
+    }
+}
+

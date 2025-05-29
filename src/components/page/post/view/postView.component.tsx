@@ -6,6 +6,7 @@ import ListMainRight from './components/listMainRight.component';
 import useView from './hooks/useView';
 import Loading from '@lib/loading/full.component';
 import Image from 'next/image';
+import IssuCardComponent from '@components/page/home/components/IssueCard';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 
 export default function ViewComponent() {
@@ -47,6 +48,8 @@ export default function ViewComponent() {
                         link={post.sourceUrl}
                         imageSrc={post.thumbnailImageUrl}
                         type={type}
+                        skills={post.skills}
+                        field={post.field}
                     />
                 </li>
                 <li>
@@ -54,7 +57,6 @@ export default function ViewComponent() {
                         write={post.author.name}
                         views={post.viewCount}
                         hearts={post.bookmarkCount}
-                        list="/"
                         before={post.previousId ? `${post.previousId}` : "#"}
                         after={post.nextId ? `${post.nextId}` : "#"}
                         company={post.author.imageUrl}
@@ -65,6 +67,13 @@ export default function ViewComponent() {
                     />
                 </li>
             </ul>
+            {/* title - 가장 많이 읽은 글 */}
+            <div className={styles.main_header}>
+                <h2><span className={styles.ico_fire}></span><span>가장 많이 읽은 글</span></h2>
+            </div>
+            <div className={styles.issueCardOverride}>
+                <IssuCardComponent type={type} />
+            </div>
         </main>
     );
 }

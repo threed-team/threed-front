@@ -30,7 +30,7 @@ export function useImageUpload(
                 const ext = blob.type.split('/')[1] || 'png';
                 const fileName = `image-${Date.now()}.${ext}`;
 
-                const altText = '업로드중...'; //
+                const altText = '업로드중...';
                 const tempMarkdown = `![${altText}](${blobUrl})\n`;
                 editorInstance.insertText(tempMarkdown);
 

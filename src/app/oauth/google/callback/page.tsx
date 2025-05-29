@@ -1,28 +1,35 @@
 'use client'
 
-import { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { getToken } from '@lib/session/useAuth';
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
-export default function LoginRedirectPage() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const code = searchParams.get("code");
+export default function GoogleCallbackPage() {
+    const router = useRouter()
 
     useEffect(() => {
-        if (code) {
-            getToken(code).then(({ token, user }) => {
-                document.cookie = `accessToken=${token}; Path=/`;
-                if (user.id) {
-                    router.push("/")
-                } else {
-                    router.replace("/login");
-                }
-            }).catch((error) => {
-                console.error("Token exchange failed:", error);
-            });
+        const code = new URLSearchParams(window.location.search).get('code')
+        if (!code) {
+            router.push('/login')
+            return
         }
-    }, [code]);
 
-    return <div style={{ textAlign: "center", fontSize: "20px", padding: "100px 0" }}>로그인 처리 중...</div>;
+        fetch(`http://localhost:8080/api/v1/auth/google/callback?code=${code}`, {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then(res => {
+                if (!res.ok) throw new Error('❌ 로그인 실패')
+                return res.json()
+            })
+            .then(data => {
+                console.log('✅ 로그인 성공:', data.accessToken)
+                router.push('/')
+            })
+            .catch(err => {
+                console.error('❌ 로그인 요청 에러:', err)
+                router.push('/login')
+            })
+    }, [router])
+
+    return <p>구글 로그인 처리 중입니다…</p>
 }
