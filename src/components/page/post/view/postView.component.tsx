@@ -63,7 +63,6 @@ export default function ViewComponent() {
                         postId={post.id}
                         isBookmarked={post.isBookmarked}
                         type={type}
-                    // writerId={post.author.id}
                     />
                 </li>
             </ul>

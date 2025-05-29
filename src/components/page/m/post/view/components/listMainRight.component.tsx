@@ -18,7 +18,6 @@ interface ListRightProps {
     postId: number;
     isBookmarked: boolean;
     type: string;
-    // writerId: number;
 }
 
 export default function ListMainRight({ write, views, before, after, company, postId, isBookmarked, type }: ListRightProps) {
@@ -42,10 +41,6 @@ export default function ListMainRight({ write, views, before, after, company, po
     };
     const { deletePost } = useDeletePost(postId);
     const listLink = type === 'company' ? '/company' : '/blog';
-    // const currentUserId =
-    //     typeof window !== 'undefined' ? Number(localStorage.getItem('userId')) : null;
-
-    // const isOwner = currentUserId === writerId;
 
     return (
         <>
