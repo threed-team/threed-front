@@ -1,21 +1,30 @@
-'use client'
+'use client';
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { isSession } from "@lib/session/useAuthCheck";
 import styles from "./userBtn.module.scss";
+import { useRouter } from "next/navigation";
 
 export default function UserBtnComponent() {
   const [session, setSession] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    setSession(isSession());
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/me`, {
+      credentials: "include",
+    })
+      .then((res) => res.ok)
+      .then(setSession)
+      .catch(() => setSession(false));
   }, []);
 
-  const logout = () => {
-    document.cookie = "accessToken=; Path=/; Max-Age=0";
+  const logout = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/logout`, {
+      method: "GET",
+      credentials: "include",
+    });
     setSession(false);
-    window.location.reload();
+    router.refresh();
   };
 
   return (
@@ -26,7 +35,11 @@ export default function UserBtnComponent() {
       <Link href="/login" className={session ? styles.off : styles.on}>
         <div className={`${styles.icon} ${styles.login_icon}`}></div>
       </Link>
-      <button type="button" onClick={logout} className={session ? styles.on : styles.off}>
+      <button
+        type="button"
+        onClick={logout}
+        className={session ? styles.on : styles.off}
+      >
         <div className={`${styles.icon} ${styles.ico_logout}`}></div>
       </button>
       <Link href={'/userpage'} className={session ? styles.on : styles.off}>
