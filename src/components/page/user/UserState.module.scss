@@ -76,7 +76,7 @@
 
     .state_login {
         position: relative;
-        
+
         a {
             display: flex;
             align-items: center;
@@ -85,8 +85,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            min-width: 35px;
-            min-height: 35px;
+            min-height: auto;
             background-color: $color-main;
             border-radius: 9px;
             padding: 2px 10px;
@@ -99,7 +98,7 @@
             &:hover {
                 padding: 2px 15px;
                 text-decoration: none;
-                
+
                 span {
                     display: inline-block;
                 }
@@ -112,7 +111,7 @@
                 background: url('/images/ico_login.png') no-repeat left/contain;
                 background-position: 0 1px;
             }
-            
+
             span {
                 display: none;
                 font-size: 14px;
