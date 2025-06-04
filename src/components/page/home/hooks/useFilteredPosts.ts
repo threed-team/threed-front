@@ -62,9 +62,9 @@ export async function fetchPosts(
             queryString.append(key, value);
         });
 
-        // API 요청 수행
+        // TODO: size 줄이고 page 동적으로 바꾸기
         const response = await api.get<PostResponse>(
-            `/api/v1/${type}-posts/search?${queryString.toString()}`
+            `/api/v1/${type}-posts/search?${queryString.toString()}&page=1&size=999999`
         );
         return response.elements || [];
 

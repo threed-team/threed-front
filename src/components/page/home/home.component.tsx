@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import IssuCardComponent from './components/IssueCard';
+import { useEffect, useState } from 'react';
 import AllCardcomponent from './components/AllCard';
 import FilterComponent from './components/Filter';
-import { fetchPosts } from './hooks/useFilteredPosts';
-import { skillOptions, techStackOptions, companyOptions } from './constants/filterOptions';
+import IssuCardComponent from './components/IssueCard';
+import { companyOptions, skillOptions, techStackOptions } from './constants/filterOptions';
 import styles from './home.module.scss';
+import { fetchPosts } from './hooks/useFilteredPosts';
 
 interface HomeProps {
     type: 'company' | 'member';
@@ -131,6 +131,7 @@ export default function HomeComponent({ type }: HomeProps) {
                 type={type}
                 posts={posts}
                 isLoading={isLoading}
+                itemsPerPage={10}
             />
             {/* end */}
         </main>
