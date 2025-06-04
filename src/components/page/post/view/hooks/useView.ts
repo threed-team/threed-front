@@ -17,6 +17,7 @@ interface Post {
     sourceUrl?: string;
     bookmarkCount: number;
     isBookmarked: boolean;
+    isMyPost: boolean;
     nextId: number | null;
     previousId: number | null;
     skills: string[];

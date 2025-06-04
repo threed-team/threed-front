@@ -18,9 +18,10 @@ interface ListRightProps {
     postId: number;
     isBookmarked: boolean;
     type: string;
+    isMyPost: boolean;
 }
 
-export default function ListMainRight({ write, views, before, after, company, postId, isBookmarked, type }: ListRightProps) {
+export default function ListMainRight({ write, views, before, after, company, postId, isBookmarked, type, isMyPost }: ListRightProps) {
     // hook 상태 관리
     const { bookmarked, toggleBookmark, heartCount } = useHeart(postId, isBookmarked);
     // 클립보드 복사 훅
@@ -99,7 +100,7 @@ export default function ListMainRight({ write, views, before, after, company, po
                     </div>
                 </div>
             </div>
-            {type !== 'company' && (
+            {type !== 'company' && isMyPost && (
                 <div className={styles.button_box}>
                     <button className={styles.edit_btn} onClick={handleEdit}>수정하기</button>
                     <button className={styles.delete_btn} onClick={deletePost}>삭제하기</button>

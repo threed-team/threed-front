@@ -62,6 +62,7 @@ export default function ViewComponent() {
                         company={post.author.imageUrl}
                         postId={post.id}
                         isBookmarked={post.isBookmarked}
+                        isMyPost={post.isMyPost}
                         type={type}
                     />
                 </li>
