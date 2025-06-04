@@ -29,7 +29,7 @@ export default function UserBtnComponent() {
       >
         <div className={`${styles.icon} ${styles.ico_logout}`}></div>
       </button>
-      <Link href="/mypage" className={isAuthenticated ? styles.on : styles.off}>
+      <Link href="/userpage" className={isAuthenticated ? styles.on : styles.off}>
         <div className={`${styles.icon} ${styles.ico_mypage}`}></div>
       </Link>
     </div>

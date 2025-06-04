@@ -43,7 +43,7 @@ export default function UserStateComponent() {
                 </button>
             </div>
             <div className={styles.state_mypage}>
-                <Link href="/mypage">
+                <Link href="/userpage">
                     <i className={styles.ico_mypage}></i>
                     <span>마이페이지</span>
                 </Link>
