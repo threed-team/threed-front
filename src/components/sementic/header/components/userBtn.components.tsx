@@ -1,23 +1,31 @@
 'use client'
 
+import { useAuth } from '@hooks/useAuth';
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { isSession } from "@lib/session/useAuthCheck";
 import styles from "./userBtn.module.scss";
 
 export default function UserBtnComponent() {
-  const [session, setSession] = useState(false);
+  const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    setSession(isSession());
-  }, []);
+  // 로그인 상태가 아직 확인되지 않았으면 아무것도 렌더링하지 않음
+  if (isAuthenticated === null) {
+    return <div className={styles.nav_icons} />;
+  }
 
   return (
     <div className={styles.nav_icons}>
-      <Link href="/post/write/1" className={session ? styles.on : styles.off}>
+      <Link
+        href="/post/write/1"
+        className={isAuthenticated ? styles.on : styles.off}
+        style={{ display: isAuthenticated ? 'flex' : 'none' }}
+      >
         <div className={`${styles.icon} ${styles.write_icon}`}></div>
       </Link>
-      <Link href="/login" className={session ? styles.off : styles.on}>
+      <Link
+        href="/login"
+        className={styles.on}
+        style={{ display: isAuthenticated ? 'none' : 'flex' }}
+      >
         <div className={`${styles.icon} ${styles.login_icon}`}></div>
       </Link>
     </div>

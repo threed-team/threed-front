@@ -1,29 +1,37 @@
-// types/auth.ts
-export interface User {
-    id: number;
-    email: string;
-    name: string;
-    profileImageUrl: string;
+import { api } from "../api/api";
 
-}
+let accessToken: string | null = null;
+
 export interface TokenResponse {
-    token: string;
-    user: User;
+    accessToken: string;
 }
 
-export async function getToken(code: string): Promise<TokenResponse> {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/google/callback?code=${code}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include"
-    });
+export enum SocialProvider {
+    Google = 'google',
+    Github = 'github',
+    Kakao = 'kakao'
+}
 
-    const data = await response.json();
+export function getAccessToken(): string | null {
+    return accessToken;
+}
+
+export function setAccessToken(token: string | null): void {
+    accessToken = token;
+}
+
+export async function getToken(provider: SocialProvider, code: string): Promise<TokenResponse> {
+    const data = await api.get<TokenResponse>(`/api/v1/auth/${provider}/callback?code=${code}`);
+
+    if (data.accessToken) {
+        setAccessToken(data.accessToken);
+    }
 
     return {
-        token: data.token,
-        user: data.user,
+        accessToken: data.accessToken,
     };
+}
+
+export function clearAccessToken(): void {
+    setAccessToken(null);
 }

@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import UserStateComponent from '@components/page/user/UserState';
 import GnbComponent from "@components/sementic/header/components/gnb.components";
 import UserBtnComponent from "@components/sementic/header/components/userBtn.components";
-import UserStateomponent from '@components/page/user/UserState';
+import Image from "next/image";
+import Link from "next/link";
 import styles from "./header.module.scss";
 
 export default function HeaderPageComponent() {
@@ -31,7 +31,7 @@ export default function HeaderPageComponent() {
           </div>
         </div>
       </header >
-      <UserStateomponent />
+      <UserStateComponent />
     </>
   );
 }

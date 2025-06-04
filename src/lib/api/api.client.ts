@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { getAccessToken } from '../session/useAuth';
 
 export type RequestOptions = AxiosRequestConfig;
 
@@ -22,7 +23,7 @@ axiosInstance.interceptors.request.use(
         let accessToken = token;
 
         if (typeof window !== 'undefined') {
-            const storedToken = localStorage.getItem("access_token");
+            const storedToken = getAccessToken();
             if (storedToken) {
                 accessToken = storedToken;
             }

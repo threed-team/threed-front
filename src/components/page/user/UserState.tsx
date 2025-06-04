@@ -1,58 +1,53 @@
 // src/components/UserStateComponent.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import styles from './UserState.module.scss';
+import { useAuth } from '@hooks/useAuth';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-
-interface UserInfo {
-    id: string;
-    email: string;
-    name: string;
-    picture?: string;
-}
+import { usePathname, useRouter } from 'next/navigation';
+import styles from './UserState.module.scss';
 
 export default function UserStateComponent() {
-    const [user, setUser] = useState<UserInfo | null>(null);
+    const { isAuthenticated, logout } = useAuth();
     const router = useRouter();
+    const pathname = usePathname();
 
-    useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/me`, {
-            credentials: 'include',
-        })
-            .then((res) => (res.ok ? res.json() : null))
-            .then(setUser)
-            .catch(() => setUser(null));
-    }, []);
-
-    const logout = async () => {
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/logout`, {
-            method: 'POST',
-            credentials: 'include',
-        });
-        setUser(null);
-        router.push('/login');
+    const handleLogout = async () => {
+        await logout();
+        router.replace('/');
+        router.refresh();
     };
 
+    if (isAuthenticated === null || pathname === '/login') {
+        return null;
+    }
+
+    if (!isAuthenticated) {
+        return (
+            <div className={styles.user_state}>
+                <div className={styles.state_login}>
+                    <Link href="/login">
+                        <i className={styles.ico_login}></i>
+                        <span>로그인</span>
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className={`${styles.user_state} ${user ? styles.on : styles.off}`}>
-            {user ? (
-                <>
-                    <div className={styles.state_logout}>
-                        <button type="button" onClick={logout}>
-                            <i className={styles.ico_logout}></i>
-                            <span>로그아웃</span>
-                        </button>
-                    </div>
-                    <div className={styles.state_mypage}>
-                        <Link href={'/userpage'}>
-                            <i className={styles.ico_mypage}></i>
-                            <span>마이페이지</span>
-                        </Link>
-                    </div>
-                </>
-            ) : null}
+        <div className={styles.user_state}>
+            <div className={styles.state_logout}>
+                <button type="button" onClick={handleLogout}>
+                    <i className={styles.ico_logout}></i>
+                    <span>로그아웃</span>
+                </button>
+            </div>
+            <div className={styles.state_mypage}>
+                <Link href="/mypage">
+                    <i className={styles.ico_mypage}></i>
+                    <span>마이페이지</span>
+                </Link>
+            </div>
         </div>
     );
 }
