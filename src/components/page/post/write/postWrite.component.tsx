@@ -6,18 +6,22 @@ import HashtagInput from './components/hashTag.componant';
 import FieldSelector from './components/fileSelector.componant';
 import { usePostWrite } from './hooks/usePostWrite';
 import Loading from '@lib/loading/full.component';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useAuth } from '@hooks/useAuth';
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), { ssr: false });
 
-export default function WriteComponent() {
-    const router = useRouter();
-    const { id } = useParams();
+interface WriteComponentProps {
+    isEditMode: boolean;
+    postId?: number;
+}
 
-    const isEditMode = id !== undefined && id !== "1"; //  "1"은 등록모드로 처리
+export default function WriteComponent({ isEditMode, postId = 0 }: WriteComponentProps) {
+    const router = useRouter();
+    const { isAuthenticated } = useAuth(); //로그인 여부 확인
 
     const {
-        postId,
         setPostId,
         post,
         loading,
@@ -31,9 +35,15 @@ export default function WriteComponent() {
         handleSubmit,
     } = usePostWrite();
 
-    if (!loading && error) {
-        router.replace('/');
-        return null;
+    // 로그인 안 되어 있으면 로그인 페이지로 이동
+    useEffect(() => {
+        if (isAuthenticated === false) {
+            router.replace('/login');
+        }
+    }, [isAuthenticated]);
+
+    if (isAuthenticated === null || (!loading && error)) {
+        return <Loading />;
     }
 
     if (loading) return <Loading />;
@@ -48,7 +58,12 @@ export default function WriteComponent() {
                 <ul className={styles.write_list}>
                     <li>
                         <label>제목</label>
-                        <input type="text" id="write-title" ref={titleRef} placeholder="제목을 입력해주세요" />
+                        <input
+                            type="text"
+                            id="write-title"
+                            ref={titleRef}
+                            placeholder="제목을 입력해주세요"
+                        />
                     </li>
                     <li>
                         <ul>

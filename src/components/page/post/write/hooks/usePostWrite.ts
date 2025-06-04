@@ -8,15 +8,17 @@ import { useParams, useRouter } from 'next/navigation';
 export function usePostWrite() {
     const { id } = useParams();
     const router = useRouter();
-    const isEditMode = id !== '1';
-    const initialPostId = isEditMode ? Number(id) : 0;
 
-    const [postId, setPostId] = useState<number>(initialPostId);
-    const [isPostReady] = useState<boolean>(isEditMode);
-    const [isNewPost, setIsNewPost] = useState<boolean>(!isEditMode);
+    const postId = id ? Number(id) : 0;
+
+    const [currentPostId, setPostId] = useState<number>(postId);
 
     const { submit } = useWrite();
-    const { post, loading, error } = usePost(postId, 'member', isPostReady, isEditMode);
+    const { post, loading, error } = usePost(
+        currentPostId,
+        'member',
+        currentPostId > 0, // fetch는 수정일 때만
+    );
 
     const titleRef = useRef<HTMLInputElement>(null);
     const editorRef = useRef<any>(null);
@@ -30,7 +32,6 @@ export function usePostWrite() {
     useEffect(() => {
         if (!didInit.current && post) {
             didInit.current = true;
-            setIsNewPost(false);
             if (titleRef.current) {
                 titleRef.current.value = post.title;
             }
@@ -47,7 +48,13 @@ export function usePostWrite() {
         const title = titleRef.current?.value || '';
         const content = editorRef.current?.getInstance().getMarkdown() || '';
 
-        const newPostId = await submit(postId, { title, content, field, skills, image }, isNewPost);
+        const newPostId = await submit(currentPostId, {
+            title,
+            content,
+            field,
+            skills,
+            image,
+        });
 
         if (newPostId) {
             router.push(`/post/view/${newPostId}?type=member`);
@@ -55,7 +62,7 @@ export function usePostWrite() {
     };
 
     return {
-        postId,
+        postId: currentPostId,
         setPostId,
         post,
         loading,

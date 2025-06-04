@@ -15,7 +15,7 @@ export default function UserBtnComponent() {
   return (
     <div className={styles.nav_icons}>
       <Link
-        href="/post/write/1"
+        href="/post/write"
         className={isAuthenticated ? styles.on : styles.off}
         style={{ display: isAuthenticated ? 'flex' : 'none' }}
       >

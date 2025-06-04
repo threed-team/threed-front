@@ -2,16 +2,12 @@ import HeaderPageComponent from "@components/sementic/m/header/header.component.
 import WriteComponent from "@components/page/m/post/write/postWrite.component";
 import FooterPageComponent from "@components/sementic/m/footer/footer.component";
 
-interface PageProps {
-  params: { id: string };
-}
-
-export default function WritePage({ params }: PageProps) {
+export default function writePage() {
   return (
     <>
       <HeaderPageComponent />
-      <WriteComponent isEditMode={true} postId={Number(params.id)} />
+      <WriteComponent isEditMode={false} />
       <FooterPageComponent />
     </>
-  );
+  )
 }

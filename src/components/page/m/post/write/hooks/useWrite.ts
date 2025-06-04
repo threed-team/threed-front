@@ -12,7 +12,7 @@ interface WriteFormData {
 
 export function useWrite() {
     const submit = useCallback(
-        async (postId: number, data: WriteFormData, isNewPost: boolean): Promise<number | null> => {
+        async (postId: number, data: WriteFormData): Promise<number | null> => {
             try {
                 const isEmpty = (text: string) => !text || text.trim() === "";
 
@@ -35,7 +35,8 @@ export function useWrite() {
 
                 let id = postId;
 
-                if (isNewPost) {
+                // postId가 없을 경우 새로 생성
+                if (!postId) {
                     const response = await api.post<{ postId: number }>("/api/v1/member-posts");
                     id = response.postId;
                 }
@@ -59,7 +60,7 @@ export function useWrite() {
                     thumbnailImageUrl: imageUrl,
                 };
 
-                const method = isNewPost ? "post" : "patch";
+                const method = postId ? "patch" : "post"; // 새 글: post, 수정: patch
 
                 await api[method](`/api/v1/member-posts/${id}`, payload);
 
