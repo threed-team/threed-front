@@ -1,8 +1,9 @@
 'use client'
 
+import Loading from '@lib/loading/full.component';
+import { getToken, SocialProvider } from '@lib/session/useAuth';
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { getToken } from '@lib/session/useAuth';
 
 export default function LoginRedirectPage() {
     const router = useRouter();
@@ -11,20 +12,21 @@ export default function LoginRedirectPage() {
 
     useEffect(() => {
         if (code) {
-            getToken(code).then(({ token, user }) => {
-                document.cookie = `accessToken=${token}; Path=/`;
-                if (user.id) {
-                    router.push("/")
-                } else {
+            getToken(SocialProvider.Google, code)
+                .then(({ accessToken }) => {
+                    if (accessToken != null) {
+                        router.push("/")
+                    } else {
+                        router.replace("/login");
+                    }
+                }).catch((error) => {
+                    console.error("Token exchange failed:", error);
                     router.replace("/login");
-                }
-            }).catch((error) => {
-                console.error("Token exchange failed:", error);
-            });
+                });
         }
     }, [code, router]);
 
-    return <div style={{ textAlign: "center", fontSize: "20px", padding: "100px 0" }}>로그인 처리 중...</div>;
+    return <Loading />;
 }
 
 

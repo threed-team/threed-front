@@ -1,4 +1,3 @@
-// app/login/[provider]/redirect/page.tsx
 'use client'
 
 import Loading from '@lib/loading/full.component';
