@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useAuth() {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-    const isInitialMount = useRef(true);
+    const isFetchingRef = useRef<boolean>(false); // 중복 방지용 ref
 
     const refreshAccessToken = useCallback(async () => {
         const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/reissue`;
@@ -32,35 +32,31 @@ export function useAuth() {
     }, []);
 
     const checkAuth = useCallback(async () => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-            setIsAuthenticated(null);
-        }
+        if (isFetchingRef.current) return; // 요청 중이면 무시
+        isFetchingRef.current = true;
 
         let token = getAccessToken();
 
         if (!token) {
-            try {
-                const refreshed = await refreshAccessToken();
-                if (refreshed) {
-                    token = getAccessToken();
-                }
-            } catch (error) {
-                console.error('토큰 갱신 중 오류 발생:', error);
+            const refreshed = await refreshAccessToken();
+            if (refreshed) {
+                token = getAccessToken();
             }
         }
 
-        const newAuthState = !!token;
-
-        if (isAuthenticated !== newAuthState) {
-            setIsAuthenticated(newAuthState);
-        }
-    }, [refreshAccessToken, isAuthenticated]);
+        setIsAuthenticated(!!token);
+        isFetchingRef.current = false;
+    }, [refreshAccessToken]);
 
     useEffect(() => {
         checkAuth();
 
-        const onFocus = () => checkAuth();
+        const onFocus = () => {
+            if (!isFetchingRef.current) {
+                checkAuth();
+            }
+        };
+
         window.addEventListener('focus', onFocus);
         return () => window.removeEventListener('focus', onFocus);
     }, [checkAuth]);
