@@ -13,8 +13,7 @@ export default function UserStateComponent() {
 
     const handleLogout = async () => {
         await logout();
-        router.replace('/');
-        router.refresh();
+        window.location.href = '/';
     };
 
     if (isAuthenticated === null || pathname === '/login') {
