@@ -35,7 +35,8 @@
                 gap: 0.933vw;
 
                 .card_label_box {
-                    padding: 0.4vw .8vw 1.3vw;
+                    display: flex;
+                    padding: 0.8vw 1.6vw;
                     line-height: 2px;
                     background: rgb(255 255 255 / 75%);
                     ;
@@ -46,6 +47,7 @@
                         color: #151515;
                         font-size: 1.733vw;
                         font-weight: 500;
+                        line-height: 1.733vw;
                     }
 
                     &.label_hot {
@@ -84,8 +86,8 @@
                 gap: 0.8vw;
 
                 span {
-                    display: block;
-                    padding: .8vw 1vw 1.4vw;
+                    display: flex;
+                    padding: 1vw 1.3vw;
                     border-radius: 0.667vw;
                     background: #F1EFFE;
                     line-height: 1px;
@@ -93,6 +95,7 @@
                     small {
                         color: $color-main;
                         font-size: 2.2vw;
+                        line-height: 2.2vw;
                         font-weight: 500;
                     }
                 }

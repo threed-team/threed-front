@@ -42,7 +42,8 @@
                 gap: 0.933vw;
 
                 .card_label_box {
-                    padding: .1vw .8vw .4vw;
+                    display: flex;
+                    padding: .8vw;
                     background: rgb(255 255 255 / 75%);
                     ;
                     box-shadow: 0vw 0vw 1.333vw 0.267vw rgba(0, 0, 0, 0.25);
@@ -89,8 +90,8 @@
                 gap: 0.8vw;
 
                 span {
-                    display: block;
-                    padding: .3vw 1.3vw .7vw;
+                    display: flex;
+                    padding: 1.3vw;
                     border-radius: 0.667vw;
                     background: #F1EFFE;
 
