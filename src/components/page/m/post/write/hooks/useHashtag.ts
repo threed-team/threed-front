@@ -7,11 +7,18 @@ export function useHashtags(maxCount = 2) {
 
     const addTag = () => {
         const newTag = input.trim().toUpperCase();
-        if (!newTag || tags.includes(newTag)) return;
+        if (!newTag) return;
+
+        if (tags.includes(newTag)) {
+            alert('이미 추가된 태그입니다.');
+            return;
+        }
+
         if (tags.length >= maxCount) {
             alert(`최대 ${maxCount}개의 태그만 입력할 수 있습니다.`);
             return;
         }
+
         setTags([...tags, newTag]);
         setAnimatedTag(newTag);
         setInput('');
