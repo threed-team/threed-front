@@ -7,6 +7,7 @@ interface Post {
     content: string;
     field: string;
     skills: string[];
+    isMyPost: boolean;
 }
 
 export function usePost(

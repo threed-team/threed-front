@@ -7,7 +7,6 @@ import FieldSelector from './components/fileSelector.componant';
 import { usePostWrite } from './hooks/usePostWrite';
 import Loading from '@lib/loading/full.component';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { useAuth } from '@hooks/useAuth';
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), { ssr: false });
@@ -19,7 +18,7 @@ interface WriteComponentProps {
 
 export default function WriteComponent({ isEditMode, postId = 0 }: WriteComponentProps) {
     const router = useRouter();
-    const { isAuthenticated } = useAuth(); //로그인 여부 확인
+    const { isAuthenticated } = useAuth(); // 로그인 여부 확인
 
     const {
         setPostId,
@@ -35,18 +34,9 @@ export default function WriteComponent({ isEditMode, postId = 0 }: WriteComponen
         handleSubmit,
     } = usePostWrite();
 
-    // 로그인 안 되어 있으면 로그인 페이지로 이동
-    useEffect(() => {
-        if (isAuthenticated === false) {
-            router.replace('/login');
-        }
-    }, [isAuthenticated]);
-
-    if (isAuthenticated === null || (!loading && error)) {
+    if (isAuthenticated === null || loading || (!loading && error)) {
         return <Loading />;
     }
-
-    if (loading) return <Loading />;
 
     return (
         <div className={styles.write_main}>
