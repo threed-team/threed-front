@@ -26,6 +26,7 @@
             @include column-flexbox($ai: start);
             width: 100%;
             gap: 2.38vw;
+            overflow: hidden;
 
             label,
             .write_txt {
