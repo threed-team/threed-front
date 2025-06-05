@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./loginButtons.module.scss";
 
 export default function GithubLoginButtons() {
-  const link = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_API}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URL}&response_type=code`;
+  const link = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_API}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URL}&response_type=code&prompt=select_account`;
 
   const loginHandler = () => {
     window.location.href = link;
