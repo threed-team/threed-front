@@ -3,12 +3,11 @@
 
 import { useAuth } from '@hooks/useAuth';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import styles from './UserState.module.scss';
 
 export default function UserStateComponent() {
     const { isAuthenticated, logout } = useAuth();
-    const router = useRouter();
     const pathname = usePathname();
 
     const handleLogout = async () => {

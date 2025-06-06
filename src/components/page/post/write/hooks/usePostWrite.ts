@@ -51,7 +51,7 @@ export function usePostWrite() {
             alert('본인의 글만 수정할 수 있습니다.');
             router.replace('/');
         }
-    }, [isAuthenticated, post]);
+    }, [isAuthenticated, post, postId, router]);
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
