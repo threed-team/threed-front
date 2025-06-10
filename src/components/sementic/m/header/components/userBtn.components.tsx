@@ -10,13 +10,21 @@ export default function UserBtnComponent() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await logout();
-    router.refresh();
+    const providerType = await logout();
+
+    if (providerType === 'KAKAO') {
+      const clientId = process.env.NEXT_PUBLIC_KAKAO_API!;
+      const kakaoLogoutUrl = `https://kauth.kakao.com/oauth/logout?client_id=${clientId}&logout_redirect_uri=http://localhost:3000`;
+      window.location.href = kakaoLogoutUrl;
+      return;
+    }
+
+    window.location.href = '/';
   };
 
   return (
     <div className={styles.nav_icons}>
-      <Link href="/post/write/1" className={isAuthenticated ? styles.on : styles.off}>
+      <Link href="/post/write" className={isAuthenticated ? styles.on : styles.off}>
         <div className={`${styles.icon} ${styles.write_icon}`}></div>
       </Link>
       <Link href="/login" className={!isAuthenticated ? styles.on : styles.off}>

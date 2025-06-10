@@ -5,8 +5,8 @@ import dynamic from 'next/dynamic';
 import HashtagInput from './components/hashTag.componant';
 import FieldSelector from './components/fileSelector.componant';
 import { usePostWrite } from './hooks/usePostWrite';
-import Loading from '@lib/loading/full.component';
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 import { useAuth } from '@hooks/useAuth';
 
 const WriteContent = dynamic(() => import('./components/writeContent.component'), { ssr: false });
@@ -18,13 +18,14 @@ interface WriteComponentProps {
 
 export default function WriteComponent({ isEditMode, postId = 0 }: WriteComponentProps) {
     const router = useRouter();
-    const { isAuthenticated } = useAuth(); // 로그인 여부 확인
+    const { isAuthenticated } = useAuth();
 
     const {
         setPostId,
         post,
         loading,
         error,
+        isFetched,
         titleRef,
         editorRef,
         field,
@@ -34,8 +35,29 @@ export default function WriteComponent({ isEditMode, postId = 0 }: WriteComponen
         handleSubmit,
     } = usePostWrite();
 
-    if (isAuthenticated === null || loading || (!loading && error)) {
-        return <Loading />;
+    const didRedirect = useRef(false);
+
+    useEffect(() => {
+        if (
+            isEditMode &&
+            isFetched &&
+            !loading &&
+            !didRedirect.current
+        ) {
+            const noAccess = (post === null && error !== null) || (post && post.isMyPost !== true);
+
+            if (noAccess) {
+                didRedirect.current = true;
+                alert('권한이 없습니다.');
+                router.replace('/');
+            }
+        }
+    }, [isEditMode, isFetched, post, error, loading, router]);
+
+    if (isAuthenticated === false) {
+        alert('로그인을 해주세요.');
+        router.replace('/login');
+        return null;
     }
 
     return (

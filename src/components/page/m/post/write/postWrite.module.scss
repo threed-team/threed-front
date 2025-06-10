@@ -26,7 +26,6 @@
             @include column-flexbox($ai: start);
             width: 100%;
             gap: 2.38vw;
-            overflow: hidden;
 
             label,
             .write_txt {
@@ -79,6 +78,7 @@
                     font-size: 2.86vw;
                     font-weight: 500;
                     white-space: nowrap;
+                    max-width: 200px;
 
                     &.animate {
                         animation: popIn 0.3s ease forwards;

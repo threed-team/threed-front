@@ -13,7 +13,8 @@ interface Post {
 export function usePost(
     postId: number | undefined,
     type: 'company' | 'member',
-    enabled: boolean = true
+    enabled: boolean = true,
+    editMode: boolean = false
 ) {
     const [post, setPost] = useState<Post | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
@@ -25,7 +26,10 @@ export function usePost(
         const fetchPost = async () => {
             setLoading(true);
             try {
-                const url = `/api/v1/${type}-posts/${postId}`;
+                // 수정 모드일 경우 edit API 사용
+                const url = editMode
+                    ? `/api/v1/${type}-posts/${postId}/edit`
+                    : `/api/v1/${type}-posts/${postId}`;
                 const data = await api.get<Post>(url);
                 setPost(data);
             } catch (err) {
@@ -37,7 +41,7 @@ export function usePost(
         };
 
         fetchPost();
-    }, [postId, type, enabled]);
+    }, [postId, type, enabled, editMode]);
 
     return { post, loading, error };
 }
