@@ -38,6 +38,14 @@ export default function WriteComponent({ isEditMode, postId = 0 }: WriteComponen
     const didRedirect = useRef(false);
 
     useEffect(() => {
+        if (isAuthenticated === false && !didRedirect.current) {
+            didRedirect.current = true;
+            alert('로그인을 해주세요.');
+            router.replace('/login');
+        }
+    }, [isAuthenticated, router]);
+
+    useEffect(() => {
         if (
             isEditMode &&
             isFetched &&
@@ -53,12 +61,6 @@ export default function WriteComponent({ isEditMode, postId = 0 }: WriteComponen
             }
         }
     }, [isEditMode, isFetched, post, error, loading, router]);
-
-    if (isAuthenticated === false) {
-        alert('로그인을 해주세요.');
-        router.replace('/login');
-        return null;
-    }
 
     return (
         <div className={styles.write_main}>
