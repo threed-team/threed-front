@@ -1,4 +1,3 @@
-// src/components/UserStateComponent.tsx
 'use client';
 
 import { useAuth } from '@hooks/useAuth';
@@ -11,13 +10,19 @@ export default function UserStateComponent() {
     const pathname = usePathname();
 
     const handleLogout = async () => {
-        await logout();
+        const providerType = await logout();
+
+        if (providerType === 'KAKAO') {
+            const clientId = process.env.NEXT_PUBLIC_KAKAO_API!;
+            const kakaoLogoutUrl = `https://kauth.kakao.com/oauth/logout?client_id=${clientId}&logout_redirect_uri=http://localhost:3000`;
+            window.location.href = kakaoLogoutUrl;
+            return;
+        }
+
         window.location.href = '/';
     };
 
-    if (isAuthenticated === null || pathname === '/login') {
-        return null;
-    }
+    if (isAuthenticated === null || pathname === '/login') return null;
 
     if (!isAuthenticated) {
         return (

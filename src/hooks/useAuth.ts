@@ -61,22 +61,27 @@ export function useAuth() {
         return () => window.removeEventListener('focus', onFocus);
     }, [checkAuth]);
 
-    const logout = async () => {
+    const logout = async (): Promise<string | null> => {
         try {
-            await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/logout`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/logout`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
-                    "Authorization": `Bearer ${getAccessToken()}`
+                    Authorization: `Bearer ${getAccessToken()}`
                 }
             });
+
+            const result = await res.json();
+            return result.providerType || null;
         } catch (error) {
             console.error('Logout failed:', error);
+            return null;
         } finally {
             clearToken();
             setIsAuthenticated(false);
         }
     };
+
 
     return {
         isAuthenticated,
