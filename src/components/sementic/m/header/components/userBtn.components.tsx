@@ -1,13 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './userBtn.module.scss';
 import { useAuth } from '@hooks/useAuth';
 
 export default function UserBtnComponent() {
   const { isAuthenticated, logout } = useAuth();
-  const router = useRouter();
 
   const handleLogout = async () => {
     const providerType = await logout();
